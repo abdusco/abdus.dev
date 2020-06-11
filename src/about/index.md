@@ -1,9 +1,8 @@
 ---
 title: About Me
-layout: base
+layout: single
 ---
 
 # {{title}}
 
 Hey, I'm Abdus.
-

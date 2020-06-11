@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ title }}{% endblock title %}</title>
-    <link rel="stylesheet" href="/styles/style.css">
     {% block head %}
+        <link rel="stylesheet" href="/styles/style.css">
     {% endblock head %}
 </head>
-<body>
+<body class='page--{{ page.fileSlug }}'>
     <div class="content">
-        {% block content %}{{ content | safe }}{% endblock content %}
+        {% block content %}
+        {{ content | safe }}
+        {% endblock content %}
     </div>
 
     {% block foot %}

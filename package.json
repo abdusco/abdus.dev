@@ -5,17 +5,20 @@
   "license": "MIT",
   "devDependencies": {
     "@11ty/eleventy": "^0.11",
+    "@types/lodash": "^4.14.155",
     "axios": "^0.19.2",
+    "concurrently": "latest",
     "dotenv": "^8.2.0",
     "js-yaml": "^3.14.0",
     "lodash": "^4.17.15",
+    "markdown-it": "^11.0.0",
+    "markdown-it-attrs": "^3.0.3",
     "module-alias": "^2.2.2",
-    "@types/lodash": "^4.14.155",
     "node-sass": "latest",
-    "concurrently": "latest"
+    "cross-env": "latest"
   },
   "scripts": {
-    "dev": "concurrently -n 11ty,sass -c blue,red npm:dev:eleventy npm:dev:sass",
+    "dev": "concurrently -r -n 11ty,sass -c blue,red npm:dev:eleventy npm:dev:sass",
     "dev:eleventy": "npx eleventy --serve",
     "dev:sass": "npx node-sass --watch --recursive --output src/assets/css --source-map true src/assets/scss",
     "build": "npx eleventy"
@@ -23,6 +26,5 @@
   "_moduleAliases": {
     "@app": "./src"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
