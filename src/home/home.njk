@@ -1,8 +1,41 @@
 {% extends "base.njk" %}
 
 {% block content %}
-    22341wer
+    <section class='intro'>
+        <p class='h6 d--i'>hey there,</p>
+        <h1 class='h6 text--bold d--i'>I'm Abdüssamet Koçak</h1>
+        <p class='h6 d--i'>and I build things for the web.</p>
+    </section>
 
-    123123
+
+    <hr>
+
+    <section>
+        <h2 class='h5'>updates</h2>
+        <ul class='update-list'>
+            <li class='update-list__item'>
+                <a class='update__link' href='#'>managing windows 10 hotspot using powershell</a>
+                <span class='update__category'>til</span>
+                <time class='update__date'>2020-02-30</time>
+            </li>
+            <li class='update-list__item'>
+                <a class='update__link' href='#'>turning a depth list to a tree</a>
+                <span class='update__category'>post</span>
+                <time class='update__date'>2020-02-30</time>
+            </li>
+            <li class='update-list__item'>
+                <a class='update__link' href='#'>two sides</a>
+                <span class='update__category'>photo</span>
+                <time class='update__date'>2020-02-30</time>
+            </li>
+        </ul>
+    </section>
 {% endblock %}
 
+{% block head %}
+    <style>
+        .intro > * {
+            margin: 0 0 0.5rem;
+        }
+    </style>
+{% endblock %}
