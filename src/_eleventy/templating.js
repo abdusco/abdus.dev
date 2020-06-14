@@ -1,4 +1,6 @@
-const filters = {};
+const filters = {
+    json: (val) => JSON.stringify(val, null, 4)
+};
 const pairedShortcodes = {};
 const shortcodes = {};
 const transforms = {};

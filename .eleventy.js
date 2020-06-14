@@ -12,9 +12,9 @@ const markdownItAttrs = require('markdown-it-attrs');
 /** @param {UserConfig} config */
 module.exports = (config) => {
     _.forEach(tmpl.transforms, (f, k) => config.addTransform(k, f));
-    _.forEach(tmpl.transforms, (f, k) => config.addFilter(k, f));
-    _.forEach(tmpl.transforms, (f, k) => config.addShortcode(k, f));
-    _.forEach(tmpl.transforms, (f, k) => config.addPairedShortcode(k, f));
+    _.forEach(tmpl.filters, (f, k) => config.addFilter(k, f));
+    _.forEach(tmpl.shortcodes, (f, k) => config.addShortcode(k, f));
+    _.forEach(tmpl.pairedShortcodes, (f, k) => config.addPairedShortcode(k, f));
 
     config.setLibrary('md', markdownFactory());
 

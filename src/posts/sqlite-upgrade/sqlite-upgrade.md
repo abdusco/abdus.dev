@@ -2,6 +2,8 @@
 title: Upgrade Python SQLite driver to latest version on Windows
 slug: sqlite-upgrade-windows
 date: 2020-06-14
+tags: 
+  - til
 ---
 
 # {{ title }}
@@ -23,12 +25,12 @@ You can find the exact location using PowerShell:
 # C:\Python38\dlls
 
 # open the folder
-explorer (join-path (split-path (get-command python).Path) "dlls")  
+start (join-path (split-path (get-command python).Path) "dlls")  
 ```
 or use cmd directly:
 
 ```commandline
-powershell -command "explorer (join-path (split-path (get-command python).Path) "dlls")"
+powershell -command "start (join-path (split-path (get-command python).Path) "dlls")"
 ```
 
 ## SQLite compile options
