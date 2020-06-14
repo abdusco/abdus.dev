@@ -1,0 +1,10 @@
+- text: home
+  href: /
+- text: about
+  href: /about
+- text: posts
+  href: /posts
+- text: projects
+  href: /projects
+- text: photography
+  href: /photography

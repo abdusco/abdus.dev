@@ -1,0 +1,7 @@
+{% if nav | length %}
+    <nav class='nav'>
+        {% for it in nav %}
+            <a class='nav__link link' href='{{ it.href }}'>{{ it.text }}</a>
+        {% endfor %}
+    </nav>
+{% endif %}

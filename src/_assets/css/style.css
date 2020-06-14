@@ -1,0 +1,194 @@
+:root {
+  --c-code: rgba(0, 0, 0, 0.05); }
+
+*, *::before, *::after {
+  font-family: inherit;
+  box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "inter", sans-serif;
+  font-size: 18px;
+  line-height: 1.5; }
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  line-height: 1.15;
+  font-weight: 600;
+  margin: 1.5em 0 1rem; }
+  h1:first-child, .h1:first-child,
+  h2:first-child, .h2:first-child,
+  h3:first-child, .h3:first-child,
+  h4:first-child, .h4:first-child,
+  h5:first-child, .h5:first-child,
+  h6:first-child, .h6:first-child {
+    margin-top: 0; }
+
+h1, .h1 {
+  font-weight: 700;
+  font-size: 1.75em; }
+
+h2, .h2 {
+  font-size: 1.666em; }
+
+h3, .h3 {
+  font-size: 1.5em; }
+
+h4, .h4 {
+  font-size: 1.333em; }
+
+h5, .h5 {
+  font-size: 1.2em; }
+
+h6, .h6 {
+  font-weight: 500;
+  font-size: 1em; }
+
+input {
+  font-family: inherit;
+  font-size: inherit; }
+
+ul {
+  padding: 0;
+  margin: 1rem 0;
+  list-style-position: inside; }
+
+cite {
+  font-size: 0.8em;
+  font-style: normal; }
+
+code, pre {
+  font-family: consolas, roboto mono, monospace; }
+
+code {
+  background-color: var(--c-code);
+  padding: 0.2em; }
+  pre code {
+    --c-code: transparent;
+    padding: 0; }
+
+pre {
+  padding: 1rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  background-color: var(--c-code);
+  white-space: pre;
+  overflow-x: auto; }
+
+.d--i {
+  display: inline; }
+
+.d--ib {
+  display: inline-block; }
+
+.text--bold {
+  font-weight: 700; }
+
+.link {
+  text-decoration: none;
+  color: currentColor; }
+
+.page-wrapper {
+  padding: 1rem; }
+
+.content {
+  max-width: 55rem;
+  margin-right: auto; }
+
+.nav {
+  margin-bottom: 2rem; }
+
+.nav__link {
+  display: inline-block;
+  padding: 0.25rem 0;
+  margin-right: 1rem;
+  font-weight: 500; }
+
+@font-face {
+  font-family: inter;
+  font-display: swap;
+  src: url("../fonts/Inter.var.woff2") format("woff2"); }
+
+.update__category {
+  font-weight: 500; }
+
+/*
+
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+
+*/
+.hljs {
+  display: block;
+  overflow-x: auto; }
+
+/* Base color: saturation 0; */
+.hljs,
+.hljs-subst {
+  color: #444; }
+
+.hljs-comment {
+  color: #888888; }
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: 600; }
+
+/* User color: hue: 0 */
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000; }
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: 600; }
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060; }
+
+/* Language color: hue: 90; */
+.hljs-literal {
+  color: #78A960; }
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300; }
+
+/* Meta color: hue: 200 */
+.hljs-meta {
+  color: #1f7199; }
+
+.hljs-meta-string {
+  color: #4d99bf; }
+
+/* Misc effects */
+.hljs-emphasis {
+  font-style: italic; }
+
+.hljs-strong {
+  font-weight: 600; }
+
+/*# sourceMappingURL=style.css.map */

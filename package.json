@@ -7,24 +7,32 @@
     "@11ty/eleventy": "^0.11",
     "@types/lodash": "^4.14.155",
     "axios": "^0.19.2",
+    "cache-manager": "^3.3.0",
+    "cache-manager-fs-hash": "^0.0.9",
     "concurrently": "latest",
+    "cross-env": "latest",
     "dotenv": "^8.2.0",
+    "highlight.js": "^10.1.0",
     "js-yaml": "^3.14.0",
     "lodash": "^4.17.15",
     "markdown-it": "^11.0.0",
     "markdown-it-attrs": "^3.0.3",
+    "markdown-it-footnote": "^3.0.2",
+    "markdown-it-link-attributes": "^3.0.0",
+    "markdown-it-task-lists": "^2.1.1",
     "module-alias": "^2.2.2",
-    "node-sass": "latest",
-    "cross-env": "latest"
+    "node-html-parser": "^1.2.19",
+    "node-sass": "latest"
   },
   "scripts": {
     "dev": "concurrently -r -n 11ty,sass -c blue,red npm:dev:eleventy npm:dev:sass",
-    "dev:eleventy": "npx eleventy --serve",
-    "dev:sass": "npx node-sass --watch --recursive --output src/assets/css --source-map true src/assets/scss",
+    "dev:eleventy": "cross-env DEBUG=Eleventy* npx eleventy --serve",
+    "dev:sass": "npx node-sass --watch --recursive --output src/_assets/css --source-map true src/_assets/scss",
     "build": "npx eleventy"
   },
   "_moduleAliases": {
-    "@app": "./src"
+    "@app": "./src",
+    "@utils": "./src/_eleventy"
   },
   "dependencies": {}
 }

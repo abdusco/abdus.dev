@@ -2,20 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ title }}{% endblock title %}</title>
+    <link rel="stylesheet"
+          href="/assets/css/style.css">
     {% block head %}
-        <link rel="stylesheet" href="/styles/style.css">
     {% endblock head %}
 </head>
 <body class='page--{{ page.fileSlug }}'>
+<div class='page-wrapper'>
     <div class="content">
+        {% include 'partials/nav.njk' %}
         {% block content %}
-        {{ content | safe }}
+            {{ content | safe }}
         {% endblock content %}
     </div>
+</div>
 
-    {% block foot %}
-    {% endblock foot %}
+{% block foot %}
+{% endblock foot %}
 </body>
 </html>
