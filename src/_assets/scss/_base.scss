@@ -1,5 +1,5 @@
 :root {
-    --c-code: #{rgba(black, 0.05)};
+    --c-code: #{rgba(black, 0.025)};
 }
 
 *, *::before, *::after {
@@ -11,7 +11,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: $font, sans-serif;
+    font-family: $font;
     font-size: 18px;
     line-height: 1.5;
 }
@@ -74,7 +74,7 @@ cite {
 }
 
 code, pre {
-    font-family: consolas, roboto mono, monospace;
+    font-family: jetbrainsmono, consolas, roboto mono, monospace;
 }
 
 
@@ -88,14 +88,13 @@ code {
     }
 }
 
-pre {
-    padding: 1rem;
+.snippet {
+    overflow-x: auto;
     margin-left: -1rem;
     margin-right: -1rem;
+    padding: 1rem;
     background-color: var(--c-code);
-
-    white-space: pre;
-    overflow-x: auto;
+    border: 1px solid rgba(black, 0.1);
 }
 
 .d--i {

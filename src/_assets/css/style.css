@@ -1,5 +1,62 @@
+@font-face {
+  font-family: inter;
+  font-display: swap;
+  src: url("../fonts/Inter.var.woff2") format("woff2"); }
+
+@font-face {
+  font-family: jetbrainsmono;
+  font-display: swap;
+  font-weight: 700;
+  src: url("../fonts/jetbrainsmono-bold.woff2") format("woff2"); }
+
+@font-face {
+  font-family: jetbrainsmono;
+  font-display: swap;
+  font-weight: 700;
+  font-style: italic;
+  src: url("../fonts/jetbrainsmono-bold-italic.woff2") format("woff2"); }
+
+@font-face {
+  font-family: jetbrainsmono;
+  font-display: swap;
+  font-weight: 900;
+  src: url("../fonts/jetbrainsmono-extrabold.woff2") format("woff2"); }
+
+@font-face {
+  font-family: jetbrainsmono;
+  font-display: swap;
+  font-weight: 900;
+  font-style: italic;
+  src: url("../fonts/jetbrainsmono-extrabold-italic.woff2") format("woff2"); }
+
+@font-face {
+  font-family: jetbrainsmono;
+  font-display: swap;
+  font-weight: 400;
+  font-style: italic;
+  src: url("../fonts/jetbrainsmono-italic.woff2") format("woff2"); }
+
+@font-face {
+  font-family: jetbrainsmono;
+  font-display: swap;
+  font-weight: 500;
+  src: url("../fonts/jetbrainsmono-medium.woff2") format("woff2"); }
+
+@font-face {
+  font-family: jetbrainsmono;
+  font-display: swap;
+  font-weight: 500;
+  font-style: italic;
+  src: url("../fonts/jetbrainsmono-medium-italic.woff2") format("woff2"); }
+
+@font-face {
+  font-family: jetbrainsmono;
+  font-display: swap;
+  font-weight: 400;
+  src: url("../fonts/jetbrainsmono-regular.woff2") format("woff2"); }
+
 :root {
-  --c-code: rgba(0, 0, 0, 0.05); }
+  --c-code: rgba(0, 0, 0, 0.025); }
 
 *, *::before, *::after {
   font-family: inherit;
@@ -8,7 +65,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "inter", sans-serif;
+  font-family: inter, sans-serif;
   font-size: 18px;
   line-height: 1.5; }
 
@@ -63,7 +120,7 @@ cite {
   font-style: normal; }
 
 code, pre {
-  font-family: consolas, roboto mono, monospace; }
+  font-family: jetbrainsmono, consolas, roboto mono, monospace; }
 
 code {
   background-color: var(--c-code);
@@ -72,13 +129,13 @@ code {
     --c-code: transparent;
     padding: 0; }
 
-pre {
-  padding: 1rem;
+.snippet {
+  overflow-x: auto;
   margin-left: -1rem;
   margin-right: -1rem;
+  padding: 1rem;
   background-color: var(--c-code);
-  white-space: pre;
-  overflow-x: auto; }
+  border: 1px solid rgba(0, 0, 0, 0.1); }
 
 .d--i {
   display: inline; }
@@ -108,11 +165,6 @@ pre {
   padding: 0.25rem 0;
   margin-right: 1rem;
   font-weight: 500; }
-
-@font-face {
-  font-family: inter;
-  font-display: swap;
-  src: url("../fonts/Inter.var.woff2") format("woff2"); }
 
 .update__category {
   font-weight: 500; }

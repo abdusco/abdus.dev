@@ -1,7 +1,11 @@
-$font: 'inter';
+$fonts: (
+        jetbrainsmono: true,
+        inter: true
+);
+$font: inter, sans-serif;
 
-@import "base";
 @import "fonts";
+@import "base";
 @import "home";
 
 @import "code";

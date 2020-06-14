@@ -1,6 +1,5 @@
-$font: 'jetbrainsmono' !default;
-
-@if ($font == 'inter') {
+$fonts: () !default;
+@if (map_get($fonts, 'inter')) {
     @font-face {
         font-family: inter;
         font-display: swap;
@@ -8,7 +7,8 @@ $font: 'jetbrainsmono' !default;
     }
 }
 
-@if ($font == 'jetbrainsmono') {
+
+@if (map_get($fonts, 'jetbrainsmono')) {
     @font-face {
         font-family: jetbrainsmono;
         font-display: swap;

@@ -65,15 +65,16 @@ function markdownFactory() {
         breaks: true,
         linkify: false,
         highlight: function (str, lang) {
-            if (lang && hljs.getLanguage(lang)) {
+            let code = str;
+            if (hljs.getLanguage(lang)) {
                 try {
-                    const highlighted = hljs.highlight(lang, str).value;
-                    return `<pre class='hljs language-${lang}' data-lang='${lang}'><code>${highlighted}</code></pre>`;
+                    code = hljs.highlight(lang, str).value;
                 } catch (e) {
                 }
             }
-            console.warn(`Missing code highlighter for language ${lang}`);
-            return `<pre class='hljs language-${lang || 'text'}' data-lang='${lang || 'text'}'><code>${str}</code></pre>`;
+            if (!lang) lang = 'text';
+
+            return `<pre class='snippet hljs language-${lang}' data-lang='${lang}'><code>${code}</code></pre>`;
         }
     };
 
