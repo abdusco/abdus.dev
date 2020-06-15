@@ -1,5 +1,5 @@
 ---
-title: Control Windows 10 native hotpot with PowerShell
+title: Control Windows 10 native hotspot with PowerShell
 date: 2020-06-16
 tags:
     - powershell
