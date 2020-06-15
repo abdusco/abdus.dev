@@ -2,10 +2,13 @@ $fonts: (
         jetbrainsmono: true,
         inter: true
 );
-$font: inter, sans-serif;
+$nativeStack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font: inter, $nativeStack, sans-serif;
+
 
 @import "fonts";
+@import "code";
+
 @import "base";
 @import "home";
-
-@import "code";
+@import "post";

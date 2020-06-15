@@ -4,4 +4,6 @@ title: Posts
 <h1>{{ title }}</h1>
 
 {% set posts = collections.post | reverse %}
+{% set hiddenTags = ['post'] %}
+
 {% include 'partials/post-list.njk' %}

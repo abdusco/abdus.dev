@@ -62,3 +62,14 @@ $fonts: () !default;
         src: url('../fonts/jetbrainsmono-regular.woff2') format("woff2");
     }
 }
+
+@font-face {
+    font-family: ampersand;
+    src: local('baskerville'),
+    local('georgia'),
+    local('georgia'),
+    local('garamond'),
+    local('palatino'),
+    local('Times New Roman');
+    unicode-range: u+26;
+}

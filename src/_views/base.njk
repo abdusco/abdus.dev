@@ -12,12 +12,16 @@
 </head>
 <body class='page--{{ page.fileSlug }}'>
 <div class='page-wrapper'>
+    {% include 'partials/nav.njk' %}
     <div class="content">
-        {% include 'partials/nav.njk' %}
         {% block content %}
             {{ content | safe }}
         {% endblock content %}
     </div>
+    <footer>
+        <hr>
+        <p class='text--small text--bold text--dim'>{{ site.copyright }}</p>
+    </footer>
 </div>
 
 {% block foot %}

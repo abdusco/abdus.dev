@@ -33,6 +33,7 @@ module.exports = (config) => {
     });
 
     config.addPassthroughCopy('src/**/*.{jpg,png,jpeg,svg}');
+    config.addPassthroughCopy('src/**/[^.]+.js');
 
     ['yaml', 'yml'].forEach(ext => config.addDataExtension(ext, yaml.safeLoad));
 
@@ -80,7 +81,7 @@ module.exports = (config) => {
 function markdownFactory() {
     let options = {
         html: true,
-        breaks: true,
+        breaks: false,
         linkify: false,
         highlight(code, lang) {
             if (!lang) lang = 'text';
@@ -105,6 +106,7 @@ function markdownFactory() {
             includeLevel: [2, 3, 4]
         })
         .use(markdownItContainer, 'tip')
+        .use(markdownItContainer, 'download')
         .use(markdownItLinkAttributes, {
             pattern: /^https?:/,
             attrs: {
