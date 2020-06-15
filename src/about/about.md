@@ -3,6 +3,6 @@ title: About Me
 layout: single
 ---
 
-# {{title}}
+# {{title}} {.page-title}
 
 Hey, I'm Abdus.

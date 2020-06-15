@@ -1,7 +1,7 @@
 ---
 title: Upgrade Python SQLite driver to latest version on Windows
 slug: sqlite-upgrade-windows
-date: 2020-06-01
+date: 2020-02-20
 tags: 
     - python
     - post
@@ -9,13 +9,17 @@ tags:
 
 # {{ title }}
 
-Download the latest compiled DLL Windows: 
+Download the latest compiled DLL for Windows: 
 
-{% for url in dllUrls %}
+::: download
+{% for url in downloadUrls %}
 - [{{url}}]({{ url }})
 {%- endfor %}
 
-<cite>(updated daily from [SQLite][sqlite]</cite>
+<small>Links are updated daily from [SQLite][sqlite]</small>
+:::
+
+
 
 Extract the ZIP file and place DLL files into `$PYTHON_DIR/DLLs`. 
 
@@ -30,7 +34,7 @@ start (join-path (split-path (get-command python).Path) "dlls")
 ```
 or use cmd directly:
 
-```commandline
+```cmd
 powershell -command "start (join-path (split-path (get-command python).Path) "dlls")"
 ```
 

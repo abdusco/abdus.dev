@@ -1,0 +1,12 @@
+{
+  "name": "youtube-oembed-proxy",
+  "routes": [
+    {
+      "src": "/oembed",
+      "dest": "/proxy.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "*"
+      }
+    }
+  ]
+}

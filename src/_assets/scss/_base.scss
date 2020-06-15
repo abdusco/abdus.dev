@@ -230,6 +230,10 @@ code {
     font-weight: 600;
 }
 
+.text--lowercase {
+    text-transform: lowercase;
+}
+
 small,
 .text--small {
     font-size: 0.75em;
@@ -257,6 +261,10 @@ small,
 
 .content {
     flex-grow: 1;
+}
+
+.page-title {
+    text-transform: lowercase;
 }
 
 .nav {
