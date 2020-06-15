@@ -14,6 +14,8 @@ const markdownItFootnote = require('markdown-it-footnote');
 const markdownItTaskList = require('markdown-it-task-lists');
 const markdownItLinkAttributes = require('markdown-it-link-attributes');
 const markdownItContainer = require('markdown-it-container');
+const markdownItToc = require('markdown-it-table-of-contents');
+const markdownItAnchor = require('markdown-it-anchor');
 
 /** @param {UserConfig} config */
 module.exports = (config) => {
@@ -37,12 +39,24 @@ module.exports = (config) => {
     config.addCollection('updates', function (collectionApi) {
         /** @var {TemplateCollection} collectionApi */
         return collectionApi.getFilteredByGlob([
-            'posts/*.md',
-            'posts/**/*.md',
-            'projects/**/*.md',
-            'projects/**/*.md',
+            'src/posts/*.md',
+            'src/posts/**/*.md',
+            'src/projects/**/*.md',
+            'src/projects/**/*.md',
         ]);
     });
+
+    config.addCollection('tags', (collectionApi) => {
+        const slugify = config.getFilter('slug');
+        /** @var {TemplateCollection} collectionApi */
+        let uniqueTags = _.uniq(_.flatten(collectionApi.items.map(it => it.data.tags || [])));
+        return uniqueTags.map(t => ({
+            name: t,
+            url: `/posts/~${slugify(t)}/`,
+        }));
+    });
+
+
 
     config.setBrowserSyncConfig({
         ui: {port: 3333}
@@ -86,6 +100,10 @@ function markdownFactory() {
         .use(markdownItAttrs)
         .use(markdownItFootnote)
         .use(markdownItTaskList)
+        .use(markdownItAnchor)
+        .use(markdownItToc, {
+            includeLevel: [2, 3, 4]
+        })
         .use(markdownItContainer, 'tip')
         .use(markdownItLinkAttributes, {
             pattern: /^https?:/,

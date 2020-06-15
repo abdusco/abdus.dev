@@ -1,9 +1,10 @@
 ---
 title: Upgrade Python SQLite driver to latest version on Windows
 slug: sqlite-upgrade-windows
-date: 2020-06-14
+date: 2020-06-01
 tags: 
-  - til
+    - python
+    - post
 ---
 
 # {{ title }}

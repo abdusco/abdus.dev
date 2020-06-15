@@ -1,5 +1,15 @@
+const _ = require('lodash');
+const dayjs = require('dayjs');
 const filters = {
-    json: (val) => JSON.stringify(val, null, 4)
+    json: (val) => JSON.stringify(val, null, 4),
+    dump: (val) => {
+        let cleaned = _.omit(val, ['collections', 'pkg', 'eleventyComputed']);
+        return JSON.stringify({
+            __type__: typeof cleaned,
+            ...cleaned
+        }, null, 4);
+    },
+    date: (val) => dayjs(val).format('YYYY-MM-DD'),
 };
 const pairedShortcodes = {};
 const shortcodes = {};

@@ -56,7 +56,12 @@
   src: url("../fonts/jetbrainsmono-regular.woff2") format("woff2"); }
 
 :root {
+  --c-body: #333;
+  --bg-body: #fcfcfc;
   --c-code: rgba(0, 0, 0, 0.025);
+  --c-link: royalblue;
+  --c-primary: #00017A;
+  --c-gold: #FCB305;
   --p-sides-x: 2rem;
   --p-sides-y: 2rem; }
 
@@ -74,7 +79,9 @@ body {
   padding: 0;
   font-family: inter, sans-serif;
   font-size: 18px;
-  line-height: 1.6; }
+  line-height: 1.6;
+  color: var(--c-body);
+  background-color: var(--bg-body); }
 
 h1, .h1,
 h2, .h2,
@@ -84,18 +91,15 @@ h5, .h5,
 h6, .h6 {
   line-height: 1.15;
   font-weight: 600;
-  margin: 1.5em 0 1rem; }
-  h1:first-child, .h1:first-child,
-  h2:first-child, .h2:first-child,
-  h3:first-child, .h3:first-child,
-  h4:first-child, .h4:first-child,
-  h5:first-child, .h5:first-child,
-  h6:first-child, .h6:first-child {
-    margin-top: 0; }
+  margin: 1em 0; }
 
 h1, .h1 {
   font-weight: 700;
   font-size: calc(1.5em + 0.5vw); }
+  h1:first-child, .h1:first-child {
+    margin-bottom: 1.5em; }
+  h1.title, .h1.title {
+    color: var(--c-primary); }
 
 h2, .h2 {
   font-size: 1.5em; }
@@ -113,6 +117,14 @@ h6, .h6 {
   font-weight: 500;
   font-size: 1em; }
 
+a {
+  color: var(--c-link); }
+  :is(h1, h2) a {
+    color: currentColor;
+    text-decoration: none; }
+  a:hover {
+    color: var(--c-link); }
+
 p {
   margin: 0 0 1em; }
   p:only-child {
@@ -128,9 +140,12 @@ input {
   font-family: inherit;
   font-size: inherit; }
 
-ul {
+ul, ol {
   padding: 0;
   margin: 1rem 0; }
+
+:is(ul, ol) :is(ul, ul) {
+  padding-left: 1rem; }
 
 hr {
   margin: 2rem 0;
@@ -165,8 +180,24 @@ code {
 .d--ib {
   display: inline-block; }
 
+.mb--1 {
+  margin-bottom: 0.5rem; }
+
+.mb--2 {
+  margin-bottom: 1rem; }
+
+.text--primary {
+  color: var(--c-primary); }
+
+.text--dim {
+  opacity: 0.5; }
+
 .text--bold {
-  font-weight: 700; }
+  font-weight: 600; }
+
+small,
+.text--small {
+  font-size: 0.75em; }
 
 .link {
   text-decoration: none;
@@ -180,13 +211,15 @@ code {
   margin-right: auto; }
 
 .nav {
-  margin-bottom: 2rem; }
+  margin-bottom: 2rem;
+  color: var(--c-primary); }
 
 .nav__link {
   display: inline-block;
   padding: 0.25rem 0;
   margin-right: 1rem;
-  font-weight: 500; }
+  font-size: 0.75em;
+  font-weight: 700; }
 
 .tip {
   margin: 2rem -1rem;
@@ -202,19 +235,50 @@ code {
     color: limegreen;
     margin-bottom: 0.5rem; }
 
+.tag {
+  font-size: 0.75em;
+  font-weight: 600;
+  text-decoration: none; }
+
+.table-of-contents {
+  padding: 1rem;
+  margin: 2rem -1rem;
+  font-size: 0.8em;
+  font-weight: 600;
+  background-color: rgba(0, 0, 128, 0.03); }
+  .table-of-contents:before {
+    content: 'Table Of Contents';
+    color: var(--c-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    display: block; }
+  .table-of-contents ul {
+    list-style: none;
+    margin: 0; }
+  .table-of-contents ul ul {
+    list-style: initial; }
+  .table-of-contents a {
+    text-decoration: none; }
+
 .update__category {
   font-weight: 500; }
 
-/*
-
-Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
-
-*/
+/*:root {
+    --c-code-comment: #888888;
+    --c-code-type: #880000;
+    --c-code-title: #880000;
+    --c-code-regex: #BC6060;
+    --c-code-literal: #78A960;
+    --c-code-builtin: #397300;
+    --c-code-meta: #1f7199;
+    --c-code-metastring: #4d99bf;
+}*/
 .hljs {
   display: block;
   overflow-x: auto; }
 
-/* Base color: saturation 0; */
 .hljs,
 .hljs-subst {
   color: #444; }
@@ -230,7 +294,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 .hljs-name {
   font-weight: 600; }
 
-/* User color: hue: 0 */
 .hljs-type,
 .hljs-string,
 .hljs-number,
@@ -255,7 +318,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 .hljs-selector-pseudo {
   color: #BC6060; }
 
-/* Language color: hue: 90; */
 .hljs-literal {
   color: #78A960; }
 
@@ -265,14 +327,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 .hljs-addition {
   color: #397300; }
 
-/* Meta color: hue: 200 */
 .hljs-meta {
   color: #1f7199; }
 
 .hljs-meta-string {
   color: #4d99bf; }
 
-/* Misc effects */
 .hljs-emphasis {
   font-style: italic; }
 

@@ -1,0 +1,51 @@
+---
+layout: single
+title: Likes
+---
+
+<h1>{{ title }}</h1>
+
+{% if links | length %}
+    <ul class='fav-list'>
+        {% for item in links %}
+            <li class='fav-list__item'>
+                <article class='fav'>
+                    <h2 class='fav__title h5'>
+                        <a class='fav__link'
+                           target='_blank'
+                           href='{{ item.url }}'>{{ item.title or item.url }}</a>
+                        {#{% if item.domain %}
+                            <img class='fav__logo'
+                                 src='{{ item.domainLogo }}'
+                                 alt='{{ item.domain }} logo'>
+                        {% endif %}#}
+                        {% if item.domain %}
+                            <cite class='fav__domain'>{{ item.domain | lower }}</cite>
+                        {% endif %}
+                    </h2>
+                    <p class='fav__summary text--small'>{{ item.summary }}</p>
+                </article>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+<style>
+    .fav__title {
+        align-items: baseline;
+    }
+
+    .fav__logo {
+        height: 1rem;
+        width: 1rem;
+        object-fit: contain;
+        display: inline-block;
+        margin-right: 0.5rem;
+    }
+
+    .fav__domain {
+        opacity: 0.5;
+        margin-left: 0.5rem;
+    }
+</style>

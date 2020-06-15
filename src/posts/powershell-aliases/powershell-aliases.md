@@ -1,6 +1,10 @@
 ---
 title: PowerShell aliases
 date: 2020-06-02
+tags:
+    - powershell
+    - til
+    - post
 ---
 
 # {{title}}
