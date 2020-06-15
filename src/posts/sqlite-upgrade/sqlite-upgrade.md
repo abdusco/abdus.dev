@@ -14,7 +14,7 @@ Download the latest compiled DLL Windows:
 - [{{url}}]({{ url }})
 {%- endfor %}
 
-<cite>(updated daily from [SQLite]({{ sqliteDownloadUrl }}))</cite>
+<cite>(updated daily from [SQLite][sqlite]</cite>
 
 Extract the ZIP file and place DLL files into `$PYTHON_DIR/DLLs`. 
 
@@ -59,3 +59,5 @@ MAX_TRIGGER_DEPTH=100
 TEMP_STORE=1
 THREADSAFE=1
 ```
+
+[sqlite]: {{ sqliteDownloadUrl }}
