@@ -6,8 +6,14 @@ const TemplateCollection = require('@11ty/eleventy/src/TemplateCollection')
 const _ = require('lodash');
 const tmpl = require('./src/_eleventy/templating');
 const yaml = require('js-yaml');
+
+const hljs = require('highlight.js');
 const markdownIt = require("markdown-it");
 const markdownItAttrs = require('markdown-it-attrs');
+const markdownItFootnote = require('markdown-it-footnote');
+const markdownItTaskList = require('markdown-it-task-lists');
+const markdownItLinkAttributes = require('markdown-it-link-attributes');
+const markdownItContainer = require('markdown-it-container');
 
 /** @param {UserConfig} config */
 module.exports = (config) => {
@@ -58,21 +64,19 @@ module.exports = (config) => {
 
 
 function markdownFactory() {
-    const hljs = require('highlight.js');
-
     let options = {
         html: true,
         breaks: true,
         linkify: false,
-        highlight: function (str, lang) {
-            let code = str;
+        highlight(code, lang) {
+            if (!lang) lang = 'text';
+
             if (hljs.getLanguage(lang)) {
                 try {
-                    code = hljs.highlight(lang, str).value;
+                    code = hljs.highlight(lang, code).value;
                 } catch (e) {
                 }
             }
-            if (!lang) lang = 'text';
 
             return `<pre class='snippet hljs language-${lang}' data-lang='${lang}'><code>${code}</code></pre>`;
         }
@@ -80,10 +84,10 @@ function markdownFactory() {
 
     return markdownIt(options)
         .use(markdownItAttrs)
-        .use(require('markdown-it-footnote'))
-        .use(require('markdown-it-attrs'))
-        .use(require('markdown-it-task-lists'))
-        .use(require('markdown-it-link-attributes'), {
+        .use(markdownItFootnote)
+        .use(markdownItTaskList)
+        .use(markdownItContainer, 'tip')
+        .use(markdownItLinkAttributes, {
             pattern: /^https?:/,
             attrs: {
                 class: 'link--ext',
