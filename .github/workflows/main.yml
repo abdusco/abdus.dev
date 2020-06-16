@@ -19,10 +19,10 @@ jobs:
           clean: false
 
       - name: install packages
-        run: yarn
+        run: yarn install --frozen-lockfile
 
       - name: run eleventy
-        run: npm run build
+        run: yarn run build
         env:
           DEBUG: Eleventy*
           NODE_ENV: production
