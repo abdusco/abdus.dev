@@ -1,13 +1,16 @@
 :root {
-    --fz: 16px;
+    --fz: 14px;
+    --bg-code: #{rgba(black, 0.025)};
+    --c-red: palevioletred;
+    --c-gold: #FCB305;
+
     --c-body: #333;
     --bg-body: #fcfcfc;
-    --c-code: #{rgba(black, 0.025)};
-    --c-link: royalblue;
-    --c-primary: #1846cd;
-    --c-gold: #FCB305;
-    --p-sides-x: 2rem;
+    --p-sides-x: 1.5rem;
     --p-sides-y: 2rem;
+    --c-link: var(--c-red);
+    --c-primary: var(--c-red);
+
 
 
     --scrollbar-track: #eee;
@@ -20,12 +23,6 @@
         :root {
             --c-body: #fefefe;
             --bg-body: #222;
-            --c-code: #{rgba(black, 0.025)};
-            --c-link: #5d84fa;
-            --c-gold: #FCB305;
-            --p-sides-x: 2rem;
-            --p-sides-y: 2rem;
-
 
             --scrollbar-track: #999;
             --scrollbar-thumb: #666;
@@ -36,11 +33,20 @@
 
 @media screen and (min-width: 600px) {
     :root {
+        --fz: 16px;
+        --p-sides-x: 2rem;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    :root {
         --fz: 18px;
         --p-sides-x: 4rem;
         --p-sides-y: 4rem;
     }
 }
+
+
 
 *, *::before, *::after {
     font-family: inherit;
@@ -70,7 +76,7 @@ h4, .h4,
 h5, .h5,
 h6, .h6 {
     font-family: ampersand, $font;
-    line-height: 1.15;
+    line-height: 1.2;
     font-weight: 600;
     margin: 1em 0;
 }
@@ -154,8 +160,11 @@ ul, ol {
 
 hr {
     margin: 2rem 0;
-    color: rgba(black, 0.2);
+    border: 0;
+    height: 1px;
+    background-color: rgba(black, 0.2);
     width: 33%;
+
 }
 
 cite {
@@ -169,11 +178,11 @@ code, pre {
 
 
 code {
-    background-color: var(--c-code);
+    background-color: var(--bg-code);
     padding: 0.2em;
 
     pre & {
-        --c-code: transparent;
+        --bg-code: transparent;
         padding: 0;
     }
 }
@@ -194,8 +203,12 @@ code {
     margin-bottom: 1rem;
 }
 
-.text--primary {
+.c--primary {
     color: var(--c-primary);
+}
+
+.c--error {
+    color: var(--c-red);
 }
 
 .text--dim {
@@ -241,6 +254,11 @@ small,
 
 .page-title {
     text-transform: lowercase;
+    &:before {
+        content: '/';
+        color: var(--c-primary);
+        margin-right: 0.25rem;
+    }
 }
 
 .nav {

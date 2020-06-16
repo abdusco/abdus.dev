@@ -45,6 +45,7 @@
     &::-webkit-scrollbar-track {
         background: var(--scrollbar-track);
     }
+
     &::-webkit-scrollbar-thumb {
         background-color: var(--scrollbar-thumb);
     }
@@ -131,4 +132,12 @@
     a {
         text-decoration: none;
     }
+}
+
+.footnote-backref {
+    font-family: $fontMono;
+    text-decoration: none;
+}
+[id*=fnref] {
+    text-decoration: none;
 }

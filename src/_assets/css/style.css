@@ -1,59 +1,19 @@
 @font-face {
   font-family: inter;
   font-display: swap;
-  src: url("../fonts/inter.var.woff2") format("woff2"); }
+  src: url("../fonts/inter.var.subset.woff2") format("woff2"); }
 
 @font-face {
   font-family: jetbrainsmono;
   font-display: swap;
   font-weight: 700;
-  src: url("../fonts/jetbrainsmono-bold.woff2") format("woff2"); }
-
-@font-face {
-  font-family: jetbrainsmono;
-  font-display: swap;
-  font-weight: 700;
-  font-style: italic;
-  src: url("../fonts/jetbrainsmono-bold-italic.woff2") format("woff2"); }
-
-@font-face {
-  font-family: jetbrainsmono;
-  font-display: swap;
-  font-weight: 900;
-  src: url("../fonts/jetbrainsmono-extrabold.woff2") format("woff2"); }
-
-@font-face {
-  font-family: jetbrainsmono;
-  font-display: swap;
-  font-weight: 900;
-  font-style: italic;
-  src: url("../fonts/jetbrainsmono-extrabold-italic.woff2") format("woff2"); }
+  src: url("../fonts/jetbrainsmono-bold.subset.woff2") format("woff2"); }
 
 @font-face {
   font-family: jetbrainsmono;
   font-display: swap;
   font-weight: 400;
-  font-style: italic;
-  src: url("../fonts/jetbrainsmono-italic.woff2") format("woff2"); }
-
-@font-face {
-  font-family: jetbrainsmono;
-  font-display: swap;
-  font-weight: 500;
-  src: url("../fonts/jetbrainsmono-medium.woff2") format("woff2"); }
-
-@font-face {
-  font-family: jetbrainsmono;
-  font-display: swap;
-  font-weight: 500;
-  font-style: italic;
-  src: url("../fonts/jetbrainsmono-medium-italic.woff2") format("woff2"); }
-
-@font-face {
-  font-family: jetbrainsmono;
-  font-display: swap;
-  font-weight: 400;
-  src: url("../fonts/jetbrainsmono-regular.woff2") format("woff2"); }
+  src: url("../fonts/jetbrainsmono-regular.subset.woff2") format("woff2"); }
 
 @font-face {
   font-family: ampersand;
@@ -147,70 +107,65 @@ hue-6-2: #c18401
 @media screen and (prefers-color-scheme: dark) {
   /*
 
-Atom One Dark by Daniel Gamage
-Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
-
-base:    #282c34
-mono-1:  #abb2bf
-mono-2:  #818896
-mono-3:  #5c6370
-hue-1:   #56b6c2
-hue-2:   #61aeee
-hue-3:   #c678dd
-hue-4:   #98c379
-hue-5:   #e06c75
-hue-5-2: #be5046
-hue-6:   #d19a66
-hue-6-2: #e6c07b
+Railscasts-like style (c) Visoft, Inc. (Damien White)
 
 */
   .hljs {
     display: block;
     overflow-x: auto;
     padding: 0.5em;
-    color: #abb2bf;
-    background: #282c34; }
+    background: #232323;
+    color: #e6e1dc; }
   .hljs-comment,
   .hljs-quote {
-    color: #5c6370;
+    color: #bc9458;
     font-style: italic; }
-  .hljs-doctag,
   .hljs-keyword,
-  .hljs-formula {
-    color: #c678dd; }
-  .hljs-section,
-  .hljs-name,
-  .hljs-selector-tag,
-  .hljs-deletion,
-  .hljs-subst {
-    color: #e06c75; }
-  .hljs-literal {
-    color: #56b6c2; }
+  .hljs-selector-tag {
+    color: #c26230; }
   .hljs-string,
+  .hljs-number,
   .hljs-regexp,
-  .hljs-addition,
-  .hljs-attribute,
-  .hljs-meta-string {
-    color: #98c379; }
-  .hljs-built_in,
-  .hljs-class .hljs-title {
-    color: #e6c07b; }
-  .hljs-attr,
   .hljs-variable,
-  .hljs-template-variable,
-  .hljs-type,
-  .hljs-selector-class,
-  .hljs-selector-attr,
-  .hljs-selector-pseudo,
-  .hljs-number {
-    color: #d19a66; }
+  .hljs-template-variable {
+    color: #a5c261; }
+  .hljs-subst {
+    color: #519f50; }
+  .hljs-tag,
+  .hljs-name {
+    color: #e8bf6a; }
+  .hljs-type {
+    color: #da4939; }
   .hljs-symbol,
   .hljs-bullet,
-  .hljs-link,
-  .hljs-meta,
-  .hljs-selector-id,
-  .hljs-title {
-    color: #61aeee; }
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-attr,
+  .hljs-link {
+    color: #6d9cbe; }
+  .hljs-params {
+    color: #d0d0ff; }
+  .hljs-attribute {
+    color: #cda869; }
+  .hljs-meta {
+    color: #9b859d; }
+  .hljs-title,
+  .hljs-section {
+    color: #ffc66d; }
+  .hljs-addition {
+    background-color: #144212;
+    color: #e6e1dc;
+    display: inline-block;
+    width: 100%; }
+  .hljs-deletion {
+    background-color: #600;
+    color: #e6e1dc;
+    display: inline-block;
+    width: 100%; }
+  .hljs-selector-class {
+    color: #9b703f; }
+  .hljs-selector-id {
+    color: #8b98ab; }
   .hljs-emphasis {
     font-style: italic; }
   .hljs-strong {
@@ -219,15 +174,16 @@ hue-6-2: #e6c07b
     text-decoration: underline; } }
 
 :root {
-  --fz: 16px;
+  --fz: 14px;
+  --bg-code: rgba(0, 0, 0, 0.025);
+  --c-red: palevioletred;
+  --c-gold: #FCB305;
   --c-body: #333;
   --bg-body: #fcfcfc;
-  --c-code: rgba(0, 0, 0, 0.025);
-  --c-link: royalblue;
-  --c-primary: #1846cd;
-  --c-gold: #FCB305;
-  --p-sides-x: 2rem;
+  --p-sides-x: 1.5rem;
   --p-sides-y: 2rem;
+  --c-link: var(--c-red);
+  --c-primary: var(--c-red);
   --scrollbar-track: #eee;
   --scrollbar-thumb: #ccc; }
 
@@ -235,15 +191,15 @@ hue-6-2: #e6c07b
   :root {
     --c-body: #fefefe;
     --bg-body: #222;
-    --c-code: rgba(0, 0, 0, 0.025);
-    --c-link: #5d84fa;
-    --c-gold: #FCB305;
-    --p-sides-x: 2rem;
-    --p-sides-y: 2rem;
     --scrollbar-track: #999;
     --scrollbar-thumb: #666; } }
 
 @media screen and (min-width: 600px) {
+  :root {
+    --fz: 16px;
+    --p-sides-x: 2rem; } }
+
+@media screen and (min-width: 900px) {
   :root {
     --fz: 18px;
     --p-sides-x: 4rem;
@@ -273,7 +229,7 @@ h4, .h4,
 h5, .h5,
 h6, .h6 {
   font-family: ampersand, inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-  line-height: 1.15;
+  line-height: 1.2;
   font-weight: 600;
   margin: 1em 0; }
 
@@ -333,7 +289,9 @@ ul, ol {
 
 hr {
   margin: 2rem 0;
-  color: rgba(0, 0, 0, 0.2);
+  border: 0;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.2);
   width: 33%; }
 
 cite {
@@ -344,10 +302,10 @@ code, pre {
   font-family: jetbrainsmono, menlo, hack, consolas, roboto mono, droid sans mono, monospace; }
 
 code {
-  background-color: var(--c-code);
+  background-color: var(--bg-code);
   padding: 0.2em; }
   pre code {
-    --c-code: transparent;
+    --bg-code: transparent;
     padding: 0; }
 
 .d--i {
@@ -362,8 +320,11 @@ code {
 .mb--2 {
   margin-bottom: 1rem; }
 
-.text--primary {
+.c--primary {
   color: var(--c-primary); }
+
+.c--error {
+  color: var(--c-red); }
 
 .text--dim {
   opacity: 0.5; }
@@ -398,6 +359,10 @@ small,
 
 .page-title {
   text-transform: lowercase; }
+  .page-title:before {
+    content: '/';
+    color: var(--c-primary);
+    margin-right: 0.25rem; }
 
 .nav {
   margin-bottom: 2rem;
@@ -525,5 +490,12 @@ small,
     list-style: inside; }
   .table-of-contents a {
     text-decoration: none; }
+
+.footnote-backref {
+  font-family: jetbrainsmono, menlo, hack, consolas, roboto mono, droid sans mono, monospace;
+  text-decoration: none; }
+
+[id*=fnref] {
+  text-decoration: none; }
 
 /*# sourceMappingURL=style.css.map */

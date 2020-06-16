@@ -5,7 +5,7 @@ eleventyComputed: {title: "Posts tagged #{{ tag.name }}"}
 ---
 {% set posts = collections[tag.name] | reverse %}
 
-<h1 class='page-title'><span class='text--dim'>Tagged</span> <span>{{ tag.name }}</span></h1>
+<h1 class='page-title'><span class='c--primary'>Tagged</span> <span>{{ tag.name }}</span></h1>
 
 {% include 'partials/post-list.njk' %}
 
