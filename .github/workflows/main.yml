@@ -1,0 +1,33 @@
+name: build
+on:
+  repository_dispatch:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '0 */6 * * *' # every 6 hours
+
+
+jobs:
+  build_pages:
+    name: build pages
+    runs-on: self-hosted
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+        with:
+          clean: false
+
+      - name: install packages
+        run: yarn
+
+      - name: run eleventy
+        run: npm run build
+        env:
+          DEBUG: Eleventy*
+          NODE_ENV: production
+          POCKET_CONSUMER_KEY: ${{ secrets.POCKET_CONSUMER_KEY }}
+          POCKET_ACCESS_TOKEN: ${{ secrets.POCKET_ACCESS_TOKEN }}
+
+      - name: deploy files
+        run: rm -rf /apps/web/abdus.dev/* && cp -r dist/* /apps/web/abdus.dev
