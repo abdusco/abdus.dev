@@ -3,6 +3,7 @@ require('module-alias/register');
 const UserConfig = require('@11ty/eleventy/src/UserConfig')
 const TemplateCollection = require('@11ty/eleventy/src/TemplateCollection')
 
+const fs = require('fs');
 const _ = require('lodash');
 const tmpl = require('./src/_eleventy/templating');
 const yaml = require('js-yaml');
@@ -16,6 +17,8 @@ const markdownItLinkAttributes = require('markdown-it-link-attributes');
 const markdownItContainer = require('markdown-it-container');
 const markdownItToc = require('markdown-it-table-of-contents');
 const markdownItAnchor = require('markdown-it-anchor');
+
+const siteData = yaml.safeLoad(fs.readFileSync('./src/_data/site.yaml', 'utf-8'));
 
 /** @param {UserConfig} config */
 module.exports = (config) => {
@@ -57,6 +60,18 @@ module.exports = (config) => {
         }));
     });
 
+    config.addCollection('redirects', (collectionApi) => {
+        let aliased = collectionApi.items
+            .filter(it => it.data.$aliases)
+            .map(it => {
+                return (it.data.$aliases || []).map(url => ({
+                    redirectTo: `${siteData.baseUrl}${it.url}`,
+                    title: it.data.title,
+                    url,
+                }));
+            });
+        return _.flatten(aliased);
+    });
 
 
     config.setBrowserSyncConfig({

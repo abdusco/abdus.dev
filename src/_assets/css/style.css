@@ -371,6 +371,8 @@ code {
     transition: opacity 0.2s; }
   .snippet:hover:before {
     opacity: 0.5; }
+  .snippet::-webkit-scrollbar-track {
+    background-color: var(--bg-body); }
 
 .d--i {
   display: inline; }
@@ -450,6 +452,10 @@ small,
 
 .update__category {
   font-weight: 500; }
+
+.single img {
+  display: block;
+  margin: 1rem 0; }
 
 .tip {
   margin: 2rem -1rem;

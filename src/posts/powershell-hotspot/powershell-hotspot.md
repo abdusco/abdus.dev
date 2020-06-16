@@ -24,7 +24,7 @@ The only way to control native hotspot was so far using the UI
 
 As of Windows 10 v1607 there's a [new API][api] for UWP apps that we can use to start / stop hotspot tethering in PowerShell:
 
-Here's the script:
+Here's the script based off of [this answer][answer] on StackOverflow:
 
 ```powershell {data-filename=hotspot.ps1}
 param (
@@ -60,3 +60,4 @@ powershell -file hotspot.ps1 on
 
 
 [api]: https://docs.microsoft.com/en-us/uwp/api/windows.networking.networkoperators.networkoperatortetheringmanager
+[answer]: https://stackoverflow.com/a/55563418/5298150

@@ -1,0 +1,8 @@
+pagination:
+  data: collections.redirects
+  alias: r
+  size: 1
+permalink: "{{ r.url }}"
+eleventyComputed:
+  title: "Redirecting to {{ r.title }}"
+  canonical: "{{ r.redirectTo }}"

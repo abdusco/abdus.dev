@@ -170,39 +170,6 @@ code {
     }
 }
 
-.snippet {
-    position: relative;
-
-    overflow-x: auto;
-    margin-left: -1rem;
-    margin-right: -1rem;
-    padding: 1rem;
-    background-color: var(--c-code);
-    border: 1px solid rgba(black, 0.1);
-    z-index: 0;
-
-    &:before {
-        content: attr(data-lang);
-        display: inline-block;
-        line-height: 1;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 0.6em;
-        font-weight: 600;
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        z-index: 1;
-
-        opacity: 0;
-        transition: opacity 0.2s;
-    }
-
-    &:hover:before {
-        opacity: 0.5;
-    }
-}
-
 .d--i {
     display: inline;
 }

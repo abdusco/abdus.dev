@@ -1,0 +1,13 @@
+{% extends "single.njk" %}
+
+{% block head %}
+    <meta http-equiv='refresh' content='0;{{ r.redirectTo }}'>
+{% endblock %}
+
+
+{% block content %}
+    <p>Content moved.</p>
+
+    <a href='{{ r.redirectTo }}'>Redirecting...</a>
+{% endblock %}
+
