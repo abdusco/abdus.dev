@@ -8,10 +8,14 @@
     --c-gold: #FCB305;
     --p-sides-x: 2rem;
     --p-sides-y: 2rem;
+
+
+    --scrollbar-track: #eee;
+    --scrollbar-thumb: #ccc;
 }
 
 
-@if (isProd()) {
+@if ($enableDarkMode) {
     @media screen and (prefers-color-scheme: dark) {
         :root {
             --c-body: #fefefe;
@@ -21,6 +25,10 @@
             --c-gold: #FCB305;
             --p-sides-x: 2rem;
             --p-sides-y: 2rem;
+
+
+            --scrollbar-track: #999;
+            --scrollbar-thumb: #666;
         }
     }
 }
@@ -104,7 +112,7 @@ h6, .h6 {
 a {
     color: var(--c-link);
 
-    :is(h1, h2) & {
+    h1 &, h2 & {
         color: currentColor;
         text-decoration: none;
     }
@@ -156,7 +164,7 @@ cite {
 }
 
 code, pre {
-    font-family: jetbrainsmono, consolas, roboto mono, monospace;
+    font-family: $fontMono;
 }
 
 
@@ -250,7 +258,7 @@ small,
 }
 
 .nav__link--home {
-    color: var(--c-primary);
+    color: var(--c-link);
 }
 
 .button {

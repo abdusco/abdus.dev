@@ -1,7 +1,7 @@
 @import "node_modules/highlight.js/scss/atom-one-light";
 
 
-@if (isProd()) {
+@if ($enableDarkMode) {
     @media screen and (prefers-color-scheme: dark) {
         @import "node_modules/highlight.js/scss/atom-one-dark";
     }

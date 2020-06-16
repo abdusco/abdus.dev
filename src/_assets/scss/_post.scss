@@ -9,6 +9,7 @@
     position: relative;
 
     overflow-x: auto;
+    scrollbar-width: thin;
     margin-left: -1rem;
     margin-right: -1rem;
     padding: 1rem;
@@ -37,10 +38,18 @@
         opacity: 0.5;
     }
 
+    &::-webkit-scrollbar {
+        height: 8px;
+    }
+
     &::-webkit-scrollbar-track {
-        background-color: var(--bg-body);
+        background: var(--scrollbar-track);
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-thumb);
     }
 }
+
 
 .tip {
     margin: 2rem -1rem;
@@ -117,7 +126,7 @@
     }
 
     ul ul {
-        list-style: initial;
+        list-style: inside;
     }
 
     a {
