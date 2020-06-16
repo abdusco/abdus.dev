@@ -15,11 +15,12 @@ tags:
 
 ## Common metadata
 
-### Creation date
+### Creation and modification date
 
 - Single file:
   ```powershell
   (Get-ChildItem .\file.ext).CreationTime = {{todayStrLong}}
+  (Get-ChildItem .\file.ext).LastWriteTime = {{todayStrLong}}
   ```
 
   ::: tip
@@ -30,6 +31,7 @@ tags:
 - All files in current folder:
   ```powershell
   ls | % { $_.CreationTime = {{todayStr}} }
+  ls | % { $_.LastWriteTime = {{todayStr}} }
   ```
   
   ::: tip
@@ -95,7 +97,23 @@ $video.Tag.Comment = "a comment"
 $video.Tag.Publisher = "a publisher"
 $video.Tag.Description = "a description"
 
-$video.Save();
+$video.Save()
+```
+
+### Cover photo
+
+Load the image file and override `.Tag.Pictures` with an array.
+
+```powershell
+$cover = [TagLib.Picture]::CreateFromPath((rvpa cover.png))
+
+$video = [TagLib.File]::Create((rvpa video.mp4))
+$video.Tag.Pictures = ($cover)
+$video.Save()
+
+$music = [TagLib.File]::Create((rvpa music.mp3))
+$music.Tag.Pictures = ($cover)
+$music.Save()
 ```
 
 [taglib.github]: https://github.com/mono/taglib-sharp

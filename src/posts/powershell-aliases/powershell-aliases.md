@@ -9,7 +9,7 @@ tags:
 
 # {{title}}
 
-A list of current aliases can be retrieved using `Get-Alias` command.
+A list of current aliases can be retrieved using [`Get-Alias`][docs] command.
 
 | Alias | Command |
 | ----- | ------- |
@@ -17,3 +17,5 @@ A list of current aliases can be retrieved using `Get-Alias` command.
 | `{{ alias }}` | `{{ command }}` |
 {% endfor %}
 
+
+[docs]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-alias
