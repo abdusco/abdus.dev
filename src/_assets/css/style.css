@@ -185,7 +185,8 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
   --c-link: var(--c-red);
   --c-primary: var(--c-red);
   --scrollbar-track: #eee;
-  --scrollbar-thumb: #ccc; }
+  --scrollbar-thumb: #ccc;
+  --scrollbar-size: 4px; }
 
 @media screen and (prefers-color-scheme: dark) {
   :root {
@@ -197,7 +198,8 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
 @media screen and (min-width: 600px) {
   :root {
     --fz: 16px;
-    --p-sides-x: 2rem; } }
+    --p-sides-x: 2rem;
+    --scrollbar-size: 6px; } }
 
 @media screen and (min-width: 900px) {
   :root {
@@ -425,7 +427,7 @@ small,
   .snippet:hover:before {
     opacity: 0.5; }
   .snippet::-webkit-scrollbar {
-    height: 8px; }
+    height: var(--scrollbar-size); }
   .snippet::-webkit-scrollbar-track {
     background: var(--scrollbar-track); }
   .snippet::-webkit-scrollbar-thumb {

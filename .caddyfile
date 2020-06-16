@@ -1,0 +1,30 @@
+{
+    experimental_http3
+}
+localhost:8081
+
+root * dist
+file_server
+
+encode zstd gzip
+
+header @static {
+    Cache-Control max-age=2629800 # 1 month
+}
+
+handle_errors {
+    rewrite * /{http.error.status_code}/
+    file_server
+    templates
+}
+
+
+respond /favicon.ico 200
+header /favicon.ico Content-Type image/png
+
+@static {
+    path *.css
+    path *.ico
+    path *.woff2
+    path *.js
+}

@@ -36,7 +36,8 @@ module.exports = (config) => {
     });
 
     config.addPassthroughCopy('src/**/*.{jpg,png,jpeg,svg}');
-    config.addPassthroughCopy('src/**/[^.]+.js');
+    config.addPassthroughCopy('src/[^_]*/**/*[^.]+.js');
+
 
     ['yaml', 'yml'].forEach(ext => config.addDataExtension(ext, yaml.safeLoad));
 

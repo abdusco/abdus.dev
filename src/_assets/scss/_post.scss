@@ -39,7 +39,7 @@
     }
 
     &::-webkit-scrollbar {
-        height: 8px;
+        height: var(--scrollbar-size);
     }
 
     &::-webkit-scrollbar-track {

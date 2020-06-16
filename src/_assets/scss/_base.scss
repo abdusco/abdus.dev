@@ -15,6 +15,7 @@
 
     --scrollbar-track: #eee;
     --scrollbar-thumb: #ccc;
+    --scrollbar-size: 4px;
 }
 
 
@@ -35,6 +36,7 @@
     :root {
         --fz: 16px;
         --p-sides-x: 2rem;
+        --scrollbar-size: 6px;
     }
 }
 
