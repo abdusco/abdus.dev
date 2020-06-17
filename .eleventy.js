@@ -26,7 +26,9 @@ module.exports = (config) => {
     _.forEach(tmpl.filters, (f, k) => config.addFilter(k, f));
     _.forEach(tmpl.shortcodes, (f, k) => config.addShortcode(k, f));
     _.forEach(tmpl.pairedShortcodes, (f, k) => config.addPairedShortcode(k, f));
+    config.addFilter('published', (arr) => arr.filter(isPublished));
 
+    ['yaml', 'yml'].forEach(ext => config.addDataExtension(ext, yaml.safeLoad));
     config.setLibrary('md', markdownFactory());
 
     config.addPassthroughCopy({
@@ -39,7 +41,11 @@ module.exports = (config) => {
     config.addPassthroughCopy('src/[^_]*/**/*[^.]+.js');
 
 
-    ['yaml', 'yml'].forEach(ext => config.addDataExtension(ext, yaml.safeLoad));
+    const now = new Date;
+
+    function isPublished(p) {
+        return p.date <= now && !p.data.draft;
+    }
 
     config.addCollection('updates', function (collectionApi) {
         /** @var {TemplateCollection} collectionApi */
@@ -48,7 +54,7 @@ module.exports = (config) => {
             'src/posts/**/*.md',
             'src/projects/**/*.md',
             'src/projects/**/*.md',
-        ]);
+        ]).filter(isPublished).reverse();
     });
 
     config.addCollection('tags', (collectionApi) => {

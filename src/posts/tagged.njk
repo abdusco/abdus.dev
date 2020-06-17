@@ -3,7 +3,7 @@ pagination: {data: collections.tags, size: 1, alias: tag}
 permalink: "{{ tag.url }}"
 eleventyComputed: {title: "Posts tagged #{{ tag.name }}"}
 ---
-{% set posts = collections[tag.name] | reverse %}
+{% set posts = collections[tag.name] | published | reverse %}
 
 <h1 class='page-title'><span class='c--primary'>Tagged</span> <span>{{ tag.name }}</span></h1>
 

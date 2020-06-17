@@ -3,6 +3,7 @@ title: Upgrade Python SQLite driver to latest version on Windows
 slug: sqlite-upgrade-windows
 date: 2020-02-20
 tags: 
+    - sqlite
     - python
     - post
 ---

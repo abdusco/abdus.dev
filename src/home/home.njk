@@ -14,7 +14,7 @@
 
     <section>
         <h2>updates</h2>
-        {% set posts = collections.updates | reverse %}
+        {% set posts = collections.updates %}
         {% include 'partials/post-list.njk' %}
     </section>
 {% endblock %}

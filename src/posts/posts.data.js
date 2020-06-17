@@ -3,7 +3,7 @@ const dayjs = require('dayjs');
 module.exports = {
     eleventyComputed: {
         permalink: ({permalink, slug}) => {
-            if (permalink) return permalink;
+            if (permalink !== undefined) return permalink;
             if (slug) return `/posts/${slug}/`;
         },
         category: ({category, tags = []}) => {
