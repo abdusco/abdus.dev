@@ -174,7 +174,7 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
     text-decoration: underline; } }
 
 :root {
-  --fz: 14px;
+  --fz: 16px;
   --bg-code: rgba(0, 0, 0, 0.025);
   --c-red: palevioletred;
   --c-gold: #FCB305;
@@ -197,13 +197,13 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
 
 @media screen and (min-width: 600px) {
   :root {
-    --fz: 16px;
+    --fz: 18px;
     --p-sides-x: 2rem;
     --scrollbar-size: 6px; } }
 
 @media screen and (min-width: 900px) {
   :root {
-    --fz: 18px;
+    --fz: 20px;
     --p-sides-x: 4rem;
     --p-sides-y: 4rem; } }
 
@@ -218,7 +218,8 @@ body {
   font-size: var(--fz);
   line-height: 1.6;
   color: var(--c-body);
-  background-color: var(--bg-body); }
+  background-color: var(--bg-body);
+  border-top: 0.25rem solid var(--c-primary); }
 
 img {
   max-width: 100%;
