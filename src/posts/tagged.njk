@@ -1,13 +1,16 @@
----
-pagination: {data: collections.tags, size: 1, alias: tag}
-permalink: "{{ tag.url }}"
-eleventyComputed: {title: "Posts tagged #{{ tag.name }}"}
----
-{% set posts = collections[tag.name] | published | reverse %}
+{% extends "single.njk" %}
 
-<h1 class='page-title'><span class='c--primary'>Tagged</span> <span>{{ tag.name }}</span></h1>
+{% block head %}
+    <meta name="robots" content="noindex">
+{% endblock %}
 
-{% include 'partials/post-list.njk' %}
+
+{% block content %}
+    {% set posts = collections[tag.name] | published | reverse %}
+    <h1 class='page-title'><span class='c--primary'>Tagged</span> <span>{{ tag.name }}</span></h1>
+    {% include 'partials/post-list.njk' %}
+{% endblock %}
+
 
 
 
