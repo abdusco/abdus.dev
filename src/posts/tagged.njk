@@ -4,7 +4,6 @@
     <meta name="robots" content="noindex">
 {% endblock %}
 
-
 {% block content %}
     {% set posts = collections[tag.name] | published | reverse %}
     <h1 class='page-title'><span class='c--primary'>Tagged</span> <span>{{ tag.name }}</span></h1>

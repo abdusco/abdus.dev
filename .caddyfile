@@ -1,30 +1,43 @@
-{
-    experimental_http3
+http://localhost:8081
+
+@static {
+    not {
+        path /api*
+    }
 }
-localhost:8081
+root @static dist
+file_server @static
 
-root * dist
-file_server
-
-encode zstd gzip
-
-header @static {
-    Cache-Control max-age=2629800 # 1 month
+@api {
+    path /api*
 }
+root @api api/public
+php_fastcgi @api 127.0.0.1:9000
+
+
+
+log {
+    format single_field common_log
+}
+
+encode gzip
 
 handle_errors {
-    rewrite * /{http.error.status_code}/
+    rewrite * /static/{http.error.status_code}/
     file_server
     templates
 }
 
-
 respond /favicon.ico 200
 header /favicon.ico Content-Type image/png
 
-@static {
+@asset {
     path *.css
     path *.ico
     path *.woff2
     path *.js
 }
+header @asset {
+    Cache-Control max-age=2629800 # 1 month
+}
+

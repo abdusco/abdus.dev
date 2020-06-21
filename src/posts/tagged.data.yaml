@@ -1,0 +1,8 @@
+layout: ''
+pagination:
+  data: collections.tags
+  size: 1
+  alias: tag
+permalink: "{{ tag.url }}"
+eleventyComputed:
+  title: "Posts tagged #{{ tag.name }}"
