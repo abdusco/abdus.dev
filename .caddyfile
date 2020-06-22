@@ -1,43 +1,14 @@
 http://localhost:8081
+log
 
-@static {
-    not {
-        path /api*
-    }
-}
-root @static dist
-file_server @static
-
-@api {
-    path /api*
-}
-root @api api/public
-php_fastcgi @api 127.0.0.1:9000
-
-
-
-log {
-    format single_field common_log
-}
-
+php_fastcgi /api* localhost:9090
+root /api* api/public
 encode gzip
 
+root * dist
+file_server
 handle_errors {
-    rewrite * /static/{http.error.status_code}/
+    rewrite * /{http.error.status_code}/
     file_server
     templates
 }
-
-respond /favicon.ico 200
-header /favicon.ico Content-Type image/png
-
-@asset {
-    path *.css
-    path *.ico
-    path *.woff2
-    path *.js
-}
-header @asset {
-    Cache-Control max-age=2629800 # 1 month
-}
-
