@@ -31,10 +31,6 @@ jobs:
 
       - name: deploy files
         run: |-
-          rm -rf /apps/web/abdus.dev/*
-          cp -r api dist/* /apps/web/abdus.dev
-      - name: deploy api
-        run: |-
-          rm -rf /apps/web/abdus.dev/api/*
+          rm -rf /apps/web/abdus.dev/static/*
+          cp -r dist/* /apps/web/abdus.dev/static
           cp -r api /apps/web/abdus.dev
-          composer install -d /apps/web/abdus.dev/api
