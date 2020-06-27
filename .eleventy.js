@@ -35,6 +35,7 @@ module.exports = (config) => {
         'src/_assets/css': 'assets/css',
         'src/_assets/fonts': 'assets/fonts',
         'src/_assets/js': 'assets/js',
+        'admin': 'admin'
     });
 
     config.addPassthroughCopy('src/**/*.{jpg,png,jpeg,svg}');
