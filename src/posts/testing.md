@@ -1,5 +1,5 @@
 ---
-title: Testing
+title: Testing Something
 tags:
   - post
   - lalala
