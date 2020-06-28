@@ -1,5 +1,6 @@
 ---
 title: Detecting USB drive insertion & removal on Windows using Python
+description: Monitor new drives on Windows and perform tasks
 date: 2020-06-28
 tags: 
     - python
@@ -31,20 +32,16 @@ from typing import Callable
 
 
 def get_drives() -> dict:
-    output = subprocess.getoutput('wmic logicaldisk get drivetype,name,volumename')
+    output = subprocess.getoutput('wmic logicaldisk get name,volumename')
     drives = {}
     for line in output.splitlines()[1:]:
         if not line.strip():
             continue
         try:
-            disk_type, letter, label = re.split(r'\s+', line.strip(), 2)
+            letter, label = re.split(r'\s+', line.strip(), 1)
         except:
-            [disk_type, letter], label = re.split(r'\s+', line.strip(), 1), ''
-        disk_type = int(disk_type)
-        drives[letter.strip(':')] = {
-            'label': label,
-            'removable': disk_type == 2
-        }
+            letter, label = line, ''
+        drives[letter.strip(':')] = label
     return drives
 
 
@@ -72,9 +69,10 @@ a dict of current set of drives.
 
 Here's the output after I plug a USB drive in and out: 
 ```text
-{'C': {'label': 'SYS', 'removable': False}, 'D': {'label': 'RESERVE', 'removable': False}}
-{'C': {'label': 'SYS', 'removable': False}, 'D': {'label': 'RESERVE', 'removable': False}, 'E': {'label': 'ME', 'removable': True}}
+{'C': 'SYS', 'D': 'RESERVE'}
+{'C': 'SYS', 'D': 'RESERVE', 'E': 'ME'}
+{'C': 'SYS', 'D': 'RESERVE'}
 ```
 
-[wmic.docs]: {{ wmic_docs }}
-[^wmic]: Windows Management Instrumentation Commandline. [Documentation][wmic.docs] for `logicaldisk` class.
+[wmic_docs]: {{ wmic_docs }}
+[^wmic]: Windows Management Instrumentation Commandline. [Documentation][wmic_docs] for `logicaldisk` class.
