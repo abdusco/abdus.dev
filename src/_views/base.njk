@@ -31,5 +31,10 @@
 
 {% block foot %}
 {% endblock foot %}
+
+
+{% if env.prod %}
+{% include 'partials/analytics.njk' %}
+{% endif %}
 </body>
 </html>
