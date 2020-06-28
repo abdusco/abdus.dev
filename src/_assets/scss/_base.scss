@@ -78,7 +78,7 @@ h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6 {
-    font-family: ampersand, $font;
+    font-family: $font;
     line-height: 1.2;
     font-weight: 600;
     margin: 1em 0;
@@ -188,6 +188,15 @@ code {
         --bg-code: transparent;
         padding: 0;
     }
+}
+
+details {
+    margin: 2rem 0;
+}
+
+summary {
+    font-weight: 600;
+    margin-bottom: 1rem;
 }
 
 .d--i {

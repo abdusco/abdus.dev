@@ -231,7 +231,7 @@ h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6 {
-  font-family: ampersand, inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   line-height: 1.2;
   font-weight: 600;
   margin: 1em 0; }
@@ -310,6 +310,13 @@ code {
   pre code {
     --bg-code: transparent;
     padding: 0; }
+
+details {
+  margin: 2rem 0; }
+
+summary {
+  font-weight: 600;
+  margin-bottom: 1rem; }
 
 .d--i {
   display: inline; }
