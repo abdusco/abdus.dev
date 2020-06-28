@@ -5,6 +5,8 @@ date: 2020-01-06
 tags: 
     - til
     - post
+$aliases:
+    - til/thinkpad-p1-bootloop-fix/
 ---
 
 # {{ title }}

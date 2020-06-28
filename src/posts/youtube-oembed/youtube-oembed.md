@@ -5,6 +5,8 @@ date: 2019-12-31
 tags:
     - til
     - post
+$aliases:
+    - til/youtube-oembed-support/
 ---
 
 # {{ title }}

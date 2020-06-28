@@ -6,6 +6,8 @@ tags:
     - ssh
     - til
     - post
+$aliases:
+    - til/ssh-agent/
 ---
 
 # {{ title }}
