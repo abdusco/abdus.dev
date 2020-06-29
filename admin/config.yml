@@ -1,5 +1,7 @@
 backend:
   name: github
+  base_url: https://lambda.abdusco.vercel.app
+  auth_endpoint: netlify/auth
   repo: abdusco/abdus.dev
   branch: master
   commit_messages:
