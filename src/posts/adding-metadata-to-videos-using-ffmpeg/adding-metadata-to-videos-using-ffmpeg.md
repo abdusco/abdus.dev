@@ -17,7 +17,7 @@ This time I've decided to add metadata about title, year, IMDb links, artists et
 ffmpeg supports practically anything under the sun, including adding metadata. [This answer][https://stackoverflow.com/a/11479066/5298150] on StackOverflow put me in the right path. With ffmpeg, adding metadata is simply including `-metadata key=value` arguments in the command:
 
 ```cmd
-ffmpeg -i video.mkv -c:a copy -c:v copy -c:s copy -movflags use_metadata_tags -map_metadata 0 -metadata title="Hello World" year=2020 video.metadata.mkv
+ffmpeg -i video.mkv -c:a copy -c:v copy -c:s copy -movflags use_metadata_tags -map_metadata 0 -metadata title="Hello World" -metadata year=2020 video.metadata.mkv
 ```
 
 Some important points:
