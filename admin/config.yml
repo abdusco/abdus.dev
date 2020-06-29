@@ -46,8 +46,8 @@ collections:
         fields:
           - {name: alt, label: Alt, widget: string}
           - {name: url, label: URL, widget: image}
-      - name: files, 
-        label: Files, 
+      - name: files
+        label: Files
         widget: list
         fields:
           - {name: alt, label: Alt, widget: string}
