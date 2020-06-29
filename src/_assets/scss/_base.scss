@@ -1,6 +1,6 @@
 :root {
     --fz: 16px;
-    --bg-code: #{rgba(black, 0.025)};
+    --bg-code: #{rgba(#222, 0.025)};
     --c-red: #db7093;
     --c-gold: #FCB305;
 
@@ -24,6 +24,7 @@
         :root {
             --c-body: #fefefe;
             --bg-body: #222;
+            --bg-code: rgba(48, 51, 55, 0.46);
 
             --scrollbar-track: #999;
             --scrollbar-thumb: #666;
