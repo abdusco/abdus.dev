@@ -1,0 +1,54 @@
+backend:
+  name: github
+  base_url: https://lambda.abdusco.vercel.app
+  auth_endpoint: netlify/auth
+  repo: abdusco/abdus.dev
+  branch: master
+  commit_messages:
+    create: create {{collection}} '{{slug}}'
+    update: update {{collection}} '{{slug}}'
+    delete: delete {{collection}} '{{slug}}'
+    uploadMedia: upload '{{path}}'
+    deleteMedia: delete '{{path}}'
+    openAuthoring: '{{message}}'
+
+publish_mode: editorial_workflow
+media_folder: src/uploads
+public_folder: /uploads
+site_url: https://abdus.dev
+display_url: https://abdus.dev
+
+slug:
+  encoding: 'ascii'
+  clean_accents: true
+  sanitize_replacement: '-'
+
+collections:
+  - name: post
+    label: Post
+    folder: src/posts
+    path: '{{slug}}/{{slug}}'
+    preview_path: 'posts/{{slug}}'
+    media_folder: ''
+    public_folder: ''
+    format: yaml-frontmatter
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - {name: title, label: Title, widget: string}
+      - {name: description, label: Description, widget: string}
+      - {name: tags, label: Tags, widget: list, default: ['post']}
+      - {name: date, label: Date, widget: datetime, format: YYYY-MM-DD, dateFormat: YYYY-MM-DD}
+      - {name: body, label: Body, widget: markdown}
+      - name: images
+        label: Images
+        widget: list
+        fields:
+          - {name: alt, label: Alt, widget: string}
+          - {name: url, label: URL, widget: image}
+      - name: files, 
+        label: Files, 
+        widget: list
+        fields:
+          - {name: alt, label: Alt, widget: string}
+          - {name: url, label: URL, widget: file}
