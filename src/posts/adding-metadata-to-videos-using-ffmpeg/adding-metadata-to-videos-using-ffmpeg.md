@@ -5,7 +5,7 @@ tags:
   - ffmpeg
   - python
   - post
-date: 2020-06-29
+date: 2020-06-29T00:00:00.000Z
 ---
 # {{title}}
 
@@ -83,4 +83,6 @@ if __name__ == '__main__':
 [metadata]: /posts/powershell-file-metadata-guide/#video-metadata
 [matroska]: https://www.matroska.org/technical/tagging.html
 [kodi]: https://kodi.wiki/view/Video_file_tagging#Supported_Tags
-[^0]: https://video.stackexchange.com/questions/23741/how-to-prevent-ffmpeg-from-dropping-metadata
+[answer]: https://video.stackexchange.com/questions/23741/how-to-prevent-ffmpeg-from-dropping-metadata
+
+[^0]: From [this][answer] StackOverflow answer
