@@ -7,7 +7,7 @@ tags:
   - sql
 date: 2020-06-30T00:00:00.000Z
 ---
-This is a list of snippets I keep searching and forgetting over and over. I want to write these down to easily remember. 
+This is a list of snippets I keep searching and forgetting over and over. I want to believe that writing these down will help me remember easily, at least until I develop muscle memory.
 
 # Creating a database, user and giving permissions
 
@@ -23,3 +23,5 @@ Another approach is to create user first:
 CREATE USER demo_user WITH ENCRYPTED PASSWORD 'secret';
 CREATE DATABASE demo OWNER demo_user;
 ```
+
+
