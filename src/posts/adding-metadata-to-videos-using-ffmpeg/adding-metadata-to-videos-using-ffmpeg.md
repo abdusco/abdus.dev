@@ -14,7 +14,7 @@ I've been maintaining a movie archive for years now. Every year or so I go over 
 This time I've decided to add metadata about title, year, IMDb links, artists etc. to videos. I've written about [a way to do it on PowerShell][metadata], but nothing comes closer to joy I get from writing in Python.
 
 ## ffmpeg command
-ffmpeg supports practically anything under the sun, including adding metadata. [This answer][https://stackoverflow.com/a/11479066/5298150] on StackOverflow put me in the right path. With ffmpeg, adding metadata is simply including `-metadata key=value` arguments in the command:
+ffmpeg supports practically anything under the sun, including adding metadata. [This answer][ffmpeg_addmeta] on StackOverflow put me in the right path. With ffmpeg, adding metadata is simply including `-metadata key=value` arguments in the command:
 
 ```cmd
 ffmpeg -i video.mkv -c:a copy -c:v copy -c:s copy -movflags use_metadata_tags -map_metadata 0 -metadata title="Hello World" -metadata year=2020 video.metadata.mkv
@@ -22,7 +22,7 @@ ffmpeg -i video.mkv -c:a copy -c:v copy -c:s copy -movflags use_metadata_tags -m
 
 Some important points:
 - Use `-c:a copy`, `-c:v copy` and `-c:s copy` to copy audio, video and subtitle streams directly without encoding.
-- Use `-map_metadata 0` to copy over existing meta tags without changing them[^0].
+- Use `-map_metadata 0` to copy over existing meta tags without changing them[^ffmpeg_keepmeta].
 
 Not all containers support every metadata. For reference you can check [Matroska spec][matroska] for MKV and [Kodi docs][kodi] for MP4.
 
@@ -83,6 +83,7 @@ if __name__ == '__main__':
 [metadata]: /posts/powershell-file-metadata-guide/#video-metadata
 [matroska]: https://www.matroska.org/technical/tagging.html
 [kodi]: https://kodi.wiki/view/Video_file_tagging#Supported_Tags
-[answer]: https://video.stackexchange.com/questions/23741/how-to-prevent-ffmpeg-from-dropping-metadata
+[ffmpeg_addmeta]: https://stackoverflow.com/a/11479066/5298150
+[ffmpeg_keepmeta]: https://video.stackexchange.com/questions/23741/how-to-prevent-ffmpeg-from-dropping-metadata
 
-[^0]: From [this][answer] StackOverflow answer
+[^ffmpeg_keepmeta]: From [this][ffmpeg_keepmeta] StackOverflow answer
