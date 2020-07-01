@@ -1,5 +1,6 @@
 require('dotenv').config();
 require('module-alias/register');
+
 const UserConfig = require('@11ty/eleventy/src/UserConfig')
 const TemplateCollection = require('@11ty/eleventy/src/TemplateCollection')
 
@@ -78,7 +79,18 @@ module.exports = (config) => {
                     url,
                 }));
             });
+        config._collectionApi = collectionApi;
         return _.flatten(aliased);
+    });
+
+    config.on('afterBuild', () => {
+        /** @var {TemplateCollection} api  */
+        const api = config._collectionApi;
+
+        const redirects = api.getAll().filter(it => it.data.$aliases)
+            .map(it => ({from: it.data.$aliases, to: it.url}));
+
+        buildCaddyConfig(redirects);
     });
 
 
@@ -100,6 +112,22 @@ module.exports = (config) => {
     }
 };
 
+/**
+ * @param {{from: string[], to: string}[]} items
+ */
+function buildCaddyConfig(items) {
+    const normalizePath = p => `/${p.replace(/^\/|\/$/, '')}/`;
+    const renderRedirect = (from, to) => `redir ${from} ${to} permanent`
+    const lines = [];
+    items.forEach(it => it.from.map(normalizePath).forEach(from => lines.push(renderRedirect(from, it.to))));
+
+    // dont write empty file
+    if (lines.length === 0) {
+        lines.push('#')
+    }
+    const contents = lines.join('\n');
+    fs.writeFileSync(__dirname + '/dist/.redirects.caddy', contents);
+}
 
 function markdownFactory() {
     let options = {
