@@ -4,8 +4,10 @@ description: A couple lines of Javascript and done.
 tags:
   - javascript
   - post
-date: 2020-07-01
+date: 2020-07-01T00:00:00.000Z
 ---
+# {{title}}
+
 I enjoy building server-rendered apps. They're faster to build, more straightforward, and easy to get your head around.
 
 One tool I keep reaching for is [Alpine JS][alpine], which is a tiny library that helps building components on a server-rendered page with a Vue-like syntax. 
