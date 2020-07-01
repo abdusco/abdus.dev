@@ -34,3 +34,6 @@ jobs:
           rm -rf /apps/web/abdus.dev/static/*
           cp -r dist/. /apps/web/abdus.dev/static
           cp -r api /apps/web/abdus.dev
+      - name: reload caddy
+        run: |-
+          caddy reload --config /etc/caddy/Caddyfile
