@@ -32,5 +32,5 @@ jobs:
       - name: deploy files
         run: |-
           rm -rf /apps/web/abdus.dev/static/*
-          cp -r dist/* /apps/web/abdus.dev/static
+          cp -r dist/. /apps/web/abdus.dev/static
           cp -r api /apps/web/abdus.dev
