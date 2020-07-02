@@ -1,14 +1,17 @@
 ---
 title: Upgrade Python SQLite driver to latest version on Windows
 slug: sqlite-upgrade-windows
+description: Use JSON1 and FTS5 extensions on Windows
+tags:
+  - sqlite
+  - python
+  - post
 date: 2020-02-20
-tags: 
-    - sqlite
-    - python
-    - post
 ---
 
 # {{ title }}
+
+SQLite has an extension called [`JSON1`][json1] to work on JSON columns. It's really useful for storing metadata about a record that wouldn't necessarily belong to a separate column, like metadata. But SQLite driver doesn't include this extension by default on Windows. So we'll have to manually upgrade it.
 
 Download the latest compiled DLL for Windows: 
 
@@ -41,7 +44,7 @@ powershell -command "start (join-path (split-path (get-command python).Path) "dl
 
 ## SQLite compile options
 
-Using Python, check the list of compile options:
+Using `python`, check the list of compile options to verify if it worked:
 
 ```python
 import sqlite3
@@ -66,4 +69,8 @@ TEMP_STORE=1
 THREADSAFE=1
 ```
 
+Thanks to new driver, we now have access to [`FTS5`][fts5] for working with full text search, in addition to `JSON1` extension.
+
 [sqlite]: {{ sqliteDownloadUrl }}
+[json1]: https://www.sqlite.org/json1.html
+[fts5]: https://www.sqlite.org/fts5.html
