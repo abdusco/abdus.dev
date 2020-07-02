@@ -11,7 +11,7 @@ date: 2020-02-20
 
 # {{ title }}
 
-SQLite has an extension called [`JSON1`][json1] to work on JSON columns. It's really useful for storing metadata about a record that wouldn't necessarily belong to a separate column, like metadata. But SQLite driver doesn't include this extension by default on Windows. So we'll have to manually upgrade it.
+SQLite has an extension called [`JSON1`][json1] to work on JSON columns. It's really useful for storing data that wouldn't necessarily belong to a separate column, like metadata. But SQLite driver doesn't include this extension by default on Windows. So we'll have to manually upgrade it.
 
 Download the latest compiled DLL for Windows: 
 
