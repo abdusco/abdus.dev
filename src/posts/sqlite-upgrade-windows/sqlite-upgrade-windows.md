@@ -11,7 +11,7 @@ date: 2020-02-20
 
 # {{ title }}
 
-SQLite has an extension called `JSON1` to work on JSON columns. It's really useful for storing metadata about a record that wouldn't necessarily belong to a separate column, like metadata. But SQLite driver doesn't include this extension by default on Windows. So we'll have to manually upgrade it.
+SQLite has an extension called [`JSON1`][json1] to work on JSON columns. It's really useful for storing metadata about a record that wouldn't necessarily belong to a separate column, like metadata. But SQLite driver doesn't include this extension by default on Windows. So we'll have to manually upgrade it.
 
 Download the latest compiled DLL for Windows: 
 
@@ -69,6 +69,8 @@ TEMP_STORE=1
 THREADSAFE=1
 ```
 
-Thanks to new driver, we now have access to `FTS5` for working with full text search, in addition to `JSON1` extension.
+Thanks to new driver, we now have access to [`FTS5`][fts5] for working with full text search, in addition to `JSON1` extension.
 
 [sqlite]: {{ sqliteDownloadUrl }}
+[json1]: https://www.sqlite.org/json1.html
+[fts5]: https://www.sqlite.org/fts5.html
