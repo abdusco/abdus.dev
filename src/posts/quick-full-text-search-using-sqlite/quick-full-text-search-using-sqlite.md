@@ -4,6 +4,7 @@ description: Practical intro to using full-text search in SQLite
 tags:
   - post
   - sqlite
+  - python
 date: 2020-07-02
 ---
 # {{ title }}
