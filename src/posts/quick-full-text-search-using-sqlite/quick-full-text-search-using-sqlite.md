@@ -36,7 +36,7 @@ CREATE VIRTUAL TABLE posts_fts USING fts5
 );
 ```
 
-Here `content=posts` indicate that SQLite will query `posts` table whenever it needs to column values.
+Here `content=posts` indicate that SQLite will query `posts` table whenever it needs to access column values.
 By default SQLite uses `rowid` column to find the row it needs,
 but an optional `content_rowid=id` parameter can be specified to instruct to use the preferred key column [^ftsconfig].
 
