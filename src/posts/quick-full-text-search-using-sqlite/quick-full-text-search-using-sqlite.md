@@ -15,7 +15,7 @@ then perform searches using keywords against the table.
 
 We'll start with a common scenario, where we keep a set of blog posts in a `posts` table:
 
-```sqlite
+```sql
 CREATE TABLE posts
 (
     id    INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -27,7 +27,7 @@ CREATE TABLE posts
 We want to conduct searches on `title` and `body` columns of a post.
 Then the corresponding FTS table definition would be:
 
-```sqlite
+```sql
 CREATE VIRTUAL TABLE posts_fts USING fts5
 (
     title,
@@ -46,7 +46,7 @@ We've set up FTS indices, but we need to keep it current,
 and for that we'll create a couple of triggers that hook into `posts` table
 and add/update/remove content from the index:
 
-```sqlite
+```sql
 CREATE TRIGGER posts_fts_insert AFTER INSERT ON posts
 BEGIN
     INSERT INTO posts_fts (rowid, title, body) VALUES (new.rowid, new.title, new.body);
@@ -65,7 +65,7 @@ END;
 ```
 Now we can insert new records into `posts` table and FTS index will be populated automatically.
 
-```sqlite
+```sql
 INSERT INTO posts(title, body)
 VALUES ('I daresay that Fry has discovered the smelliest object in the known universe!',
         'Soothe us with sweet lies. You''ve killed me! Oh, you''ve killed me! Good news, everyone! There''s a report on TV with some very bad news! Look, last night was a mistake.'),
@@ -77,7 +77,7 @@ VALUES ('I daresay that Fry has discovered the smelliest object in the known uni
 
 Now we can perform full-text searches using FTS table to find matching records, then get the content for those.
 
-```sqlite
+```sql
 SELECT *
 FROM posts
 WHERE ROWID IN (SELECT ROWID FROM posts_fts WHERE posts_fts MATCH 'fry' ORDER BY rank);
@@ -88,7 +88,7 @@ and order the results according to their relevance using `rank` value.
 
 this gives us a match as expected:
 
-```text
+```commandline
 sqlite> .mode line
 sqlite> SELECT *
    ...> FROM posts
