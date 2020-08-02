@@ -40,7 +40,7 @@ if (-not $ip) {
 Copy-Item -Path $hostsPath -Destination "$hostsPath.bak"
 
 # update wsl ip
-$hosts = (Get-Content -Path $hostsPath -Raw).Trim()
+$hosts = ([string](Get-Content -Path $hostsPath)).Trim()
 $find = "$ipPattern\s+$hostname"
 $entry = "$ip $hostname"
 
