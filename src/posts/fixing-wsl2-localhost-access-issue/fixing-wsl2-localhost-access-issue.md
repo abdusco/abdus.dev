@@ -11,9 +11,11 @@ images:
   - url: wsl-event.png
     alt: Events logged after starting WSL
 ---
-I've been using [WSL][^wsl] ever since it came out. It was nice being able to run Linux on Windows without the overhead of VMs. But it had some issues, like not being able to run Docker natively. Microsoft then released a new version called WSL2 which has brought native Docker support. 
+# {{title}}
 
-One feature of WSL is that it allows sharing IP address space for services listening to [localhost][^localhost]. This means one can access servers running on WSL on Windows by its address e.g. `localhost:8000`
+I've been using [WSL][wsl] ever since it came out. It was nice being able to run Linux on Windows without the overhead of VMs. But it had some issues, like not being able to run Docker natively. Microsoft then released a new version called WSL2 which has brought native Docker support. 
+
+One feature of WSL is that it allows sharing IP address space for services listening to [localhost][localhost]. This means one can access servers running on WSL on Windows by its address e.g. `localhost:8000`
 
 ## Problem 
 Localhost redirection [often fails][issues] for some reason, such as when PC sleeps and wakes up, and localhost access to Linux services does not work anymore.
