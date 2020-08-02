@@ -7,44 +7,6 @@
   resolved "https://registry.yarnpkg.com/@11ty/dependency-tree/-/dependency-tree-1.0.0.tgz#b1fa53da49aafe0ab3fe38bc6b6058b704aa59a1"
   integrity sha512-2FWYlkphQ/83MG7b9qqBJfJJ0K9zupNz/6n4EdDuNLw6hQHGp4Sp4UMDRyBvA/xCTYDBaPSuSjHuu45tSujegg==
 
-"@11ty/eleventy@^0.11.0":
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/@11ty/eleventy/-/eleventy-0.11.0.tgz#e9ca1f68d24fe0df5d7449bb4ca4405cae2c0172"
-  integrity sha512-ozkfpmSlhodVoGCNFhBFsNbFxJbaiPYiVGKCeVdsFBTfDLhGyWS8cieNWjsvKyEHWT8OLNSIBvJYv4JxuxTivg==
-  dependencies:
-    "@11ty/dependency-tree" "^1.0.0"
-    browser-sync "^2.26.7"
-    chalk "^3.0.0"
-    chokidar "^3.4.0"
-    debug "^4.1.1"
-    dependency-graph "^0.9.0"
-    ejs "^2.7.4"
-    fast-glob "^3.2.2"
-    fs-extra "^8.1.0"
-    gray-matter "^4.0.2"
-    hamljs "^0.6.2"
-    handlebars "^4.7.6"
-    javascript-stringify "^2.0.1"
-    liquidjs "^6.4.3"
-    lodash "^4.17.15"
-    luxon "^1.24.1"
-    markdown-it "^10.0.0"
-    minimist "^1.2.5"
-    moo "^0.5.1"
-    multimatch "^4.0.0"
-    mustache "^2.3.2"
-    normalize-path "^3.0.0"
-    nunjucks "^3.2.1"
-    parse-filepath "^1.0.2"
-    please-upgrade-node "^3.2.0"
-    pretty "^2.0.0"
-    pug "^2.0.4"
-    recursive-copy "^2.0.10"
-    semver "^7.3.2"
-    slugify "^1.4.0"
-    time-require "^0.1.2"
-    valid-url "^1.0.9"
-
 "@11ty/eleventy@https://github.com/11ty/eleventy":
   version "0.11.0"
   resolved "https://github.com/11ty/eleventy#d3dfcec1a50f86916213eb321137432109717186"
@@ -2590,10 +2552,10 @@ lodash.isfinite@^3.3.2:
   resolved "https://registry.yarnpkg.com/lodash.isfinite/-/lodash.isfinite-3.3.2.tgz#fb89b65a9a80281833f0b7478b3a5104f898ebb3"
   integrity sha1-+4m2WpqAKBgz8LdHizpRBPiY67M=
 
-lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.15, lodash@^4.17.4, lodash@~4.17.10:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.4, lodash@~4.17.10:
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 longest@^1.0.1:
   version "1.0.1"
