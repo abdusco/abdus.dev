@@ -67,7 +67,7 @@ catch {
 }
 ```
 
-Save this file as `wsl.ps1` and run it to add an entry for WSL in hosts file.
+Save this file as `wsl.ps1` and run it as admin to add an entry for WSL in hosts file.
 
 ```cmd
 powershell -file wsl.ps1
