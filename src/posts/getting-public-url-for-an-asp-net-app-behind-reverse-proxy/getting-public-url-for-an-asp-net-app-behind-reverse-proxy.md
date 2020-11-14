@@ -21,7 +21,7 @@ At startup, I gather a list of cron jobs inside a `HostedService`,
 then broadcast them to crontab-service to have them pinged later. 
 
 
-## Running app behind a reverse proxy
+## Problem: reverse proxies
 
 A problem I faced while building the URLs was to find out the public facing URL for the web app.
 I can't just get these URLs from Kestrel or any other component because my app will be listening to localhost at some port. 
