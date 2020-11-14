@@ -118,7 +118,7 @@ public class BackgroundWorker : BackgroundService
         }
         catch (OperationCanceledException)
         {
-            // App is closing
+            // App is stopping
         }
         
         return Task.CompletedTask;
