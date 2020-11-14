@@ -29,16 +29,16 @@ App has no idea about whether there's a server proxying requests to it, such as 
 It has to wait until the first request to find out the actual URL that reaches the app.
 
 A workaround I've implemented was to supply a URL template `https://public.url/-/cronjobs/{name}` and generate URLs with it.
-But if the URL is out of my control, as in the case of a lambda function with random URL assigned by cloud provider, 
+But if the URL is out of my control, as in the case of a lambda function with a random URL assigned by a cloud provider, 
 I would still have to get the URL.
 
-When working inside a HTTP context, I can find out which URL is being handled using
+When working inside an HTTP context, I can find out which URL is being handled using
 
 ```c#
 var url = context.Request.GetDisplayUrl()
 ```
 
-But a background service is working outside HTTP context, so it still cannot know about any HTTP event.
+But a background service works outside the HTTP context, so it still cannot know about any HTTP event.
 
 ## Solution
 
