@@ -112,6 +112,7 @@ public class BackgroundWorker : BackgroundService
         _logger.LogInformation("Waiting for the first request");
         try
         {
+            // this line is blocking execution until event is set
             var url = _registry.WaitForUrl(stoppingToken);
             _logger.LogInformation("Got {url}", url.GetLeftPart(UriPartial.Authority));
         }
