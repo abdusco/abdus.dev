@@ -2,7 +2,7 @@
 title: Projects
 layout: single
 ---
-{% set posts = collections.project %}
+{% set posts = collections.project | reverse %}
 {% set hiddenTags = ["project"] %}
 
 <h1 class='page-title'>Projects</h1>
