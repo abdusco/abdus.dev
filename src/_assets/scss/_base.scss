@@ -11,7 +11,7 @@
     --c-link: var(--c-red);
     --c-primary: var(--c-red);
 
-
+    --stripe-size: 0.5rem;
 
     --scrollbar-track: #eee;
     --scrollbar-thumb: #ccc;
@@ -64,7 +64,8 @@ body {
     line-height: 1.6;
     color: var(--c-body);
     background-color: var(--bg-body);
-    border-top: 0.25rem solid var(--c-primary);
+    border-top: var(--stripe-size) solid var(--c-primary);
+    border-bottom: var(--stripe-size) solid var(--c-primary);
 }
 
 
@@ -189,6 +190,15 @@ code {
         --bg-code: transparent;
         padding: 0;
     }
+}
+
+table {
+    // width: 100%;
+    border-spacing: 0.75rem 0.25rem;
+}
+
+td, th {
+    // padding: 0 0.25rem;
 }
 
 details {

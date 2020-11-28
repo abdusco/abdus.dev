@@ -184,6 +184,7 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
   --p-sides-y: 2rem;
   --c-link: var(--c-red);
   --c-primary: var(--c-red);
+  --stripe-size: 0.5rem;
   --scrollbar-track: #eee;
   --scrollbar-thumb: #ccc;
   --scrollbar-size: 4px; }
@@ -220,7 +221,8 @@ body {
   line-height: 1.6;
   color: var(--c-body);
   background-color: var(--bg-body);
-  border-top: 0.25rem solid var(--c-primary); }
+  border-top: var(--stripe-size) solid var(--c-primary);
+  border-bottom: var(--stripe-size) solid var(--c-primary); }
 
 img {
   max-width: 100%;
@@ -311,6 +313,9 @@ code {
   pre code {
     --bg-code: transparent;
     padding: 0; }
+
+table {
+  border-spacing: 0.75rem 0.25rem; }
 
 details {
   margin: 2rem 0; }
