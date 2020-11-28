@@ -1,5 +1,5 @@
 ---
-title: askme
+title: askme - a mini prompt
 description: A simple app to prompt question and dump answers to console as JSON
 date: 2020-11-27
 tags:
