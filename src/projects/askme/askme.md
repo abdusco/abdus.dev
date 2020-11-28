@@ -22,7 +22,7 @@ A dialog should appear with inputs to type answers in:
 
 ![askme dialog](./askme.png)
 
-When saved with clicking the button or hitting `[ENTER]` key, app exits and answers are printed to console as JSON.
+When saved with clicking the Save button or hitting `[ENTER]` key, app exits and answers are printed to console as JSON.
 
 ```json
 {"new filename":"new.txt","year":"2020"}
