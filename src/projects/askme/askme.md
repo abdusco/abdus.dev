@@ -28,7 +28,7 @@ When saved with clicking the Save button or hitting `[ENTER]` key, app exits and
 {"new filename":"new.txt","year":"2020"}
 ```
 
-Then this can be consumed from any script by reading stdout and deserialing the JSON.
+Then answers can be consumed from any script by reading the stdout and deserializing the JSON.
 
 Hitting `[Esc]` key closes the window and nothing is printed to console.
 
