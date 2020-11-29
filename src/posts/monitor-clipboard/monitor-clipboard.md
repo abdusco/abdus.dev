@@ -89,7 +89,9 @@ This worked much better. Because now I can capture this process's output, and tr
 To capturing the output of a process, we need to launch it with `subprocess.Popen` and pipe its output to `subprocess.PIPE`.
 Also, we need to capture its stdout in a separate thread. Because the thread that launches the process will be waiting for it to terminate (despite the fact that it never will).
 
-Because the process doesn't terminate, the thread that consumes its stdout doesn't stop, either. It consumes the process's output as it comes in, which blocks if there's nothing to consume. 
+Because the process doesn't terminate, the thread that consumes its stdout doesn't stop, either. 
+It consumes the process's output as new content comes in, and waits if there's nothing to consume, because `proc.stdout.readline()` is blocking.
+When the process is killed, proc.stdout doesn't block anymore and the thread terminates.
 
 
 ```python
@@ -109,7 +111,6 @@ def monitor_clipboard(on_change: Callable[[dict], None]) -> None:
     proc = subprocess.Popen(
         ["dumpclip.v2.exe", "--listen"],
         text=True,
-        universal_newlines=True,
         stdout=subprocess.PIPE,
     )
     th = threading.Thread(
