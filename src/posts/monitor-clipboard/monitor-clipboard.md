@@ -91,7 +91,7 @@ Also, we need to capture its stdout in a separate thread. Because the thread tha
 
 Because the process doesn't terminate, the thread that consumes its stdout doesn't stop, either. 
 It consumes the process's output as new content comes in, and waits if there's nothing to consume, because `proc.stdout.readline()` is blocking.
-When the process is killed, proc.stdout doesn't block anymore and the thread terminates.
+When the process gets killed, `proc.stdout` stops blocking and the thread terminates.
 
 
 ```python
