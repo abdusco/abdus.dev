@@ -39,7 +39,7 @@ module.exports = (config) => {
         'admin': 'admin'
     });
 
-    config.addPassthroughCopy('src/**/*.{jpg,png,jpeg,svg}');
+    config.addPassthroughCopy('src/**/*.{jpg,png,jpeg,svg,gif}');
     config.addPassthroughCopy('src/[^_]*/**/*[^.]+.js');
 
 
