@@ -1,11 +1,13 @@
 ---
 title: Monitoring clipboard with Python
-date: 2020-11-30
+description: A way listen to clipboard updates and trigger actions depending on
+  clipboard content
 tags:
-    - python
-    - c#
-    - windows
-    - post
+  - python
+  - c#
+  - windows
+  - post
+date: 2020-11-30
 ---
 
 # {{title}}
@@ -72,7 +74,7 @@ This worked fine, but I didn't want to keep launching a process every second.
 
 ## Second iteration: registering a clipboard listener
 
-Second iteration involved using Win32 APIs. I've used [`SetClipboardViewer`][setclipboardviewer] to register a callback for clipboard changes in C#, then retrieved & dumped clipboard contents as the new content came in.
+Second iteration involved using Win32 APIs. I've used [`AddClipboardFormatListener `][clip_api] to register a callback for clipboard changes in C#, then retrieved & dumped clipboard contents as the new content came in.
 
 ```powershell
 > dumpclip.v2.exe --listen
@@ -135,4 +137,4 @@ To prevent blocking interrupt signal and let the subprocess exit, we need to `.w
 
 [dumpclip]: https://abdus.dev/projects/dumpclip/
 [dumpclip_repo]: https://github.com/abdusco/dumpclip
-[setclipboardviewer]: https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setclipboardviewer
+[clip_api]: https://docs.microsoft.com/en-us/windows/win32/dataxchg/using-the-clipboard#creating-a-clipboard-format-listener
