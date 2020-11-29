@@ -74,7 +74,7 @@ This worked fine, but I didn't want to keep launching a process every second.
 
 ## Second iteration: registering a clipboard listener
 
-Second iteration involved using Win32 APIs. I've used [`AddClipboardFormatListener `][clip_api] to register a callback for clipboard changes in C#, then retrieved & dumped clipboard contents as the new content came in.
+Second iteration involved using Win32 APIs. I've used [`AddClipboardFormatListener`][clip_api] to register a callback for clipboard changes in C#, then retrieved & dumped clipboard contents as the new content came in.
 
 ```powershell
 > dumpclip.v2.exe --listen
