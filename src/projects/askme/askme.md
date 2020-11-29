@@ -38,8 +38,8 @@ Hitting `[Esc]` key closes the window and nothing is printed to console.
 | Code | Reason |
 |-----:|:-------|
 |`0`| User submitted the answers|
-|`-1`| User cancelled the prompt|
 |`1`| Failed to parse questions|
+|`2`| User cancelled the prompt|
 
 
 ## Download
