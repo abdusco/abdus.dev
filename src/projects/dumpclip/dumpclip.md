@@ -41,7 +41,7 @@ Run the program with `--listen` flag.
 dumpclip.exe --listen
 ```
 
-The program will listen to clipboard in the background and dump contents to console when the clipboard contents changes.
+The program will listen to clipboard and dump contents to console when the clipboard content changes. You can stop listening by exiting the program with `[Ctrl]` + `[C]`
 
 ```json
 {"files":["D:\\_dev\\windows\\ClipboardDemo\\DumpClipboard\\bin\\Release\\dumpclip.exe"]}
