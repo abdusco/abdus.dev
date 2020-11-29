@@ -1,34 +1,35 @@
 ---
-title: askme - a mini prompt
+title: askme - a mini utility for prompting questions
 description: A simple app to prompt question and dump answers to console as JSON
 date: 2020-11-27
 tags:
     - app
+    - utility
     - project
 ---
 
 # {{ title }}
 
-askme is a mini application that prompts user questions and prints answers in key-value format to console.
-Questions are provided as command arguments as `"question"` or as `"question=default answer"` format.
+**askme** is a mini utility that prompts user questions and prints answers in key-value format to console.
+Questions are provided as command arguments as `"question"` or as `"question=default answer"` format. You can also specify a key with `key:` prefix.
 
 ## Usage
 
 ```powershell
-askme.exe "new filename=oldname.txt" "year"
+askme.exe "filename:Filename for export=export.zip" "author:Author?"
 ```
 
-A dialog should appear with inputs to type answers in:
+A dialog should appear with inputs to type the answers:
 
-![askme dialog](./askme.png)
+![askme dialog](./askme.gif)
 
-When saved with clicking the Save button or hitting `[ENTER]` key, app exits and answers are printed to console as JSON.
+When saved with clicking the Save button or hitting `[ENTER]` key, app exits and the user inputs are printed to console as JSON.
 
 ```json
-{"new filename":"new.txt","year":"2020"}
+{"filename":"export.zip","author":"Abdus"}
 ```
 
-Then answers can be consumed from any script by reading the stdout and deserializing the JSON.
+The response can then be consumed from any script by reading the stdout and deserializing the JSON.
 
 Hitting `[Esc]` key closes the window and nothing is printed to console.
 
