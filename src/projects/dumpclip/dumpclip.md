@@ -14,6 +14,15 @@ tags:
 
 **dumpclip** is a simple utility that prints clipboard contents to console as JSON. It supports text and files.
 
+
+## Download
+
+The [latest version][releases] of the app and the [source code][repo] can be downloaded from Github
+
+[releases]: https://github.com/abdusco/dumpclip/releases/latest
+[repo]: https://github.com/abdusco/dumpclip
+
+
 ## Usage
 Copy some text into clipboard and run the program.
 
@@ -48,9 +57,45 @@ The program will listen to clipboard and dump contents to console when the clipb
 {"text":"System.ValueTuple"}
 ```
 
-## Download
+### Python script for monitoring clipboard
 
-The [latest version][releases] of the app and the [source code][repo] can be downloaded from Github
+The main reason I've built this utility was to integrate it into a Python script. So here's a simple function that
+runs the app and captures its stdout and calls given callback.
 
-[releases]: https://github.com/abdusco/dumpclip/releases/latest
-[repo]: https://github.com/abdusco/dumpclip
+```python
+import json
+import subprocess
+import threading
+from typing import Callable
+
+
+def monitor_clipboard(on_change: Callable[[dict], None]) -> None:
+    def listen_stdout(proc: subprocess.Popen):
+        for line in iter(proc.stdout.readline, ""):
+            if line.strip():
+                payload = json.loads(line)
+                on_change(payload)
+
+    proc = subprocess.Popen(
+        ["dumpclip.exe", "--listen"],
+        text=True,
+        universal_newlines=True,
+        stdout=subprocess.PIPE,
+    )
+    th = threading.Thread(
+        target=listen_stdout,
+        args=(proc,),
+    )
+    th.start()
+    try:
+        proc.wait()
+    except KeyboardInterrupt:
+        proc.kill()
+        raise
+
+
+if __name__ == "__main__":
+    monitor_clipboard(on_change=print)
+```
+
+I've also written [a short post](/posts/monitor-clipboard/) as to why I made this and how it progressed.
