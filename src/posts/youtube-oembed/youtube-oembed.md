@@ -50,7 +50,8 @@ Paste in a url and click fetch to inspect an oembed json for a Youtube video.
                 this.text = 'fetching json...';
                 // http://www.youtube.com/oembed doesn't send CORS headers, so I have to use a proxy here
                 const url = `/api/proxy?url=${this.oembedUrl(this.url)}`;
-                this.text = await fetch(url).then(r => r.text());
+                const json = await fetch(url).then(r => r.json());
+                this.text = JSON.stringify(json, null, 2);
             },
             oembedUrl(url) {
                 return `http://www.youtube.com/oembed?url=${encodeURIComponent(url)}`
