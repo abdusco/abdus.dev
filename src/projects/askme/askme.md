@@ -10,7 +10,7 @@ tags:
 
 # {{ title }}
 
-**askme** is a mini utility that prompts user questions and prints answers in key-value format to console.
+**askme** is a mini utility that prompts user questions and prints answers in key-value format to the console.
 Questions are provided as command arguments as `"question"` or as `"question=default answer"` format. You can also specify a key with `key:` prefix.
 
 ## Usage
@@ -23,7 +23,7 @@ A dialog should appear with inputs to type the answers:
 
 <video src="./askme.webm" autoplay loop controls playsinline></video>
 
-When saved with clicking the Save button or hitting `[ENTER]` key, app exits and the user inputs are printed to console as JSON.
+When saved by clicking the Save button or hitting `[ENTER]` key, the app exits, and the user inputs are printed to console as JSON.
 
 ```json
 {"filename":"export.zip","author":"abdus","year":"2020"}

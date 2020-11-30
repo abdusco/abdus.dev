@@ -25,9 +25,9 @@ then broadcast them to crontab-service to have them pinged later.
 
 ## Problem: reverse proxies
 
-A problem I faced while building the URLs was to find out the public facing URL for the web app.
+A problem I faced while building the URLs was to find out the public-facing URL for the web app.
 I can't just get these URLs from Kestrel or any other component because my app will be listening to localhost at some port. 
-App has no idea about whether there's a server proxying requests to it, such as IIS, Caddy, Nginx etc. 
+App has no idea about whether there's a server proxying requests to it, such as IIS, Caddy, Nginx, etc. 
 It has to wait until the first request to find out the actual URL that reaches the app.
 
 A workaround I've implemented was to supply a URL template `https://public.url/-/cronjobs/{name}` and generate URLs with it.
@@ -130,7 +130,7 @@ public class BackgroundWorker : BackgroundService
 
 and configured in `Startup` class. We need to register service as singleton, 
 and put middleware at the beginning of the request pipeline. 
-Otherwise other middlewares could short circuit and request may never reach our middleware. 
+Otherwise, other middlewares could short circuit and requests may never reach our middleware. 
 
 ```c#
 public class Startup

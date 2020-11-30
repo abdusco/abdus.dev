@@ -12,25 +12,25 @@ tags:
 
 ![](./dumpclip.png)
 
-**dumpclip** is a simple utility that prints clipboard contents to console as JSON. It supports text and files.
+**dumpclip** is a simple utility that prints clipboard contents to the console as JSON. It supports text and files content.
 
 
 ## Download
 
-The [latest version][releases] of the app and the [source code][repo] can be downloaded from Github
+The [latest version][releases] of the app and the [source code][repo] is available on Github
 
 [releases]: https://github.com/abdusco/dumpclip/releases/latest
 [repo]: https://github.com/abdusco/dumpclip
 
 
 ## Usage
-Copy some text into clipboard and run the program.
+Copy some text into the clipboard and run the program.
 
 ```powershell
 dumpclip.exe
 ```
 
-Clipboard contents will be serialized as JSON and written to console:
+Clipboard contents will be serialized as JSON and written to the console:
 
 ```json
 {"text":"monitor"}
@@ -50,7 +50,7 @@ Run the program with `--listen` flag.
 dumpclip.exe --listen
 ```
 
-The program will listen to clipboard and dump contents to console when the clipboard content changes. You can stop listening by exiting the program with `[Ctrl]` + `[C]`
+The program will listen to the clipboard and dump contents to the console when the clipboard content changes. You can stop listening by exiting the program with `[Ctrl]` + `[C]`
 
 ```json
 {"files":["D:\\_dev\\windows\\ClipboardDemo\\DumpClipboard\\bin\\Release\\dumpclip.exe"]}
@@ -59,8 +59,8 @@ The program will listen to clipboard and dump contents to console when the clipb
 
 ### Python script for monitoring clipboard
 
-The main reason I've built this utility was to integrate it into a Python script. So here's a simple function that
-runs the app and captures its stdout and calls given callback.
+The main reason I've built this utility was to integrate it into a Python script. 
+So here's a simple function that runs the app and captures its stdout and calls the given callback.
 
 ```python
 import json

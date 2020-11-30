@@ -10,9 +10,9 @@ $aliases:
 ---
 # {{ title }}
 
-I am writing a script to set up a PC to fit my workflow. This usually involves installing [chocolatey][choco] as my package manager and installing programs I need. But it doesn't end there, I need to restore settings for certains apps and also update [`PATH`][path] environment variable. 
+I am writing a script to set up a PC to fit my workflow. This usually involves installing [chocolatey][choco] as my package manager and installing programs I need. But it doesn't end there, I need to restore settings for certain apps and also update [`PATH`][path] environment variable. 
 
-Until today I've always added paths manually, but no more. Thanks to some googling, I created this script that adds given dir to `PATH` environment variable for the current user.
+Until today I've always added paths manually, but no more. Thanks to some googling, I created this script that adds the given dir to `PATH` environment variable for the current user.
 
 ```powershell
 function Add-ToUserPath {

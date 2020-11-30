@@ -13,10 +13,10 @@ $aliases:
 
 I've been maintaining a movie archive for years now. Every year or so I go over what I have and do a clean-up if necessary.
 
-This time I've decided to add metadata about title, year, IMDb links, artists etc. to videos. I've written about [a way to do it on PowerShell][metadata], but nothing comes closer to joy I get from writing in Python.
+This time I've decided to add metadata about the title, year, IMDb links, artists, etc. to videos. I've written about [a way to do it on PowerShell][metadata], but nothing comes closer to the joy I get from writing in Python.
 
 ## ffmpeg command
-ffmpeg supports practically anything under the sun, including adding metadata. [This answer][ffmpeg_addmeta] on StackOverflow put me in the right path. With ffmpeg, adding metadata is simply including `-metadata key=value` arguments in the command:
+ffmpeg supports practically anything under the sun, including adding metadata. [This answer][ffmpeg_addmeta] on StackOverflow put me on the right path. With ffmpeg, adding metadata is simply including `-metadata key=value` arguments in the command:
 
 ```cmd
 ffmpeg -i video.mkv -c:a copy -c:v copy -c:s copy -movflags use_metadata_tags -map_metadata 0 -metadata title="Hello World" -metadata year=2020 video.metadata.mkv
