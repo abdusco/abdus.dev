@@ -1,8 +1,7 @@
 @import "node_modules/highlight.js/scss/atom-one-light";
 
-
-@if ($enableDarkMode) {
-    @media screen and (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
+    html:not(.light) {
         @import "node_modules/highlight.js/scss/railscasts";
     }
 }

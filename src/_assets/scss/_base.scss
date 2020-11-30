@@ -19,16 +19,14 @@
 }
 
 
-@if ($enableDarkMode) {
-    @media screen and (prefers-color-scheme: dark) {
-        :root {
-            --c-body: #fefefe;
-            --bg-body: #222;
-            --bg-code: rgba(48, 51, 55, 0.46);
+@media screen and (prefers-color-scheme: dark) {
+    html:not(.light) {
+        --c-body: #fefefe;
+        --bg-body: #222;
+        --bg-code: rgba(48, 51, 55, 0.46);
 
-            --scrollbar-track: #999;
-            --scrollbar-thumb: #666;
-        }
+        --scrollbar-track: #999;
+        --scrollbar-thumb: #666;
     }
 }
 
@@ -45,6 +43,14 @@
     :root {
         --fz: 20px;
         --p-sides-x: 4rem;
+        --p-sides-y: 4rem;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    :root {
+        --fz: 22px;
+        --p-sides-x: 6rem;
         --p-sides-y: 4rem;
     }
 }
@@ -267,6 +273,7 @@ small,
     min-height: 100vh;
     max-width: 55rem;
     margin-right: auto;
+    // margin-left: auto;
     padding: var(--p-sides-y) var(--p-sides-x);
 }
 
@@ -305,6 +312,17 @@ small,
 
 .nav__link--home {
     color: var(--c-link);
+}
+
+.nav__link--darkmode {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    // display: inline-flex;
+    align-items: center;
+    svg {
+        width: auto;
+        height: 1em;
+    }
 }
 
 .button {
