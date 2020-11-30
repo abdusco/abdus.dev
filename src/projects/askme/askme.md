@@ -16,7 +16,7 @@ Questions are provided as command arguments as `"question"` or as `"question=def
 ## Usage
 
 ```powershell
-askme.exe "filename:Filename for export=export.zip" "author:Author?" year
+askme.exe "filename:Filename for the export=export.zip" "author:Author?" year
 ```
 
 A dialog should appear with inputs to type the answers:
@@ -26,7 +26,7 @@ A dialog should appear with inputs to type the answers:
 When saved with clicking the Save button or hitting `[ENTER]` key, app exits and the user inputs are printed to console as JSON.
 
 ```json
-{"filename":"export.zip","author":"abdus","year":"2020"}
+{"filename":"report.zip","author":"abdus","year":"2020"}
 ```
 
 The response can then be consumed from any script by reading the stdout and deserializing the JSON.
