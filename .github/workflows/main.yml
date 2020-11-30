@@ -33,6 +33,12 @@ jobs:
         run: |-
           rm -rf /apps/web/abdus.dev/static/*
           cp -r dist/. /apps/web/abdus.dev/static
+
+      - name: deploy api
+        run: |-
+          cp -r api/. /apps/web/abdus.dev/api
+          composer install --working-dir /apps/web/abdus.dev/api --optimize-autoloader --no-dev
+
       - name: reload caddy
         run: |-
           caddy reload --config /etc/caddy/Caddyfile
