@@ -5,6 +5,8 @@ tags:
   - post
   - aspnet
 date: 2020-11-14
+$aliases:
+    - posts/getting-public-url-behind-reverse-proxy/
 ---
 # {{ title }}
 

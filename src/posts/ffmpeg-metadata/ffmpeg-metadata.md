@@ -6,6 +6,8 @@ tags:
   - python
   - post
 date: 2020-06-29T00:00:00.000Z
+$aliases:
+    - posts/adding-metadata-to-videos-using-ffmpeg/
 ---
 # {{title}}
 
