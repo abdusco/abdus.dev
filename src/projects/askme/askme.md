@@ -13,6 +13,13 @@ tags:
 **askme** is a mini utility that prompts user questions and prints answers in key-value format to the console.
 Questions are provided as command arguments as `"question"` or as `"question=default answer"` format. You can also specify a key with `key:` prefix.
 
+::: download
+You can find the latest release and source on Github:
+
+- [Source code](https://github.com/abdusco/askme)
+- [Latest release](https://github.com/abdusco/askme/releases)
+:::
+
 ## Usage
 
 ```powershell
@@ -41,10 +48,3 @@ Hitting `[Esc]` key closes the window and nothing is printed to console.
 |`1`| Failed to parse questions|
 |`2`| User cancelled the prompt|
 
-
-## Download
-
-[Binary files][releases] and [the source code][source] are available on Github.
-
-[releases]: https://github.com/abdusco/askme/releases
-[source]: https://github.com/abdusco/askme

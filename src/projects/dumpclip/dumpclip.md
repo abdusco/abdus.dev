@@ -15,12 +15,12 @@ tags:
 **dumpclip** is a simple utility that prints clipboard contents to the console as JSON. It supports text and files content.
 
 
-## Download
+::: download
+You can find the latest release and source on Github:
 
-The [latest version][releases] of the app and the [source code][repo] is available on Github
-
-[releases]: https://github.com/abdusco/dumpclip/releases/latest
-[repo]: https://github.com/abdusco/dumpclip
+- [Source code](https://github.com/abdusco/dumpclip)
+- [Latest release](https://github.com/abdusco/dumpclip/releases)
+:::
 
 
 ## Usage
