@@ -24,10 +24,10 @@ module.exports = (config) => {
     config.setLibrary('md', markdownFactory());
 
     config.addPassthroughCopy({
-        'src/_assets/css': 'assets/css',
-        'src/_assets/fonts': 'assets/fonts',
-        'src/_assets/js': 'assets/js',
-        'admin': 'admin'
+        'src/_assets/**/*.{css,map}': 'assets/css',
+        'src/_assets/fonts/*': 'assets/fonts',
+        'src/_assets/**/*.{js,map}': 'assets/js',
+        'admin/*': 'admin'
     });
 
     config.addPassthroughCopy('src/**/*.{jpg,png,jpeg,svg,gif,webm}');
