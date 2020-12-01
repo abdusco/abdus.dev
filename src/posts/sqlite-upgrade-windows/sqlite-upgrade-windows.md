@@ -16,9 +16,14 @@ SQLite has an extension called [`JSON1`][json1] to work on JSON columns. It's re
 Download the latest compiled DLL for Windows: 
 
 ::: download
-{% for url in downloadUrls %}
-- [{{url}}]({{ url }})
-{%- endfor %}
+<ul x-data="app()" x-init="init()">
+  <template x-if="!links.length">
+    <li>Fetching the latest download URLs...</li>
+  </template>
+  <template x-for="url in links" x-bind:key="url">
+    <li><a x-bind:href="url" x-text="url"></a></li>
+  </template>
+</ul>
 
 <small>Links are updated daily from [SQLite][sqlite]</small>
 :::
@@ -74,3 +79,18 @@ Thanks to new driver, we now have access to [`FTS5`][fts5] for working with full
 [sqlite]: {{ sqliteDownloadUrl }}
 [json1]: https://www.sqlite.org/json1.html
 [fts5]: https://www.sqlite.org/fts5.html
+
+
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2/dist/alpine.js" defer></script>
+<script>
+    const app = () => ({
+        links: [],
+        async init() {
+            const url = `https://www.sqlite.org/download.html#win32`
+            const html = await fetch(`/api/proxy?url=${decodeURIComponent(url)}`).then(r => r.text());
+            this.links = html.match(/(\d+\/[^.]+.zip)/gm)
+                .filter(path => /dll-win/.test(path))
+                .map(path => `https://www.sqlite.org/${path}`);
+        }
+    });
+</script>
