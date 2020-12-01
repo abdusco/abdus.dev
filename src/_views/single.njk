@@ -12,7 +12,9 @@
     <script>
         const setOverflow = (el) => {
             const hasOverflow = el.scrollWidth > el.clientWidth;
-            el.classList.toggle('has-overflow', hasOverflow);
+            if (hasOverflow) {
+                el.classList.add('has-overflow');
+            }
             const maxWidth = Math.min(el.scrollWidth, window.innerWidth);
             el.style.setProperty('--scrollWidth', `${maxWidth}px`);
         }
@@ -24,6 +26,11 @@
            [...document.querySelectorAll('.snippet')].forEach(s => {
                observer.observe(s);
            });
+           document.addEventListener('mouseenter', ev => {
+               if (ev.target.classList.contains('snippet')) {
+                   requestAnimationFrame(() => setOverflow(ev.target));
+               }
+           })
         });
     </script>
 {% endblock %}
