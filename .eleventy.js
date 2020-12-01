@@ -144,6 +144,7 @@ function markdownFactory() {
         .use(require('markdown-it-footnote'))
         .use(require('markdown-it-task-lists'))
         .use(require('markdown-it-anchor'))
+        .use(require('markdown-it-kbd'))
         .use(require('markdown-it-table-of-contents'), {
             includeLevel: [2, 3, 4]
         })

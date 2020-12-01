@@ -134,7 +134,7 @@ if __name__ == "__main__":
 
 ```
 
-To prevent blocking interrupt signal and let the subprocess exit, we need to `.wait()` it. This allows `KeyboardInterrupt` to bubble when I hit `[Ctrl] + [C]` and terminates the script and subprocesses.
+To prevent blocking interrupt signal and let the subprocess exit, we need to `.wait()` it. This allows `KeyboardInterrupt` to bubble when I hit [[Ctrl]] + [[C]] and terminates the script and subprocesses.
 
 
 [dumpclip]: https://abdus.dev/projects/dumpclip/

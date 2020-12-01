@@ -5,6 +5,7 @@
     --c-gold: #FCB305;
 
     --c-body: #333;
+    --c-body_rgb: 51, 51, 51;
     --bg-body: #fcfcfc;
     --p-sides-x: 1.5rem;
     --p-sides-y: 2rem;
@@ -22,6 +23,7 @@
 @media screen and (prefers-color-scheme: dark) {
     html:not(.light) {
         --c-body: #fefefe;
+        --c-body_rgb: 254, 254, 254;
         --bg-body: #222;
         --bg-code: rgba(48, 51, 55, 0.46);
 
@@ -201,6 +203,16 @@ code {
         --bg-code: transparent;
         padding: 0;
     }
+}
+
+kbd {
+    font-weight: 600;
+    padding: 0.2em 0.5em;
+    box-shadow: 0 0 0.2em -0.05em rgba(0,0,0,0.2);
+    border-radius: 0.25em;
+    min-width: 2rem;
+    font-family: $fontMono;
+    background-color: #{'rgba(var(--c-body_rgb), 0.1)'};
 }
 
 table {

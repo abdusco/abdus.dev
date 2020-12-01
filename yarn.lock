@@ -2272,6 +2272,11 @@ markdown-it-footnote@^3.0.2:
   resolved "https://registry.yarnpkg.com/markdown-it-footnote/-/markdown-it-footnote-3.0.2.tgz#1575ee7a093648d4e096aa33386b058d92ac8bc1"
   integrity sha512-JVW6fCmZWjvMdDQSbOT3nnOQtd9iAXmw7hTSh26+v42BnvXeVyGMDBm5b/EZocMed2MbCAHiTX632vY0FyGB8A==
 
+markdown-it-kbd@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/markdown-it-kbd/-/markdown-it-kbd-2.2.0.tgz#5ab0e9f285f61d27c46b482f215dc4641873c3a2"
+  integrity sha512-2pihaZc7D+q78VQucDg3uTy3QOMCChRBJ3IT/wFrrWCJ2HQ3tVX8xURL18WmULBbhkZ0dQM33sVRlNQ6oU3UNg==
+
 markdown-it-link-attributes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/markdown-it-link-attributes/-/markdown-it-link-attributes-3.0.0.tgz#12d6f403102ac22695ee2617bec109ee79426e45"
