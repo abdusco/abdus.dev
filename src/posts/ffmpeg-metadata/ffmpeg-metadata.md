@@ -18,12 +18,24 @@ This time I've decided to add metadata about the title, year, IMDb links, artist
 ## ffmpeg command
 ffmpeg supports practically anything under the sun, including adding metadata. [This answer][ffmpeg_addmeta] on StackOverflow put me on the right path. With ffmpeg, adding metadata is simply including `-metadata key=value` arguments in the command:
 
-```cmd
-ffmpeg -i video.mkv -c:a copy -c:v copy -c:s copy -movflags use_metadata_tags -map_metadata 0 -metadata title="Hello World" -metadata year=2020 video.metadata.mkv
+```powershell
+ffmpeg -i video.mkv -c copy -movflags use_metadata_tags -map_metadata 0 -metadata title="Hello World" -metadata year=2020 video.metadata.mkv
+```
+
+when split into lines:
+
+```powershell
+ffmpeg -i video.mkv ` 
+    -c copy `
+    -movflags use_metadata_tags `
+    -map_metadata 0 `
+    -metadata title="Hello World" `
+    -metadata year=2020 `
+    video.metadata.mkv
 ```
 
 Some important points:
-- Use `-c:a copy`, `-c:v copy` and `-c:s copy` to copy audio, video and subtitle streams directly without encoding.
+- Use `-c copy` to copy streams directly without encoding.
 - Use `-map_metadata 0` to copy over existing meta tags without changing them[^ffmpeg_keepmeta].
 
 Not all containers support every metadata. For reference you can check [Matroska spec][matroska] for MKV and [Kodi docs][kodi] for MP4.
@@ -55,9 +67,7 @@ def add_metadata(video: Path,
         *metadata_args,
         '-map_metadata', '0',
         '-movflags', 'use_metadata_tags',
-        '-c:v', 'copy',
-        '-c:a', 'copy',
-        '-c:s', 'copy',
+        '-c', 'copy',
         str(save_path)
     ]
     if overwrite:
