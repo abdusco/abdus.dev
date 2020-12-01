@@ -162,9 +162,21 @@ th {
     font-weight: 600;
 }
 
-input {
+input, button {
     font-family: inherit;
     font-size: inherit;
+}
+
+input {
+    padding: 0.5rem;
+    display: block;
+    width: 100%;
+}
+
+label {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.5rem;
 }
 
 ul, ol {
@@ -338,9 +350,11 @@ small,
 
 .button {
     display: inline-block;
-    padding: 0.5em 0.75em;
+    padding: 1rem 1.5rem;
     background-color: var(--c-primary);
     color: white;
+    border-radius: 10rem;
+    font-size: 0.75em;
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 2px;
