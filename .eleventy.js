@@ -66,7 +66,7 @@ module.exports = (config) => {
                 page.dateModified = fs.statSync(page.inputPath).mtime;
                 return page;
             });
-        pages = _.sortBy(pages, ['dateModified']).reverse();
+        pages = _.sortBy(pages, ['date']).reverse();
         return pages;
     });
 
