@@ -1,7 +1,9 @@
 http://localhost:8081
 log
 
-php_fastcgi /api* localhost:9090
+php_fastcgi /api* localhost:9090 {
+    env APP_ENV "development"
+}
 root /api* api/public
 encode gzip
 
@@ -12,3 +14,5 @@ handle_errors {
     file_server
     templates
 }
+
+import dist/.redirects.caddy

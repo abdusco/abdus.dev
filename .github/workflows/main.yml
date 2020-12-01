@@ -33,6 +33,15 @@ jobs:
         run: |-
           rm -rf /apps/web/abdus.dev/static/*
           cp -r dist/. /apps/web/abdus.dev/static
+
+      - name: deploy api
+        run: |-
+          cp -r api/. /apps/web/abdus.dev/api
+
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php
+          ./composer.phar install --working-dir /apps/web/abdus.dev/api --optimize-autoloader --no-dev
+
       - name: reload caddy
         run: |-
           caddy reload --config /etc/caddy/Caddyfile

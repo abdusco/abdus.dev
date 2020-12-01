@@ -47,12 +47,15 @@ Paste in a url and click fetch to inspect an oembed json for a Youtube video.
             text: '// json will appear here',
             async handleSubmit() {
                 if (!this.url) return;
-                this.text = 'working...';
+                this.text = 'fetching json...';
                 // http://www.youtube.com/oembed doesn't send CORS headers, so I have to use a proxy here
-                const url = `https://youtube-oembed-proxy.abdusco.now.sh/oembed?url=${encodeURIComponent(this.url)}`;
+                const url = `/api/proxy?url=${this.oembedUrl(this.url)}`;
                 const json = await fetch(url).then(r => r.json());
                 this.text = JSON.stringify(json, null, 2);
             },
+            oembedUrl(url) {
+                return `http://www.youtube.com/oembed?url=${encodeURIComponent(url)}`
+            }
         };
     }
 </script>

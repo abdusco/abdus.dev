@@ -3,11 +3,10 @@ copyright: abdus!
 nav:
   - text: abdus!
     href: /
+    name: home
   - text: posts
     href: /posts/
   - text: projects
     href: /projects/
-  - text: likes
-    href: /likes/
   - text: about me
     href: /about/

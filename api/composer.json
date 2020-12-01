@@ -1,0 +1,15 @@
+{
+    "require": {
+        "php": "8.0",
+        "vlucas/phpdotenv": "^5.2",
+        "ext-json": "*",
+        "symfony/http-foundation": "^5.2",
+        "nikic/fast-route": "^1.3",
+        "guzzlehttp/guzzle": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "AbdusCo\\": "app"
+        }
+    }
+}

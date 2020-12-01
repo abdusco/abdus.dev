@@ -1,10 +1,10 @@
 <header>
     {% if site.nav | length %}
         <nav class='nav'>
-            {% for it in site.nav %}
-                <a class='nav__link link {% if it.href == '/' %}nav__link--home{% endif %}'
+            {%- for it in site.nav -%}
+                <a class='nav__link link {% if it.name %}nav__link--{{ it.name }}{% endif %}'
                    href='{{ it.href }}'>{{ it.text }}</a>
-            {% endfor %}
+            {%- endfor -%}
         </nav>
     {% endif %}
 </header>

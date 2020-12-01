@@ -10,9 +10,9 @@ date: 2020-07-01T00:00:00.000Z
 
 I enjoy building server-rendered apps. They're faster to build, more straightforward, and easy to get your head around.
 
-One tool I keep reaching for is [Alpine JS][alpine], which is a tiny library that helps building components on a server-rendered page with a Vue-like syntax. 
+One tool I keep reaching for is [Alpine JS][alpine], which is a tiny library that helps to build components on a server-rendered page with a Vue-like syntax. 
 
-But it's not applicable to all needs, or sometimes couple lines of vanilla JS is all the page ever needs. In those times, I write this utility function:
+But it does not apply to all needs, or sometimes a couple of lines of vanilla JS is all the page ever needs. In those times, I write this utility function:
 
 
 ```js

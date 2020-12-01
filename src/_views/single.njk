@@ -1,8 +1,10 @@
 {% extends "base.njk" %}
 
 {% block content %}
-    <div class='single'>
-        {{ content | safe }}
+    <div class="single">
+        {% block single_content %}
+            {{ content | safe }}
+        {% endblock %}
     </div>
 {% endblock %}
 

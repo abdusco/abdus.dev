@@ -6,7 +6,7 @@
           content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ title }} - abdus.dev{% endblock title %}</title>
     <link rel="stylesheet"
-          href="/assets/css/style.css">
+          href="{{ '/assets/css/style.css' | cachebust }}">
     <meta name='theme-color' content='#db7093'>
 
     {% if canonical %}<meta name='canonical' content='{{ canonical }}'>{% endif %}
@@ -14,6 +14,16 @@
 
     {% block head %}
     {% endblock head %}
+
+    <script>
+        const isDark = () => JSON.parse(localStorage.getItem('darkmode') || 'true');
+        const setDarkMode = (isDark) => {
+            document.documentElement.classList.toggle('light', !isDark);
+            localStorage.setItem('darkmode', isDark);
+        }
+        const toggleDarkMode = () => setDarkMode(!isDark())
+        setDarkMode(isDark());
+    </script>
 </head>
 <body class='page--{{ page.fileSlug }}'>
 <div class='page-wrapper'>
@@ -25,7 +35,7 @@
     </div>
     <footer>
         <hr>
-        <p class='text--small text--bold text--dim'>{{ site.copyright }}</p>
+        <p class='text--small text--bold text--dim'><span title="toggle dark mode" onclick="toggleDarkMode()">{{ site.copyright }}</span></p>
     </footer>
 </div>
 

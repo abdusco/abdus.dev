@@ -10,15 +10,6 @@ const tmpl = require('./src/_eleventy/templating');
 const yaml = require('js-yaml');
 
 const hljs = require('highlight.js');
-const markdownIt = require("markdown-it");
-const markdownItAttrs = require('markdown-it-attrs');
-const markdownItFootnote = require('markdown-it-footnote');
-const markdownItTaskList = require('markdown-it-task-lists');
-const markdownItLinkAttributes = require('markdown-it-link-attributes');
-const markdownItContainer = require('markdown-it-container');
-const markdownItToc = require('markdown-it-table-of-contents');
-const markdownItAnchor = require('markdown-it-anchor');
-
 const siteData = yaml.safeLoad(fs.readFileSync('./src/_data/site.yaml', 'utf-8'));
 
 /** @param {UserConfig} config */
@@ -94,6 +85,7 @@ module.exports = (config) => {
     });
 
 
+    config.setUseGitIgnore(false);
     config.setBrowserSyncConfig({
         ui: {port: 3333}
     });
@@ -148,17 +140,26 @@ function markdownFactory() {
         }
     };
 
-    return markdownIt(options)
-        .use(markdownItAttrs)
-        .use(markdownItFootnote)
-        .use(markdownItTaskList)
-        .use(markdownItAnchor)
-        .use(markdownItToc, {
+    return require("markdown-it")(options)
+        .use(require('markdown-it-attrs'))
+        .use(require('markdown-it-footnote'))
+        .use(require('markdown-it-task-lists'))
+        .use(require('markdown-it-anchor'))
+        .use(require('markdown-it-kbd'))
+        .use(require('markdown-it-table-of-contents'), {
             includeLevel: [2, 3, 4]
         })
-        .use(markdownItContainer, 'tip')
-        .use(markdownItContainer, 'download')
-        .use(markdownItLinkAttributes, {
+        .use(require('markdown-it-container'), '', {
+            validate: params => true,
+            render(tokens, idx, _options, env, slf) {
+                if (tokens[idx].nesting === 1) {
+                    tokens[idx].attrJoin('class', tokens[idx].info.trim());
+                }
+
+                return slf.renderToken(tokens, idx, _options, env, slf);
+            }
+        })
+        .use(require('markdown-it-link-attributes'), {
             pattern: /^https?:/,
             attrs: {
                 class: 'link--ext',
