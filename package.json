@@ -34,7 +34,7 @@
     "dev:all": "concurrently -r -n 11ty,sass -c blue,red npm:dev:eleventy npm:dev:sass",
     "dev:eleventy": "node -r dotenv/config ./node_modules/@11ty/eleventy/cmd.js --serve",
     "dev:sass": "cross-env NODE_ENV=production node-sass --watch --recursive --output src/_assets/css --source-map true src/_assets/scss",
-    "sass": "node-sass --functions src/_eleventy/nodesass.js --include-path node_modules --recursive --output src/_assets/css --source-map true src/_assets/scss",
+    "sass": "node-sass --include-path node_modules --recursive --output src/_assets/css --source-map true src/_assets/scss",
     "eleventy": "node -r dotenv/config ./node_modules/@11ty/eleventy/cmd.js",
     "serve": "caddy run --watch --config .caddyfile --adapter caddyfile",
     "build": "cross-env NODE_ENV=production npm run sass && eleventy"
