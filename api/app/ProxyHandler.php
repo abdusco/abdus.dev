@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Proxy extends Handler
+class ProxyHandler extends Handler
 {
     private static array $corsHeaders = [
         'Access-Control-Allow-Origin' => '*',

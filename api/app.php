@@ -1,6 +1,9 @@
 <?php declare(strict_types=1);
 
 
+use AbdusCo\Handler;
+use AbdusCo\PingHandler;
+use AbdusCo\ProxyHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,11 +21,11 @@ if (false !== $pos = strpos($uri, '?')) {
 $uri = rawurldecode($uri);
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
-    $r->addRoute('GET', '/api/ping', fn() => new \AbdusCo\Ping());
-    $r->addRoute(['GET', 'POST'], '/api/proxy', fn() => new \AbdusCo\Proxy());
+    $r->addRoute('GET', '/api/ping', fn() => new PingHandler());
+    $r->addRoute(['GET', 'POST'], '/api/proxy', fn() => new ProxyHandler());
 });
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
-$response = new Response('oops');
+$response = null;
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
         $response = new Response(Response::$statusTexts[404], 404);
@@ -32,11 +35,11 @@ switch ($routeInfo[0]) {
         break;
     case FastRoute\Dispatcher::FOUND:
         $factory = $routeInfo[1];
-        /** @var \AbdusCo\Handler $handler */
+        /** @var Handler $handler */
         $handler = $factory($request);
         $vars = $routeInfo[2];
         $response = $handler->handle($request, $vars);
         break;
 }
-
+$response ??= new Response('oops', headers: ['content-type' => 'text/plain']);
 $response->send();
