@@ -8,3 +8,13 @@
     </div>
 {% endblock %}
 
+{% block foot %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+           [...document.querySelectorAll('.snippet')].forEach(s => {
+               const hasOverflow = s.scrollWidth > s.clientWidth;
+               s.classList.toggle('has-overflow', hasOverflow);
+           });
+        });
+    </script>
+{% endblock %}

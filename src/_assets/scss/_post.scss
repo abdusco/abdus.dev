@@ -17,6 +17,16 @@
     border: 1px solid rgba(black, 0.1);
     z-index: 0;
 
+    &.has-overflow {
+        overflow-x: scroll;
+        &:hover, &:focus-within {
+            @media screen and (min-width: 1200px) {
+                min-width: calc(100vw - 2 * var(--p-sides-x));
+            }
+        }
+    }
+
+
     &:before {
         content: attr(data-lang);
         display: inline-block;
