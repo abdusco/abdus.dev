@@ -10,27 +10,38 @@
 
 {% block foot %}
     <script>
-        const setOverflow = (el) => {
-            const hasOverflow = el.scrollWidth > el.clientWidth;
-            if (hasOverflow) {
-                el.classList.add('has-overflow');
-            }
-            const maxWidth = Math.min(el.scrollWidth, window.innerWidth);
-            el.style.setProperty('--scrollWidth', `${maxWidth}px`);
+        function initImageExpansions() {
+            document.querySelector('.single')?.addEventListener('click', e => {
+                if (e.target?.tagName?.toUpperCase() === 'IMG') {
+                    e.target.classList.toggle('zoom');
+                }
+            })
         }
+
         document.addEventListener('DOMContentLoaded', () => {
+            initOverflowExpansions();
+            initImageExpansions();
+        });
+
+        function initOverflowExpansions() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(it => setOverflow(it.target));
             });
+            [...document.querySelectorAll('.snippet')].forEach(s => observer.observe(s));
+            document.addEventListener('mouseenter', ev => {
+                if (ev.target?.classList?.contains('snippet')) {
+                    requestAnimationFrame(() => setOverflow(ev.target));
+                }
+            });
 
-           [...document.querySelectorAll('.snippet')].forEach(s => {
-               observer.observe(s);
-           });
-           document.addEventListener('mouseenter', ev => {
-               if (ev.target.classList.contains('snippet')) {
-                   requestAnimationFrame(() => setOverflow(ev.target));
-               }
-           })
-        });
+            function setOverflow(el) {
+                const hasOverflow = el.scrollWidth > el.clientWidth;
+                if (hasOverflow) {
+                    el.classList.add('has-overflow');
+                }
+                const maxWidth = Math.min(el.scrollWidth, window.innerWidth);
+                el.style.setProperty('--scrollWidth', `${maxWidth}px`);
+            }
+        }
     </script>
 {% endblock %}
