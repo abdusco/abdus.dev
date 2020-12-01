@@ -1,4 +1,6 @@
 layout: false
+sitemap: false
+eleventyExcludeFromCollections: true
 pagination:
   data: collections.tags
   size: 1

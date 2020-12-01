@@ -35,19 +35,39 @@ module.exports = (config) => {
 
 
     const now = new Date;
-
     function isPublished(p) {
         return p.date <= now && !p.data.draft;
     }
 
     config.addCollection('updates', function (collectionApi) {
         /** @var {TemplateCollection} collectionApi */
-        return collectionApi.getFilteredByGlob([
-            'src/posts/*.md',
-            'src/posts/**/*.md',
-            'src/projects/**/*.md',
-            'src/projects/**/*.md',
-        ]).filter(isPublished).reverse();
+        return collectionApi
+            .getFilteredByGlob([
+                'src/{posts,projects}/**/*.md',
+            ])
+            .filter(isPublished)
+            .map(page => {
+                page.urlAbsolute = `${siteData.baseUrl}${page.url}`;
+                page.dateModified = fs.statSync(page.inputPath).mtime;
+                return page;
+            })
+            .reverse();
+    });
+
+    config.addCollection('sitemap', function (collectionApi) {
+        /** @var {TemplateCollection} collectionApi */
+
+        /** @var {object[]} pages */
+        let pages = collectionApi
+            .getAll()
+            .filter(p => isPublished(p) && p.data.sitemap !== false && p.url !== false)
+            .map(page => {
+                page.urlAbsolute = `${siteData.baseUrl}${page.url}`;
+                page.dateModified = fs.statSync(page.inputPath).mtime;
+                return page;
+            });
+        pages = _.sortBy(pages, ['dateModified']).reverse();
+        return pages;
     });
 
     config.addCollection('tags', (collectionApi) => {
