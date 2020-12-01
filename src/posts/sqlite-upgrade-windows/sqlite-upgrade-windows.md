@@ -11,9 +11,14 @@ date: 2020-02-20
 
 # {{ title }}
 
-SQLite has an extension called [`JSON1`][json1] to work on JSON columns. It's really useful for storing data that wouldn't necessarily belong to a separate column, like metadata. But SQLite driver doesn't include this extension by default on Windows. So we'll have to manually upgrade it.
+SQLite has an extension called [`JSON1`][json1] that allows working with JSON. 
+It's really useful for storing data that wouldn't necessarily belong to a separate column, like metadata. 
 
-Download the latest compiled [DLL for Windows][sqlite]: 
+Unfortunately on Windows, the SQLite driver for Python doesn't come bundled with this extension. 
+We need to upgrade the driver to a newer version.
+
+You can find the compiled binaries for Windows on [SQLite website][sqlite]. 
+Here are the links, scraped directly from the page:  
 
 ::: download
 <ul x-data="app()" x-init="init()">
@@ -29,9 +34,12 @@ Download the latest compiled [DLL for Windows][sqlite]:
     const app = () => ({
         links: [],
         async init() {
+            this.links = await this.scrape(); 
+        },
+        async scrape() {
             const url = `https://www.sqlite.org/download.html#win32`;
             const html = await fetch(`/api/proxy?url=${decodeURIComponent(url)}`).then(r => r.text());
-            this.links = html.match(/(\d+\/[^.]+.zip)/gm)
+            return html.match(/(\d+\/[^.]+.zip)/gm)
                 .filter(path => /dll-win/.test(path))
                 .map(path => `https://www.sqlite.org/${path}`);
         }
@@ -41,7 +49,7 @@ Download the latest compiled [DLL for Windows][sqlite]:
 
 
 
-Extract the ZIP file and place DLL files into `$PYTHON_DIR/DLLs`. 
+Extract the ZIP file and place the DLL into `$PYTHON_DIR/DLLs`. 
 
 You can find the exact location using PowerShell:
 
@@ -60,7 +68,7 @@ powershell -command "start (join-path (split-path (get-command python).Path) "dl
 
 ## SQLite compile options
 
-Using `python`, check the list of compile options to verify if it worked:
+Run `python`, and fetch the list of compile options to verify if it's worked:
 
 ```python
 import sqlite3
@@ -77,7 +85,7 @@ ENABLE_FTS3
 ENABLE_FTS4
 ENABLE_FTS5
 ENABLE_GEOPOLY
-ENABLE_JSON1
+ENABLE_JSON1 <-- IT WORKS! 🎉
 ENABLE_RTREE
 ENABLE_STMTVTAB
 MAX_TRIGGER_DEPTH=100
@@ -85,7 +93,7 @@ TEMP_STORE=1
 THREADSAFE=1
 ```
 
-Thanks to new driver, we now have access to [`FTS5`][fts5] for working with full text search, in addition to [`JSON1`][json1] extension.
+Thanks to the new driver, we also have access to [`FTS5`][fts5] extension to work with full text search indices.
 
 [sqlite]: https://www.sqlite.org/download.html#win32
 [json1]: https://www.sqlite.org/json1.html

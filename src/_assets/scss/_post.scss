@@ -71,15 +71,16 @@
 
 .download {
     padding: 1rem;
-    margin: 1rem -1rem;
-    border: 1px solid var(--c-primary);
+    margin: 2rem -1rem;
+    border: 2px solid var(--c-primary);
+
 
     a {
         text-decoration: none;
     }
 
     ul {
-        padding-left: 1.5rem;
+        padding-left: 1.25rem;
     }
 
     & > *:last-child {
