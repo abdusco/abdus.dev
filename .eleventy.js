@@ -85,6 +85,7 @@ module.exports = (config) => {
     });
 
 
+    config.setUseGitIgnore(false);
     config.setBrowserSyncConfig({
         ui: {port: 3333}
     });
