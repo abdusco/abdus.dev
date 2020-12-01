@@ -24,6 +24,8 @@
                 --width: calc(var(--scrollWidth) + 1rem);
                 width: var(--width, var(--maxWidth));
                 max-width: calc(100vw - 2 * var(--p-sides-x) - 1rem);
+                --scrollbar-track: transparent;
+                --scrollbar-thumb: transparent;
             }
         }
     }
