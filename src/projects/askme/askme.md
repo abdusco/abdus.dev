@@ -30,7 +30,7 @@ A dialog should appear with inputs to type the answers:
 
 <video src="./askme.webm" autoplay loop controls playsinline></video>
 
-When saved by clicking the Save button or hitting `[ENTER]` key, the app exits, and the user inputs are printed to console as JSON.
+When saved by clicking the Save button or hitting [[ENTER]] key, the app exits, and the user inputs are printed to console as JSON.
 
 ```json
 {"filename":"export.zip","author":"abdus","year":"2020"}
@@ -38,7 +38,7 @@ When saved by clicking the Save button or hitting `[ENTER]` key, the app exits, 
 
 The response can then be consumed from any script by reading the stdout and deserializing the JSON.
 
-Hitting `[Esc]` key closes the window and nothing is printed to console.
+Hitting [[Esc]] key closes the window and nothing is printed to console.
 
 ## Return codes
 
