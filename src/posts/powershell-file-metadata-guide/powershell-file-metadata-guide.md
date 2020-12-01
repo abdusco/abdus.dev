@@ -49,21 +49,20 @@ Copy the `TagLibSharp.dll` into where you'll be running the script.
 ```shell
 .
 ├── lib
-│   ├── net45
-│   │   ├── ...
-│   └── netstandard2.0
-│       ├── TagLibSharp.dll <-- we need this one
-│       ├── TagLibSharp.pdb
-│       └── TaglibSharp.xml
+│   ├── net45
+│   │   ├── ...
+│   └── netstandard2.0
+│       ├── TagLibSharp.dll <-- we need this one
+│       ├── TagLibSharp.pdb
+│       └── TaglibSharp.xml
 ├── ...
 └── ...
-```   
+```
 
 Load the DLL:
 ```powershell
 [System.Reflection.Assembly]::LoadFrom((rvpa "TagLibSharp.dll"))
 ```
-
 ::: tip
 `rvpa` is an alias for `Resolve-Path` [^0]
 :::

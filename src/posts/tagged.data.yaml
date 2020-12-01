@@ -1,4 +1,4 @@
-layout: ''
+layout: false
 pagination:
   data: collections.tags
   size: 1

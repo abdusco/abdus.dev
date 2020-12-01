@@ -21,9 +21,7 @@
             document.documentElement.classList.toggle('light', !isDark);
             localStorage.setItem('darkmode', isDark);
         }
-        const toggleDarkMode = () => {
-            setDarkMode(!isDark());
-        }
+        const toggleDarkMode = () => setDarkMode(!isDark())
         setDarkMode(isDark());
     </script>
 </head>
@@ -37,7 +35,7 @@
     </div>
     <footer>
         <hr>
-        <p class='text--small text--bold text--dim'><span title="toggle dark mode" onclick="toggleDarkMode()">{{ site.copyright }}</span></p>
+        <p class='text--small text--bold text--dim'><span title="toggle dark mode" ontouchstart="toggleDarkMode()">{{ site.copyright }}</span></p>
     </footer>
 </div>
 
