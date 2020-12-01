@@ -206,12 +206,11 @@ code {
 }
 
 kbd {
-    font-weight: 600;
+    font-weight: 550;
     padding: 0.2em 0.5em;
-    box-shadow: 0 0 0.2em -0.05em rgba(0,0,0,0.2);
-    border-radius: 0.25em;
+    // box-shadow: 0 0 0.2em -0.05em rgba(0,0,0,0.2);
+    border-radius: 0.5em;
     min-width: 2rem;
-    font-family: $fontMono;
     background-color: #{'rgba(var(--c-body_rgb), 0.1)'};
 }
 
