@@ -12,7 +12,7 @@ $aliases:
 
 I am writing a script to set up a PC to fit my workflow. This usually involves installing [chocolatey][choco] as my package manager and installing programs I need. But it doesn't end there, I need to restore settings for certain apps and also update [`PATH`][path] environment variable. 
 
-Until today I've always added paths manually, but no more. Thanks to some googling, I created this script that adds the given dir to `PATH` environment variable for the current user.
+Until today I've always added paths manually, but no more. [Thanks to some googling][microsoft_docs], I was able to create this script that adds the given dir to `PATH` environment variable for the current user.
 
 ```powershell
 function Add-ToUserPath {
@@ -27,9 +27,14 @@ function Add-ToUserPath {
 
     $path = [Environment]::GetEnvironmentVariable("PATH", [System.EnvironmentVariableTarget]::User)
     if (!($path.Contains($dir))) {
-        $path | Set-Content -Path 'path.env'
+        # backup the current value
+        "PATH=$path" | Set-Content -Path "$env:USERPROFILE/path.env"
+        # append dir to path
         [Environment]::SetEnvironmentVariable("PATH", $path + ";$dir", [EnvironmentVariableTarget]::User)
+        Write-Host "Added $dir to PATH"
+        return
     }
+    Write-Error "$dir is already in PATH"
 }
 ```
 
@@ -38,6 +43,8 @@ then use it like so:
 ```powershell
 Add-ToUserPath "$env:USERPROFILE/.bin"
 ```
+
+If you want to set the environment variable for all users, change the target `[System.EnvironmentVariableTarget]` parameter from `User` to `Machine`.
 
 ## Adding the script to PowerShell profile
 
@@ -54,5 +61,6 @@ Paste the function into this file and save it. When you open a new powershell wi
 [choco]: https://chocolatey.org/install
 [profile]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles
 [path]: https://en.wikipedia.org/wiki/PATH_(variable)
+[microsoft_docs]: https://docs.microsoft.com/en-us/dotnet/api/system.environment.setenvironmentvariable
 
 [^args]: Unless `-NoProfile` argument is given
