@@ -10,9 +10,15 @@ $aliases:
 ---
 # {{ title }}
 
-I am writing a script to set up a PC to fit my workflow. This usually involves installing [chocolatey][choco] as my package manager and installing programs I need. But it doesn't end there, I need to restore settings for certain apps and also update [`PATH`][path] environment variable. 
+I am writing a script to configure a fresh Windows installation to fit my workflow. 
+This usually involves installing [chocolatey][choco] as my package manager 
+and installing programs I need. Along with it, I also need to restore settings for certain apps 
+and update the [`PATH`][path] environment variable. 
 
-Until today I've always added paths manually, but no more. [Thanks to some googling][microsoft_docs], I was able to create this script that adds the given dir to `PATH` environment variable for the current user.
+Until today I've always added paths manually, but it turns out, there's an easier way. 
+[Thanks to some googling][microsoft_docs], 
+I was able to create this script that adds the given dir 
+to `PATH` environment variable for the current user.
 
 ```powershell
 function Add-ToUserPath {
@@ -38,7 +44,7 @@ function Add-ToUserPath {
 }
 ```
 
-then use it like so:
+It expects a path to a directory as the argument:
 
 ```powershell
 Add-ToUserPath "$env:USERPROFILE/.bin"
@@ -48,14 +54,17 @@ If you want to set the environment variable for all users, change the target `[S
 
 ## Adding the script to PowerShell profile
 
-Pasting this code, or importing a file every time I need to update `PATH` defeats the purpose. I need a way to access it quickly. That's where [profiles][profile] come into play. It's a file (similar to `.bashrc` for bash) that runs everytime a PowerShell session starts[^args]
+Pasting and running this code, or importing a file every time we need to update `PATH` defeats the purpose. 
+We need a way to access it quickly. That's where the PowerShell [profile][profile] comes into play. 
+It's a file (similar to `.bashrc` in bash) that runs everytime a PowerShell session starts[^args]
 
-Open profile file
+Open the profile with an editor.
 ```powershell
-code $PROFILE
+notepad $PROFILE
 ```
 
-Paste the function into this file and save it. When you open a new powershell window, you should be able to use the function.
+Paste the function into this file and save it. 
+When you open a new powershell window, you should be able to use the function.
 
 
 [choco]: https://chocolatey.org/install
