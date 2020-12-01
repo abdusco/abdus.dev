@@ -10,10 +10,19 @@
 
 {% block foot %}
     <script>
+        const setOverflow = (el) => {
+            const hasOverflow = el.scrollWidth > el.clientWidth;
+            el.classList.toggle('has-overflow', hasOverflow);
+            const maxWidth = Math.min(el.scrollWidth, window.innerWidth);
+            el.style.setProperty('--scrollWidth', `${maxWidth}px`);
+        }
         document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(it => setOverflow(it.target));
+            });
+
            [...document.querySelectorAll('.snippet')].forEach(s => {
-               const hasOverflow = s.scrollWidth > s.clientWidth;
-               s.classList.toggle('has-overflow', hasOverflow);
+               observer.observe(s);
            });
         });
     </script>
