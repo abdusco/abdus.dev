@@ -24,8 +24,6 @@ Download the latest compiled DLL for Windows:
     <li><a x-bind:href="url" x-text="url"></a></li>
   </template>
 </ul>
-
-<small>Links are updated daily from [SQLite][sqlite]</small>
 :::
 
 
