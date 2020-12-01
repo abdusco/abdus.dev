@@ -13,7 +13,7 @@ date: 2020-02-20
 
 SQLite has an extension called [`JSON1`][json1] to work on JSON columns. It's really useful for storing data that wouldn't necessarily belong to a separate column, like metadata. But SQLite driver doesn't include this extension by default on Windows. So we'll have to manually upgrade it.
 
-Download the latest compiled DLL for Windows: 
+Download the latest compiled [DLL for Windows][sqlite]: 
 
 ::: download
 <ul x-data="app()" x-init="init()">
@@ -24,6 +24,19 @@ Download the latest compiled DLL for Windows:
     <li><a x-bind:href="url" x-text="url"></a></li>
   </template>
 </ul>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2/dist/alpine.js" defer></script>
+<script>
+    const app = () => ({
+        links: [],
+        async init() {
+            const url = `https://www.sqlite.org/download.html#win32`;
+            const html = await fetch(`/api/proxy?url=${decodeURIComponent(url)}`).then(r => r.text());
+            this.links = html.match(/(\d+\/[^.]+.zip)/gm)
+                .filter(path => /dll-win/.test(path))
+                .map(path => `https://www.sqlite.org/${path}`);
+        }
+    });
+</script>
 :::
 
 
@@ -72,23 +85,8 @@ TEMP_STORE=1
 THREADSAFE=1
 ```
 
-Thanks to new driver, we now have access to [`FTS5`][fts5] for working with full text search, in addition to `JSON1` extension.
+Thanks to new driver, we now have access to [`FTS5`][fts5] for working with full text search, in addition to [`JSON1`][json1] extension.
 
-[sqlite]: {{ sqliteDownloadUrl }}
+[sqlite]: https://www.sqlite.org/download.html#win32
 [json1]: https://www.sqlite.org/json1.html
 [fts5]: https://www.sqlite.org/fts5.html
-
-
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2/dist/alpine.js" defer></script>
-<script>
-    const app = () => ({
-        links: [],
-        async init() {
-            const url = `https://www.sqlite.org/download.html#win32`
-            const html = await fetch(`/api/proxy?url=${decodeURIComponent(url)}`).then(r => r.text());
-            this.links = html.match(/(\d+\/[^.]+.zip)/gm)
-                .filter(path => /dll-win/.test(path))
-                .map(path => `https://www.sqlite.org/${path}`);
-        }
-    });
-</script>
