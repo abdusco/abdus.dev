@@ -33,7 +33,7 @@
   "scripts": {
     "dev": "nodemon",
     "dev:all": "concurrently -r -n 11ty,sass -c blue,red npm:dev:eleventy npm:dev:sass",
-    "dev:eleventy": "node -r dotenv/config ./node_modules/@11ty/eleventy/cmd.js --serve",
+    "dev:eleventy": "node -r dotenv/config ./node_modules/@11ty/eleventy/cmd.js --serve --incremental",
     "dev:sass": "cross-env NODE_ENV=production node-sass --watch --recursive --output src/_assets/css --output-style compressed --source-map true src/_assets/scss",
     "sass": "node-sass --include-path node_modules --recursive --output src/_assets/css --output-style compressed --source-map true src/_assets/scss",
     "eleventy": "node -r dotenv/config ./node_modules/@11ty/eleventy/cmd.js",
