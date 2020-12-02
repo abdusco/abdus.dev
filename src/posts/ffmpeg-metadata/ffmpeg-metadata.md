@@ -64,9 +64,9 @@ def add_metadata(video: Path,
         'ffmpeg',
         '-v', 'quiet',
         '-i', str(video.absolute()),
-        *metadata_args,
-        '-map_metadata', '0',
         '-movflags', 'use_metadata_tags',
+        '-map_metadata', '0',
+        *metadata_args,
         '-c', 'copy',
         str(save_path)
     ]
@@ -77,7 +77,7 @@ def add_metadata(video: Path,
 
 
 if __name__ == '__main__':
-    vid = Path(r'video.mkv')
+    vid = Path(r'video.mp4')
     add_metadata(
         vid,
         title=vid.stem,
