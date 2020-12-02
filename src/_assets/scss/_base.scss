@@ -81,12 +81,15 @@ img, video {
 }
 
 img {
+    max-width: 100%;
     cursor: zoom-in;
     @media screen and (min-width: 1200px) {
         &.zoom {
             width: initial;
+            max-width: none;
             max-height: calc(100vh - var(--p-sides-y));
             object-fit: contain;
+            cursor: zoom-out;
         }
     }
 }
