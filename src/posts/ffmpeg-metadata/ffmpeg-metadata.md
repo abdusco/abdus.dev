@@ -45,12 +45,13 @@ Not all containers support every metadata. For reference you can check [Matroska
 ```python
 import subprocess
 from pathlib import Path
+from typing import Dict
 
 
 def add_metadata(video: Path,
+                 meta: Dict[str, str],
                  save_path: Path = None,
-                 overwrite: bool = True,
-                 **meta):
+                 overwrite: bool = True):
     if not save_path:
         save_path = video.with_suffix('.metadata' + video.suffix)
 
@@ -80,9 +81,11 @@ if __name__ == '__main__':
     vid = Path(r'video.mp4')
     add_metadata(
         vid,
-        title=vid.stem,
-        comment=vid.stem,
-        year=2020,
+        meta=dict(
+            title=vid.stem,
+            comment=vid.stem,
+            year=2020,
+        ),
     )
 
 ```
