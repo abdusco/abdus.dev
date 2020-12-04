@@ -13,7 +13,7 @@
     "cross-env": "latest",
     "dayjs": "^1.8.28",
     "dotenv": "^8.2.0",
-    "highlight.js": "^10.1.0",
+    "highlight.js": "^10.4.1",
     "js-yaml": "^3.14.0",
     "lodash": "^4.17.19",
     "markdown-it": "^11.0.0",
