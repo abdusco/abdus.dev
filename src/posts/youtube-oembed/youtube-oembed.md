@@ -31,7 +31,7 @@ Paste in a url and click fetch to inspect an oembed json for a Youtube video.
 </p>
 <p>
     <span>oEmbed URL:</span>
-    <pre class='snippet' x-text="`http://www.youtube.com/oembed?url=${url ? encodeURIComponent(url) : '...'}`"></pre>
+    <pre class='snippet' x-text="url ? oembedUrl : '...'"></pre>
 </p>
 <p>
     <button type="submit" class="button">fetch!</button>
