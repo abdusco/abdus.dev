@@ -4,6 +4,7 @@
 use AbdusCo\Handler;
 use AbdusCo\PingHandler;
 use AbdusCo\ProxyHandler;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -38,7 +39,11 @@ switch ($routeInfo[0]) {
         /** @var Handler $handler */
         $handler = $factory($request);
         $vars = $routeInfo[2];
-        $response = $handler->handle($request, $vars);
+        try {
+            $response = $handler->handle($request, $vars);
+        } catch (Exception $e) {
+            $response = new JsonResponse(['message' => $e->getMessage()], status: 500);
+        }
         break;
 }
 $response ??= new Response('oops', headers: ['content-type' => 'text/plain']);
