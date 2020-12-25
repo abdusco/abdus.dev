@@ -136,6 +136,40 @@ if __name__ == "__main__":
 
 To prevent blocking interrupt signal and let the subprocess exit, we need to `.wait()` it. This allows `KeyboardInterrupt` to bubble when I hit [[Ctrl]] + [[C]] and terminates the script and subprocesses.
 
+## Async workflow
+
+Just for kicks, I wanted to implement the same operation in async. It turned out to be more straightforward to write and consume. One caveat is that you have to create a wrapper async function to use `async`/`await` keywords, so I had to add a `main` function to do that.
+
+```python
+import asyncio
+import json
+from pathlib import Path
+from typing import AsyncIterable
+
+
+async def monitor_clipboard() -> AsyncIterable[dict]:
+    proc = await asyncio.subprocess.create_subprocess_exec(
+        "dumpclip.exe",
+        "--listen",
+        cwd=str(Path(__file__).parent.resolve()),
+        stdout=asyncio.subprocess.PIPE,
+    )
+
+    while True:
+        if raw_bytes := await proc.stdout.readline():
+            text = raw_bytes.decode().strip()
+            if text:
+                yield json.loads(text)
+
+
+if __name__ == "__main__":
+    async def main():
+        async for clip in monitor_clipboard():
+            print(clip)
+
+
+    asyncio.get_event_loop().run_until_complete(main())
+```
 
 [dumpclip]: https://abdus.dev/projects/dumpclip/
 [dumpclip_repo]: https://github.com/abdusco/dumpclip

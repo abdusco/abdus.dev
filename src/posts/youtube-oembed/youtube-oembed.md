@@ -16,7 +16,7 @@ Youtube supports [oEmbed][oembed] format. This means you can easily get quick in
 as thumbnail image, embed HTML, video title etc. without using Youtube's API or having to scrape
 the Youtube page.
 
-You can reach oEmbed API at `http://www.youtube.com/oembed?url=YOUTUBE_URL`
+You can reach oEmbed API at `https://www.youtube.com/oembed?url=YOUTUBE_URL`
 
 [oembed]: https://oembed.com/
 
@@ -31,7 +31,7 @@ Paste in a url and click fetch to inspect an oembed json for a Youtube video.
 </p>
 <p>
     <span>oEmbed URL:</span>
-    <pre class='snippet' x-text="`http://www.youtube.com/oembed?url=${url ? encodeURIComponent(url) : '...'}`"></pre>
+    <pre class='snippet' x-text="url ? oembedUrl : '...'"></pre>
 </p>
 <p>
     <button type="submit" class="button">fetch!</button>
@@ -48,13 +48,13 @@ Paste in a url and click fetch to inspect an oembed json for a Youtube video.
             async handleSubmit() {
                 if (!this.url) return;
                 this.text = 'fetching json...';
-                // http://www.youtube.com/oembed doesn't send CORS headers, so I have to use a proxy here
+                // https://www.youtube.com/oembed doesn't send CORS headers, so I have to use a proxy here
                 const url = `/api/proxy?url=${this.oembedUrl(this.url)}`;
                 const json = await fetch(url).then(r => r.json());
                 this.text = JSON.stringify(json, null, 2);
             },
             oembedUrl(url) {
-                return `http://www.youtube.com/oembed?url=${encodeURIComponent(url)}`
+                return `https://www.youtube.com/oembed?url=${encodeURIComponent(url)}`
             }
         };
     }
