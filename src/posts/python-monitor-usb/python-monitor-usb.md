@@ -12,8 +12,8 @@ wmic_docs: https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-log
 I was looking for a way to monitor changes in mounted drives to run scripts that updates a catalog.
 Most solutions found online use C#, which is fine, but I was looking for a way to do it in Python.
 
-I've found about `wmic`[^wmic] command which gives detailed info about the current system.
-Using `wmic logicaldisk`, I've queried drive letter, caption and type then parsed the output with regex.
+I discovered `wmic`[^wmic] command which gives detailed info about the current system.
+Using `wmic logicaldisk`, I was able to query drive letters, caption and their type then parse the output with regex.
 
 <details>
 <summary>Click to see the list of disk properties <code>wmic</code> provides</summary>
