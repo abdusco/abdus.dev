@@ -33,13 +33,6 @@ A faster solution is to check if `pwsh.exe` exists in `PATH`. There's a pre-made
 
 `binExists` function builds a list of paths for the executable under all directories in `PATH` and checks if any of them exists and returns the first result.
 
-One edge case is that Windows has no concept of executable flag like UNIX. Instead it uses `PATHEXT` environment variable to determine if a file can be executed in a shell. It's a set of extensions that declares what can be executed. On my PC, `PATHEXT` content is
-
-```
-.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW;.ps1;.CPL
-```
-
-
 ```js
 const path = require("path");
 const fs = require("fs/promises");
@@ -74,7 +67,14 @@ async function binExists(exe) {
 }
 ```
 
-Then we can use it to get the most recent Powershell installation.
+
+One edge case is that Windows has no concept of an executable bit (`+x`) like in UNIX. Instead it uses `PATHEXT` environment variable to determine if a file can be executed directly in a shell. It's a set of extensions that declares what can be executed. On my PC, `PATHEXT` content is
+
+```
+.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW;.ps1;.CPL
+```
+
+We can finally use `binExists` to get the most recent Powershell installation.
 
 ```js
 async function getPowershellVariant() {
