@@ -8,13 +8,13 @@ date: 2021-01-26
 
 # {{ title }}
 
-I was writing a mini npm package to distribute a Powershell script. It is designed for users [run the Powershell script](/posts/running-powershell-script-in-node/) using
+I was writing a mini npm package to distribute a Powershell script. It is designed for users to [run the Powershell script](/posts/running-powershell-script-in-node/) using
 
 ```
 npx package-name [...args]
 ``` 
 
-which passes arguments to the script and let it take from there. 
+which passes arguments to Powershell and let it run the actual script, which is bundled with the npm package. 
 
 ## Problem
 
