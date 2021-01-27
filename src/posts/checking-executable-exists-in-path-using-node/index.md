@@ -3,7 +3,7 @@ title: Checking if an executable exists in PATH using Node.js
 tags:
   - node
   - post
-date: 2020-01-26
+date: 2021-01-26
 ---
 
 # {{ title }}
