@@ -31,7 +31,6 @@ async function run(executable, args, opts = {}) {
             stdio: ["pipe", process.stdout, process.stderr],
             ...opts,
         });
-        // child.stderr?.pipe(process.stderr);
         child.on("error", reject);
         child.on("exit", (code) => {
             if (code === 0) {
