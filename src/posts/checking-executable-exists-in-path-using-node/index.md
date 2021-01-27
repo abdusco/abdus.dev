@@ -31,7 +31,8 @@ but it runs really slowly.
 
 A faster solution is to check if `pwsh.exe` exists in `PATH`. There's a pre-made solution for this, as with anything, called [hasbin](https://github.com/springernature/hasbin) but it's quite old and uses external dependencies for async operations that are native to modern JS.
 
-The function builds a list of paths for the executable under all directories in `PATH` and checks if any of them exists and returns the first result.
+`binExists` function builds a list of paths for the executable under all directories in `PATH` and checks if any of them exists and returns the first result.
+
 One edge case is that Windows has no concept of executable flag like UNIX. Instead it uses `PATHEXT` environment variable to determine if a file can be executed in a shell. It's a set of extensions that declares what can be executed. On my PC, `PATHEXT` content is
 
 ```
@@ -40,6 +41,9 @@ One edge case is that Windows has no concept of executable flag like UNIX. Inste
 
 
 ```js
+const path = require("path");
+const fs = require("fs/promises");
+
 /**
  * @param {string} exe executable name
  * @return {Promise<string|null>} executable path if found
