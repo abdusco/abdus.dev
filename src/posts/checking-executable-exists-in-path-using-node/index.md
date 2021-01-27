@@ -8,7 +8,7 @@ date: 2021-01-26
 
 # {{ title }}
 
-I was writing a mini npm package to distribute a Powershell script. It is designed for users [run the Powershell script](/posts/run-powershell-script-in-node/) using `npx package-name ...args` which gives passes arguments to the script and it takes from there. 
+I was writing a mini npm package to distribute a Powershell script. It is designed for users [run the Powershell script](/posts/running-powershell-script-in-node/) using `npx package-name ...args` which gives passes arguments to the script and it takes from there. 
 
 ## Problem
 
