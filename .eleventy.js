@@ -10,7 +10,7 @@ const tmpl = require('./src/_eleventy/templating');
 const yaml = require('js-yaml');
 
 const hljs = require('highlight.js');
-const siteData = yaml.safeLoad(fs.readFileSync('./src/_data/site.yaml', 'utf-8'));
+const siteData = yaml.load(fs.readFileSync('./src/_data/site.yaml', 'utf-8'));
 
 /** @param {UserConfig} config */
 module.exports = (config) => {
@@ -20,7 +20,7 @@ module.exports = (config) => {
     _.forEach(tmpl.pairedShortcodes, (f, k) => config.addPairedShortcode(k, f));
     config.addFilter('published', (arr) => arr.filter(isPublished));
 
-    ['yaml', 'yml'].forEach(ext => config.addDataExtension(ext, yaml.safeLoad));
+    ['yaml', 'yml'].forEach(ext => config.addDataExtension(ext, yaml.load));
     config.setLibrary('md', markdownFactory());
 
     config.addPassthroughCopy({
