@@ -25,7 +25,7 @@ The first solution that came to my mind was checking executable version[^version
 pwsh -command "echo $PSVersionTable.PSVersion.ToString()" 
 ```
 
-but it runs slowly. It also doesn't handle commands without `--version` or any command switch at all. So running the program to see if actually runs is not a great way to go about it.
+but it runs slowly. It also doesn't handle commands without `--version` or any command switch at all. So trying to run the program to see if actually exists is not a great way to go about it.
 
 ## Solution
 
