@@ -1,5 +1,8 @@
 const _ = require('lodash');
+const {resolve} = require('path');
 const dayjs = require('dayjs');
+dayjs.extend(require('dayjs/plugin/relativeTime'));
+dayjs.extend(require('dayjs/plugin/utc'));
 
 const filters = {
     json: (val) => JSON.stringify(val, null, 4),
@@ -10,8 +13,10 @@ const filters = {
             ...cleaned
         }, null, 4);
     },
-    date: (val) => dayjs(val).format('YYYY-MM-DD'),
-    cachebust: (val) => `${val}?${+new Date}`
+    date: (date) => dayjs(date).format('YYYY-MM-DD'),
+    dateIso: (date) => date.toISOString(),
+    dateAgo: (date) => dayjs().to(dayjs(date).local()),
+    cachebust: (val) => `${val}?${+new Date}`,
 };
 const pairedShortcodes = {};
 const shortcodes = {};

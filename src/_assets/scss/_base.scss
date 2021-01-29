@@ -158,6 +158,7 @@ h6, .h6 {
 
 a {
     color: var(--c-link);
+    text-underline-position: under;
 
     h1 &, h2 & {
         color: currentColor;

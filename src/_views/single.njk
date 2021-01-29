@@ -4,6 +4,18 @@
     <div class="single">
         {% block single_content %}
             <h1 class="{{ 'page-title' if fancyTitle else ''}}">{{ title }}</h1>
+
+                
+            {% if updatedAt %}
+                <div class="page__lastupdated">
+                    <span>Last updated:</span> 
+                    <time 
+                        datetime='{{updatedAt | dateIso}}' 
+                        title='{{updatedAt | dateAgo}}'>
+                        {{updatedAt | date}}</time>
+                </div>
+            {% endif %}
+
             {{ content | safe }}
         {% endblock %}
     </div>
