@@ -1,21 +1,25 @@
 {% set hiddenTags = hiddenTags or [] %}
 {% if posts|length %}
-    <ul>
-        {% for p in posts -%}
-            <li class='mb--2'>
-                <article class='post'>
-                    <h2 class='h5 mb--1'><a href='{{ p.url }}'>{{ p.data.title }}</a></h2>
-                    {% if p.data.tags | length %}
-                        {%- for tag in p.data.tags -%}
-                            {%- if tag not in hiddenTags -%}
-                                <a class='tag' href='/posts/~{{ tag }}'>{{ tag }}</a>
-                            {% endif -%}
-                        {%- endfor -%}
-                    {% endif %}
-                    <time class='text--small text--dim text--bold'
-                          datetime='{{ p.date }}'>{{ p.date | date }}</time>
-                </article>
-            </li>
-        {% endfor %}
-    </ul>
+<ul>
+    {% for p in posts -%}
+    <li class='mb--2'>
+        <article class='post'>
+            <h2 class='h5 mb--1'><a href='{{ p.url }}'>{{ p.data.title }}</a></h2>
+            <div>
+                {% if p.data.tags | length %}
+                <nav class="d--ib">
+                    {%- for tag in p.data.tags -%}
+                    {%- if tag not in hiddenTags -%}
+                    <a class='tag d--ib' href='/posts/~{{ tag }}'>{{ tag }}</a>
+                    {%- endif -%}
+                    {%- endfor -%}
+                </nav>
+                {% endif %}
+                <time class='text--small text--dim text--bold' datetime='{{ p.date | dateIso }}'>{{ p.date | date
+                    }}</time>
+            </div>
+        </article>
+    </li>
+    {% endfor %}
+</ul>
 {% endif %}

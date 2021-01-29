@@ -17,6 +17,7 @@ const filters = {
     dateIso: (date) => date.toISOString(),
     dateAgo: (date) => dayjs().to(dayjs(date).local()),
     cachebust: (val) => `${val}?${+new Date}`,
+    isRecent: (date) => dayjs(date).diff(dayjs(), "days") <= 7,
 };
 const pairedShortcodes = {};
 const shortcodes = {};

@@ -1,53 +1,56 @@
 {% extends "base.njk" %}
 
 {% block content %}
-    <div class="single">
-        {% block single_content %}
-            <h1 class="{{ 'page-title' if fancyTitle else ''}}">{{ title }}</h1>
+<div class="single {% if updatedAt and (updatedAt | isRecent) %}page--recently-updated{% endif %}">
+    {% block single_content %}
+    <h1 class="{{ 'page-title' if fancyTitle else ''}}">{{ title }}</h1>
 
-            {% if updatedAt %}
-                <div class="page__lastupdated">
-                    <b>Last updated:</b> 
-                    <time
-                        datetime='{{updatedAt | dateIso}}' 
-                        title='{{updatedAt | dateAgo}}'>
-                        {{updatedAt | date}}</time>
-                </div>
-            {% endif %}
-
-            {{ content | safe }}
-        {% endblock %}
+    {% if updatedAt %}
+    <div class="page__updated-at" title='{{updatedAt | date}} ({{updatedAt | dateAgo}})'>
+        <b>Last updated:</b>
+        {% if updatedAt | isRecent %}
+        <time datetime='{{updatedAt | dateIso}}'>
+            {{updatedAt | dateAgo}}</time>
+        {% else %}
+        <time datetime='{{updatedAt | dateIso}}'>
+            {{updatedAt | date}}</time>
+        {% endif %}
     </div>
+    {% endif %}
+
+    {{ content | safe }}
+    {% endblock %}
+</div>
 {% endblock %}
 
 {% block foot %}
-    <script>    
-        initOverflowExpansions();
-        initImageExpansions();
+<script>
+    initOverflowExpansions();
+    initImageExpansions();
 
-        function initImageExpansions() {
-            document.querySelector('.single')?.addEventListener('click', e => {
-                if (e.target?.tagName?.toUpperCase() === 'IMG') {
-                    e.target.classList.toggle('zoom');
-                }
-            })
-        }
+    function initImageExpansions() {
+        document.querySelector('.single')?.addEventListener('click', e => {
+            if (e.target?.tagName?.toUpperCase() === 'IMG') {
+                e.target.classList.toggle('zoom');
+            }
+        })
+    }
 
-        function initOverflowExpansions() {
-            window.addEventListener('mouseover', ev => {
-                if (ev.target?.classList.contains('snippet')) {
-                    requestAnimationFrame(() => setOverflow(ev.target));
-                }
-            });
+    function initOverflowExpansions() {
+        window.addEventListener('mouseover', ev => {
+            if (ev.target?.classList.contains('snippet')) {
+                requestAnimationFrame(() => setOverflow(ev.target));
+            }
+        });
 
-            function setOverflow(el) {                
-                const hasOverflow = el.scrollWidth > el.clientWidth + 16;
-                if (hasOverflow) {
-                    el.classList.add('has-overflow');
-                    const maxWidth = Math.min(el.scrollWidth, window.innerWidth);
-                    el.style.setProperty('--scrollWidth', `${maxWidth}px`);
-                }
+        function setOverflow(el) {
+            const hasOverflow = el.scrollWidth > el.clientWidth + 16;
+            if (hasOverflow) {
+                el.classList.add('has-overflow');
+                const maxWidth = Math.min(el.scrollWidth, window.innerWidth);
+                el.style.setProperty('--scrollWidth', `${maxWidth}px`);
             }
         }
-    </script>
+    }
+</script>
 {% endblock %}

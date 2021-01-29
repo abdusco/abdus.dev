@@ -35,7 +35,7 @@ module.exports = {
         isPost(data) {
             const {tags = []} = data;
             return tags.includes('post');
-        }
+        },
     },
     layout: 'post',
     today: dayjs(),

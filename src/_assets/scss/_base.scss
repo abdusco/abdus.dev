@@ -158,7 +158,11 @@ h6, .h6 {
 
 a {
     color: var(--c-link);
-    text-underline-position: under;
+
+    @supports (text-decoration-skip-ink: auto) {
+        text-underline-offset: 0.166em;
+        text-decoration-skip-ink: auto;
+    }
 
     h1 &, h2 & {
         color: currentColor;
@@ -285,6 +289,11 @@ summary {
     display: inline;
 }
 
+.flex-and-center {
+    display: flex;
+    align-items: center;
+}
+
 .d--ib {
     display: inline-block;
 }
@@ -295,6 +304,10 @@ summary {
 
 .mb--2 {
     margin-bottom: 1rem;
+}
+
+.mr--1 {
+    margin-right: 0.5rem;
 }
 
 .c--primary {

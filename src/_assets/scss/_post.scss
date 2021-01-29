@@ -5,13 +5,19 @@
     }
 }
 
-.page__lastupdated {
+.page__updated-at {
     margin: 1rem 0;
     font-size: 14px;
     opacity: 0.5;
 
     &:hover {
         opacity: 1;
+    }
+
+    
+    .page--recently-updated &:before {
+        content: '🌱';
+
     }
 }
 
@@ -64,7 +70,7 @@
 
 .tag {
     font-size: 0.75em;
-    margin-right: 0.25rem;
+    margin-right: 0.5rem;
     font-weight: 600;
     text-decoration: none;
 }
