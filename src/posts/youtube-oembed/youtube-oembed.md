@@ -12,13 +12,18 @@ $aliases:
 
 
 
-Youtube supports [oEmbed][oembed] format. This means you can easily get quick info about a video, such
-as thumbnail image, embed HTML, video title etc. without using Youtube's API or having to scrape
-the Youtube page.
-
-You can reach oEmbed API at `https://www.youtube.com/oembed?url=YOUTUBE_URL`
+Youtube supports [oEmbed][oembed] format. This means we can easily fetch information about a video, such
+as its thumbnail image, HTML for embedding, title etc. without having to use Youtube API or scraping
+the Youtube page. You can reach oEmbed API at:
 
 [oembed]: https://oembed.com/
+
+
+```url
+https://www.youtube.com/oembed?url=YOUTUBE_URL
+```
+
+It returns a JSON filled with metadata. You can explore the oEmbed response yourself using the demo below.
 
 ## Demo
 
@@ -27,16 +32,16 @@ Paste in a url and click fetch to inspect an oembed json for a Youtube video.
 <form id="yt" @submit.prevent="handleSubmit()" x-data="app()" x-cloak>
 <p>
     <label for="url">URL:</label>
-    <input id="url" type="url" x-model="url" name="url" placeholder="<youtube_url>">
+    <input id="url" type="url" x-model="url" name="url" placeholder="https://url/to/youtube/video">
 </p>
 <p>
     <span>oEmbed URL:</span>
-    <pre class='snippet' x-text="url ? oembedUrl(url) : '...'"></pre>
+    <pre class='snippet' data-lang="url" x-text="url ? oembedUrl(url) : '...'"></pre>
 </p>
 <p>
     <button type="submit" class="button">fetch!</button>
 </p>
-<pre class="snippet"><code x-text="text"></code></pre>
+<pre class="snippet" data-lang="json"><code x-text="text"></code></pre>
 </form>
 
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2/dist/alpine.js" defer></script>
@@ -49,7 +54,7 @@ Paste in a url and click fetch to inspect an oembed json for a Youtube video.
                 if (!this.url) return;
                 this.text = 'fetching json...';
                 // https://www.youtube.com/oembed doesn't send CORS headers, so I have to use a proxy here
-                const url = `/api/proxy?url=${this.oembedUrl(this.url)}`;
+                const url = `https://proxy.abdusco.workers.dev?url=${this.oembedUrl(this.url)}`;
                 const json = await fetch(url).then(r => r.json());
                 this.text = JSON.stringify(json, null, 2);
             },

@@ -197,7 +197,12 @@ input, textarea {
     width: 100%;
     background-color: transparent;
     border: 1px solid rgba(#666, 0.5);
-    border-top-width: 2px;
+    // border-bottom-width: 2px;
+    color: currentColor;
+
+    &:not(:placeholder-shown) {
+        border-color: var(--c-link);
+    }
 
     &:hover, &:focus {
         border-color: var(--c-link);
