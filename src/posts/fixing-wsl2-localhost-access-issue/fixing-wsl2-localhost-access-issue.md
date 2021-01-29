@@ -110,7 +110,7 @@ powershell -file wsl.ps1
 
 ## Automating IP renewal
 
-Everytime a WSL instance restarts, it gets a new IP address, so we need to keep hosts file updated.
+Everytime a WSL instance restarts, it gets a new IP address, so we need to keep the hosts file updated.
 
 
 ```powershell;lines=3,8
