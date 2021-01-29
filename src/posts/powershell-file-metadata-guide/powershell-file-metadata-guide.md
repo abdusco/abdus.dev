@@ -23,20 +23,12 @@ tags:
   (Get-ChildItem .\file.ext).LastWriteTime = {{todayStrLong}}
   ```
 
-  ::: tip
-  You can use `gci` or `ls` as an alias for `Get-ChildItem` [^0]
-  :::
-
 
 - All files in current folder:
   ```powershell
-  ls | % { $_.CreationTime = {{todayStr}} }
-  ls | % { $_.LastWriteTime = {{todayStr}} }
+  Get-ChildItem | ForEach-Object { $_.CreationTime = {{todayStr}} }
+  Get-ChildItem | ForEach-Object { $_.LastWriteTime = {{todayStr}} }
   ```
-  
-  ::: tip
-  `%` is an alias for `ForEach-Object` [^0]
-  :::
 
 
 ## Media files
@@ -61,11 +53,8 @@ Copy the `TagLibSharp.dll` into where you'll be running the script.
 
 Load the DLL:
 ```powershell
-[System.Reflection.Assembly]::LoadFrom((rvpa "TagLibSharp.dll"))
+[System.Reflection.Assembly]::LoadFrom((Resolve-Path "TagLibSharp.dll"))
 ```
-::: tip
-`rvpa` is an alias for `Resolve-Path` [^0]
-:::
 
 
 ### Image metadata
@@ -117,5 +106,3 @@ $music.Save()
 
 [taglib.github]: https://github.com/mono/taglib-sharp
 [taglib.nuget]: https://www.nuget.org/api/v2/package/TagLibSharp
-[aliases]: /posts/powershell-aliases
-[^0]: A list of aliases can be found [here][aliases].
