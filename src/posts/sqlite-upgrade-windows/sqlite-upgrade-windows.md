@@ -38,7 +38,7 @@ Here are the links, scraped directly from the page:
         },
         async scrape() {
             const url = `https://www.sqlite.org/download.html#win32`;
-            const html = await fetch(`/api/proxy?url=${decodeURIComponent(url)}`).then(r => r.text());
+            const html = await fetch(`https://proxy.abdusco.workers.dev?url=${decodeURIComponent(url)}`).then(r => r.text());
             return html.match(/(\d+\/[^.]+.zip)/gm)
                 .filter(path => /dll-win/.test(path))
                 .map(path => `https://www.sqlite.org/${path}`);
