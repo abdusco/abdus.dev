@@ -9,11 +9,11 @@ date: 2021-01-21
 
 
 
-I needed a way to call a Powershell script from Node. Node provides `child_process` module, which helps us execute and
-communicate with external processes.
+I needed a way to call a Powershell script from Node. 
+Node provides `child_process` module, which provides tools to execute and communicate with external processes.
 
-We're going to use `spawn` for this. I know `utils/promisify` exists, but I like providing my own wrapper to
-promisify `spawn`. It helps me return the exit code to the caller and I also get a better intellisense while writing scripts.
+We're going to use `spawn` for this. It allows us to pipe the `stdout`/`stderr` of a process back to caller. 
+This helps the caller to see what the process is actually doing behind the scenes.
 
 ```js
 const {spawn} = require("child_process");
@@ -36,14 +36,18 @@ async function run(executable, args, opts = {}) {
             if (code === 0) {
                 resolve(code);
             } else {
-                reject(code);
+                const e = new Error('Process exited with error code ' + code);
+                e.code = code;
+                reject(e);
             }
         });
     });
 }
 ```
 
-We can then call `run` inside a try-catch block to capture errors and set a correct exit code.
+I like writing my own wrapper to promisify `spawn`. It helps me return the exit code to the caller and I also get a better intellisense while writing scripts.
+
+We can call `run` inside a try-catch block to capture errors and set a correct exit code.
 
 ```js
 try {
@@ -51,6 +55,6 @@ try {
     process.exit(code);
 } catch (e) {
     console.error(e);
-    process.exit(1);
+    process.exit(e.code || 1);
 }
 ```
