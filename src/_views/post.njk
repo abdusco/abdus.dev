@@ -6,7 +6,7 @@
     <h1 class="{{ 'page-title' if fancyTitle else ''}}">{{ title }}</h1>
 
     {% if updatedAt %}
-    <div class="page__updated-at" title='{{updatedAt | date}} ({{updatedAt | dateAgo}})'>
+    <div class="page__updated-at" title='{{updatedAt | dateIso}} ({{updatedAt | dateAgo}})'>
         <b>Last updated:</b>
         {% if updatedAt | isRecent %}
         <time datetime='{{updatedAt | dateIso}}'>
