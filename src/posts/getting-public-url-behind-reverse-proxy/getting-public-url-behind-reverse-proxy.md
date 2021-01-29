@@ -1,6 +1,6 @@
 ---
-title: Getting public URL for an ASP.NET app behind reverse proxy
-description: Detecting public URL for ASP.NET Core app inside a hosted service
+title: Getting the public URL for an ASP.NET app behind a reverse proxy
+description: Detecting the public URL for ASP.NET Core app inside a hosted service
 tags:
   - post
   - aspnet
