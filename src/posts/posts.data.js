@@ -37,6 +37,6 @@ module.exports = {
             return tags.includes('post');
         }
     },
-    layout: 'single',
+    layout: 'post',
     today: dayjs(),
 };
