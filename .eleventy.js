@@ -99,7 +99,7 @@ module.exports = (config) => {
         const api = config._collectionApi;
 
         const redirects = api.getAll().filter(it => it.data.$aliases)
-            .map(it => ({from: it.data.$aliases, to: it.url}));
+            .map(it => ({ from: it.data.$aliases, to: it.url }));
 
         buildCaddyConfig(redirects);
     });
@@ -107,7 +107,7 @@ module.exports = (config) => {
 
     config.setUseGitIgnore(false);
     config.setBrowserSyncConfig({
-        ui: {port: 3333}
+        ui: { port: 3333 }
     });
     return {
         dir: {
@@ -142,21 +142,53 @@ function buildCaddyConfig(items) {
 }
 
 function markdownFactory() {
+    /**
+     * @param {string} ranges 
+     * @returns {Set<number>}
+     */
+    const parseLineNumbers = (ranges) => {
+        const lines = new Set();
+        ranges.split(',').forEach(range => {
+            const [start, end] = range.split('-').map(i => parseInt(i, 10));
+            if (!start) return;
+            let linesWithinRange = end ?
+                // set of numbers from start -> end
+                [...new Array(Math.abs(end - start) + 1)].map((_, i) => start + i)
+                : [start];
+            linesWithinRange.forEach(lineNum => lines.add(lineNum));
+        });
+        return lines;
+    }
+
     let options = {
         html: true,
         breaks: false,
         linkify: false,
         highlight(code, lang) {
-            if (!lang) lang = 'text';
+            let actualLang = lang || 'text';
+            let highlightedLines = new Set();
 
-            if (hljs.getLanguage(lang)) {
+            if (actualLang.includes(';lines')) {
+                const [_, lang, ranges] = actualLang.match(/(.*);lines=(\S+)/);
+                actualLang = lang;
+                highlightedLines = parseLineNumbers(ranges);
+            }
+
+            if (hljs.getLanguage(actualLang)) {
                 try {
-                    code = hljs.highlight(lang, code).value;
+                    code = hljs.highlight(actualLang, code).value;
                 } catch (e) {
                 }
             }
 
-            return `<pre class='snippet hljs language-${lang}' data-lang='${lang}'><code>${code}</code></pre>`;
+            if (highlightedLines.size) {
+                code = code
+                    .split(/\r\n|\r|\n/g)
+                    .map((line, i) => `<span class="${highlightedLines.has(i + 1) ? 'line--highlighted' : 'line'}" data-line="${i + 1}">${line}</span>`)
+                    .join('\n');
+            }
+
+            return `<pre class='snippet hljs language-${actualLang}' data-lang='${actualLang}'><code>${code}</code></pre>`;
         }
     };
 

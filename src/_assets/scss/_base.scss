@@ -75,6 +75,10 @@ body {
     border-bottom: var(--stripe-size) solid var(--c-primary);
 }
 
+strong, b {
+    font-weight: 580;
+}
+
 img, video {
     max-width: calc(100vw - 2 * var(--p-sides-x) - 1rem);
     height: auto;

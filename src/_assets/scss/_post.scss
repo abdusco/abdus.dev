@@ -5,67 +5,6 @@
     }
 }
 
-.snippet {
-    position: relative;
-
-    overflow-x: auto;
-    scrollbar-width: thin;
-    margin-left: -1rem;
-    margin-right: -1rem;
-    padding: 1rem;
-    background-color: var(--bg-code);
-    border: 1px solid rgba(black, 0.1);
-    z-index: 0;
-
-    &.has-overflow {
-        &:hover, &:active, &:focus-within {
-            overflow-x: scroll;
-            @media screen and (min-width: 1200px) {
-                --width: calc(var(--scrollWidth) + 1rem);
-                width: var(--width, var(--maxWidth));
-                max-width: calc(100vw - 2 * var(--p-sides-x) - 1rem);
-                --scrollbar-track: transparent;
-                --scrollbar-thumb: transparent;
-            }
-        }
-    }
-
-
-    &:before {
-        content: attr(data-lang);
-        display: inline-block;
-        line-height: 1;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 0.6em;
-        font-weight: 600;
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        z-index: 1;
-
-        opacity: 0;
-        transition: opacity 0.2s;
-    }
-
-    &:hover:before {
-        opacity: 0.5;
-    }
-
-    &::-webkit-scrollbar {
-        height: var(--scrollbar-size);
-    }
-
-    &::-webkit-scrollbar-track {
-        background: var(--scrollbar-track);
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: var(--scrollbar-thumb);
-    }
-}
-
-
 .tip {
     margin: 2rem -1rem;
     padding: 1rem;
