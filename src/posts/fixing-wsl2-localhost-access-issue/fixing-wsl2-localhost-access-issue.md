@@ -15,14 +15,49 @@ images:
 
 I've been using [WSL][wsl] ever since it came out. It was nice being able to run Linux on Windows without the overhead of VMs. But it had some issues, like not being able to run Docker natively. Microsoft then released a new version called WSL2 which has brought native Docker support. 
 
-One feature of WSL is that it allows sharing IP address space for services listening to [localhost][localhost]. This means one can access servers running on WSL on Windows by its address e.g. `localhost:8000`
+One feature of WSL is that it allows sharing IP address space for services listening to [localhost][localhost]. This means one can access servers running on WSL on Windows as if it were running on Windows. This lets us, for instance, access a Docker container listening to `0.0.0.0:8000` on WSL from Windows using `localhost:8000`.
 
 ## Problem 
+
 Localhost redirection [often fails][issues] for some reason, such as when PC sleeps and wakes up, and localhost access to Linux services does not work anymore.
 
 ## Solution
 
-To fix this I've created a PowerShell script that gets the IP address of WSL instance, then creates or updates an entry in [hosts file][hosts]. This lets us access WSL by a hostname like `wsl` instead of `localhost`.
+We can get the internal IP a WSL instance (in my case an Ubuntu distro) has using 
+
+```bash
+$ ip -4 addr show eth0
+5: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    inet 172.27.106.75/20 brd 172.27.111.255 scope global eth0
+       valid_lft forever preferred_lft forever
+```
+
+We can see the IP address `172.27.106.75` which we can ping from Windows just fine.
+
+```powershell
+PS> ping 172.27.106.75
+
+Pinging 172.27.106.75 with 32 bytes of data:
+Reply from 172.27.106.75: bytes=32 time<1ms TTL=64
+```
+
+We can run a Python server and reach it from Windows.
+
+```bash
+$ python3 -m http.server
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+```
+
+```powershell
+PS> curl -I http://172.27.106.75:8000
+HTTP/1.0 200 OK
+...
+```
+
+Now we can make the experience better by not having to type in the full IP address everytime we want to access WSL. We can use the [`hosts` file][hosts] for that. But there's a catch: we can't just use `localhost`, because that'd break a lot of systems that rely on `localhost` working as a loopback address. That's why I chose `wsl` as the hostname, you're free to use something else.
+
+For this I've written a PowerShell script that gets the IP address of WSL instance, then creates (or updates) an entry in the `hosts` file.
+
 
 ```powershell
 $hostname = "wsl"
@@ -76,25 +111,40 @@ powershell -file wsl.ps1
 
 ## Automating IP renewal
 
-To refresh the IP address of WSL every time PC or WSL instance restarts we can use Scheduled Tasks.
+Everytime a WSL instance restarts, it gets a new IP address, so we need to keep hosts file updated.
 
-Watching new entries Event Viewer under _Windows Logs > System_ for _Hyper-V_, we can see a couple of events logged. 
+
+```powershell;lines=3,8
+PS> wsl -- ip -4 addr show eth0
+5: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    inet 172.27.101.9/20 brd 172.27.111.255 scope global eth0
+       valid_lft forever preferred_lft forever
+PS> wsl --shutdown
+PS> wsl -- ip -4 addr show eth0
+5: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    inet 172.27.102.184/20 brd 172.27.111.255 scope global eth0
+       valid_lft forever preferred_lft forever
+```
+
+We can use Scheduled Tasks to monitor WSL events and let it run our script.
+
+Watching new entries Event Viewer under **Windows Logs > System** for **Hyper-V**, we can see a couple of events logged. 
 
 ![](wsl-event.png)
 
 The last entry about loading networking driver seems like a good trigger for our script.
 
-Right click the log and click _Attach Task To This Event_ and follow the wizard. Choose _Start a program_ as an action and type 
+Right click the log and click **Attach Task To This Event** and follow the wizard. Choose **Start a program** as an action and type 
 
 - Program: `powershell.exe`
 - Add arguments: `-file c:/path/to/wsl.ps1`
 
 and complete the wizard.
 
-Open Scheduled Tasks and go to _Task Scheduler Library > Event Viewer Tasks_. Find the task we've just created and open its properties.
+Open Scheduled Tasks and go to **Task Scheduler Library > Event Viewer Tasks**. Find the task we've just created and open its properties.
 
-- In _General_ tab, check _Run with highest privileges_. Writing inside `%WINDIR%` requires admin privileges, or the script would fail to run.
-- In _Conditions_ tab, disable _Start the task only if the computer is on AC power_.
+- In **General** tab, check **Run with highest privileges**. Writing inside `%WINDIR%` requires admin privileges, or the script would fail to run.
+- In **Conditions** tab, disable **Start the task only if the computer is on AC power**.
 
 then save the task.
 
