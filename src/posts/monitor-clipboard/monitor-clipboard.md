@@ -10,9 +10,6 @@ tags:
 date: 2020-11-30
 ---
 
-# {{title}}
-
-
 I needed a way to listen to the clipboard and get its contents as it changed. 
 I found a couple of ways to achieve this in Python. But most solutions poll for changes, others use ctypes and Win32 APIs. 
 Working with C bindings in Python is frustrating. The debugger doesn't work well with pointers and native types. 

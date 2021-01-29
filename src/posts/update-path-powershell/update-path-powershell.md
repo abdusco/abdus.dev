@@ -8,7 +8,7 @@ date: 2020-10-27
 $aliases:
     - posts/updating-path-environment-variable-using-powershell/
 ---
-# {{ title }}
+
 
 I am writing a script to configure a fresh Windows installation to fit my workflow. 
 This usually involves installing [chocolatey][choco] as my package manager 

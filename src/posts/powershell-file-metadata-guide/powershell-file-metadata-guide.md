@@ -9,7 +9,7 @@ tags:
 {% set todayStr = today.format('YYYY-MM-DD') | json | safe %}
 {% set todayStrLong = today.format('YYYY-MM-DD HH:mm') | json | safe %}
 
-# {{ title }}
+
 
 [[toc]]
 

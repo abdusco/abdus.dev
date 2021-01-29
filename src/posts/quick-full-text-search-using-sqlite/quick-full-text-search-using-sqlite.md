@@ -7,7 +7,7 @@ tags:
   - python
 date: 2020-07-02
 ---
-# {{ title }}
+
 
 SQLite provides full-text search functionality with [FTS5 extension][fts5] that lets us index columns of a table
 then perform searches using keywords against the table.

@@ -11,7 +11,6 @@ images:
   - url: wsl-event.png
     alt: Events logged after starting WSL
 ---
-# {{title}}
 
 I've been using [WSL][wsl] ever since it came out. It was nice being able to run Linux on Windows without the overhead of VMs. But it had some issues, like not being able to run Docker natively. Microsoft then released a new version called WSL2 which has brought native Docker support. 
 

@@ -7,7 +7,7 @@ tags:
     - project
 ---
 
-# {{ title }}
+
 
 This API lets you fetch daily prayer times from [Presidency of Religious Affairs of Turkey][diyanet] 
 (Diyanet İşleri Başkanlığı) in a nice, clean format. 

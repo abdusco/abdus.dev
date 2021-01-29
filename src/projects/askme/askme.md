@@ -8,7 +8,7 @@ tags:
     - project
 ---
 
-# {{ title }}
+
 
 **askme** is a mini utility that prompts user questions and prints answers in key-value format to the console.
 Questions are provided as command arguments as `"question"` or as `"question=default answer"` format. You can also specify a key with `key:` prefix.

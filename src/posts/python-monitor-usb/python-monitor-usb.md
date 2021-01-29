@@ -7,7 +7,6 @@ tags:
     - post
 wmic_docs: https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-logicaldisk
 ---
-# {{ title }}
 
 I was looking for a way to monitor changes in mounted drives to run scripts that updates a catalog.
 Most solutions found online use C#, which is fine, but I was looking for a way to do it in Python.

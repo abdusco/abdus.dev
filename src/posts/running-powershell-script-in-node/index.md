@@ -7,7 +7,7 @@ tags:
 date: 2021-01-21
 ---
 
-# {{ title }}
+
 
 I needed a way to call a Powershell script from Node. Node provides `child_process` module, which helps us execute and
 communicate with external processes.

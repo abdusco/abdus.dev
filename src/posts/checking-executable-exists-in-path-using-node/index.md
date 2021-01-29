@@ -6,7 +6,7 @@ tags:
 date: 2021-01-26
 ---
 
-# {{ title }}
+
 
 I was writing a mini npm package to distribute a Powershell script. It is designed for users to [run the Powershell script](/posts/running-powershell-script-in-node/) using
 

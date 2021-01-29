@@ -9,7 +9,7 @@ $aliases:
     - til/thinkpad-p1-bootloop-fix/
 ---
 
-# {{ title }}
+
 
 Lately I've been using a Lenovo Thinkpad P1 Gen 2, my first, well actually second, ThinkPad.
 Today I've depleted the battery completely, then let it hibernate. 

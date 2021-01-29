@@ -9,7 +9,6 @@ date: 2020-06-29T00:00:00.000Z
 $aliases:
     - posts/adding-metadata-to-videos-using-ffmpeg/
 ---
-# {{title}}
 
 I've been maintaining a movie archive for years now. Every year or so I go over what I have and do a clean-up if necessary.
 

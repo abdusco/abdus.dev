@@ -7,8 +7,6 @@ tags:
     - post
 ---
 
-# {{title}}
-
 A list of current aliases can be retrieved using [`Get-Alias`][docs] command.
 
 | Alias | Command |

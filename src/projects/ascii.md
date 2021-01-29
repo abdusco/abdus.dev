@@ -7,7 +7,7 @@ tags:
     - project
 ---
 
-# {{ title }}
+
 
 This is a simple interface for [figlet][figlet] to generate basic ASCII art with hundreds of fonts to choose from. 
 It uses [pyfiglet][pyfiglet] library to render ascii art.

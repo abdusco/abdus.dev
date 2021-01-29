@@ -1,10 +1,8 @@
 ---
 title: About Me
+fancyTitle: true
 layout: single
 ---
-
-# {{title}} {.page-title}
-
 
 Hey,
 My name is Abdussamet Koçak. I'm a developer based in Istanbul, focusing mainly on web, but I also like writing scripts to automate anything and everything. I work as a full-stack web developer and build solutions for clients involving backend, frontend, devops. I can play a role in all phases of actualizing an idea into a product.

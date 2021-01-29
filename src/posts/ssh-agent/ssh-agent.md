@@ -10,7 +10,7 @@ $aliases:
     - til/ssh-agent/
 ---
 
-# {{ title }}
+
 
 I have several servers that I use to host my projects. Sometimes I need to move data between the
 servers, but realizing a server is missing an SSH key to another is annoying. This is where SSH

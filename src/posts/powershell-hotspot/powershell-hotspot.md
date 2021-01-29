@@ -6,7 +6,7 @@ tags:
     - post
 ---
 
-# {{ title }}
+
 
 There used to be a way to turn on or off the hotspot on Windows 7, but it doesn't seem to work well with some wifi adapters
 like Intel 9260 wifi card I've installed on my XPS 13. So I cannot control hotspot using `netsh`.

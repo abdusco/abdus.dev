@@ -8,7 +8,7 @@ date: 2020-11-14
 $aliases:
     - posts/getting-public-url-for-an-asp-net-app-behind-reverse-proxy/
 ---
-# {{ title }}
+
 
 
 I'm building a small library for broadcasting URLs to a service that pings these URLs at regular intervals. 

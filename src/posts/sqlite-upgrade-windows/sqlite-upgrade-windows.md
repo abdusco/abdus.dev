@@ -9,7 +9,7 @@ tags:
 date: 2020-02-20
 ---
 
-# {{ title }}
+
 
 SQLite has an extension called [`JSON1`][json1] that allows working with JSON. 
 It's really useful for storing data that wouldn't necessarily belong to a separate column, like metadata. 

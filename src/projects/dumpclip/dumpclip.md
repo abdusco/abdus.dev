@@ -8,7 +8,7 @@ tags:
     - project
 ---
 
-# {{ title }}
+
 
 ![](./dumpclip.png)
 

@@ -7,7 +7,7 @@ tags:
     - project
 ---
 
-# {{ title }}
+
 
 Deutscher is a collection of APIs to fetch example sentences related to a phrase, and perform translations. 
 It uses following sources to find sentences:

@@ -6,7 +6,6 @@ tags:
   - post
 date: 2020-07-01T00:00:00.000Z
 ---
-# {{title}}
 
 I enjoy building server-rendered apps. They're faster to build, more straightforward, and easy to get your head around.
 
