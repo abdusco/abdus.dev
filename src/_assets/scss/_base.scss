@@ -191,10 +191,18 @@ input, button {
     font-size: inherit;
 }
 
-input {
-    padding: 0.5rem;
+input, textarea {
+    padding: 0.75rem 0.5rem;
     display: block;
     width: 100%;
+    background-color: transparent;
+    border: 1px solid rgba(#666, 0.5);
+    border-top-width: 2px;
+
+    &:hover, &:focus {
+        border-color: var(--c-link);
+        outline: 0;
+    }
 }
 
 label {
