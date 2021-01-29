@@ -1,7 +1,6 @@
 require('dotenv').config();
 require('module-alias/register');
 
-const UserConfig = require('@11ty/eleventy/src/UserConfig')
 const TemplateCollection = require('@11ty/eleventy/src/TemplateCollection')
 
 const fs = require('fs');
@@ -12,12 +11,19 @@ const yaml = require('js-yaml');
 const hljs = require('highlight.js');
 const siteData = yaml.load(fs.readFileSync('./src/_data/site.yaml', 'utf-8'));
 
-/** @param {UserConfig} config */
+/** @param {import('@11ty/eleventy/src/UserConfig')} config */
 module.exports = (config) => {
-    _.forEach(tmpl.transforms, (f, k) => config.addTransform(k, f));
-    _.forEach(tmpl.filters, (f, k) => config.addFilter(k, f));
-    _.forEach(tmpl.shortcodes, (f, k) => config.addShortcode(k, f));
-    _.forEach(tmpl.pairedShortcodes, (f, k) => config.addPairedShortcode(k, f));
+    
+    _.forEach(tmpl.transforms, (f, key) => config.addTransform(key, f));
+    _.forEach(tmpl.filters, (f, key) => config.addFilter(key, f));
+    _.forEach(tmpl.shortcodes, (f, key) => {
+        if (f.constructor.name === 'AsyncFunction') {
+            config.addAsyncShortcode(key, f)
+        } else {
+            config.addShortcode(key, f);
+        }
+    });
+    _.forEach(tmpl.pairedShortcodes, (f, key) => config.addPairedShortcode(key, f));
     config.addFilter('published', (arr) => arr.filter(isPublished));
 
     ['yaml', 'yml'].forEach(ext => config.addDataExtension(ext, yaml.load));
