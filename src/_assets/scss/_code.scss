@@ -42,12 +42,11 @@
         font-size: 0.6em;
         font-weight: 600;
         position: absolute;
-        top: 1rem;
-        right: 1rem;
+        top: 0.5rem;
+        right: 0.5rem;
         z-index: 1;
 
         opacity: 0;
-        transition: opacity 0.2s;
     }
 
     &:hover:before {

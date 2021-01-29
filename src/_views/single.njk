@@ -22,7 +22,10 @@
 {% endblock %}
 
 {% block foot %}
-    <script>
+    <script>    
+        initOverflowExpansions();
+        initImageExpansions();
+
         function initImageExpansions() {
             document.querySelector('.single')?.addEventListener('click', e => {
                 if (e.target?.tagName?.toUpperCase() === 'IMG') {
@@ -31,29 +34,20 @@
             })
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            initOverflowExpansions();
-            initImageExpansions();
-        });
-
         function initOverflowExpansions() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(it => setOverflow(it.target));
-            });
-            [...document.querySelectorAll('.snippet')].forEach(s => observer.observe(s));
-            document.addEventListener('mouseenter', ev => {
-                if (ev.target?.classList?.contains('snippet')) {
+            window.addEventListener('mouseover', ev => {
+                if (ev.target?.classList.contains('snippet')) {
                     requestAnimationFrame(() => setOverflow(ev.target));
                 }
             });
 
-            function setOverflow(el) {
-                const hasOverflow = el.scrollWidth > el.clientWidth;
+            function setOverflow(el) {                
+                const hasOverflow = el.scrollWidth > el.clientWidth + 16;
                 if (hasOverflow) {
                     el.classList.add('has-overflow');
+                    const maxWidth = Math.min(el.scrollWidth, window.innerWidth);
+                    el.style.setProperty('--scrollWidth', `${maxWidth}px`);
                 }
-                const maxWidth = Math.min(el.scrollWidth, window.innerWidth);
-                el.style.setProperty('--scrollWidth', `${maxWidth}px`);
             }
         }
     </script>
