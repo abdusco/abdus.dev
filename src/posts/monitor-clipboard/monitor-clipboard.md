@@ -88,10 +88,10 @@ This worked much better. Because now I can capture this process's output, and tr
 ## Capturing stdout of a long-running process in real time
 
 To capture the output of a process, we need to launch it with `subprocess.Popen` and pipe its output to `subprocess.PIPE`.
-Also, we need to capture its stdout in a separate thread. Because the thread that launches the process will be waiting for it to terminate (although that it never will).
+Also, we need to capture its stdout in a separate thread. Because the thread that launches the process will be waiting for it to terminate (although it never will).
 
-Because the process doesn't terminate, the thread that consumes its stdout doesn't stop, either. 
-It consumes the process's output as new content comes in, and waits if there's nothing to consume, because `proc.stdout.readline()` is blocking.
+Because the process doesn't terminate, the thread that consumes its output doesn't stop, either. 
+It keeps processing the output as new content comes in, and idles if there's nothing to consume, because `proc.stdout.readline()` call is blocking.
 When the process gets killed, `proc.stdout` stops blocking and the thread terminates.
 
 
@@ -131,7 +131,7 @@ if __name__ == "__main__":
 
 ```
 
-To prevent blocking interrupt signal and let the subprocess exit, we need to `.wait()` it. This allows `KeyboardInterrupt` to bubble when I hit [[Ctrl]] + [[C]] and terminates the script and subprocesses.
+To prevent blocking interrupt signal (to let the script terminate), we need to `.wait()` the subprocess. This allows `KeyboardInterrupt` to bubble up and terminate the script (and its subprocesses) when we hit [[Ctrl]] + [[C]].
 
 ## Async workflow
 
