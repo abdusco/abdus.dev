@@ -8,13 +8,8 @@
     {% if updatedAt %}
     <div class="page__updated-at" title='{{updatedAt | dateIso}} ({{updatedAt | dateAgo}})'>
         <b>Last updated:</b>
-        {% if updatedAt | isRecent %}
-        <time datetime='{{updatedAt | dateIso}}'>
-            {{updatedAt | dateAgo}}</time>
-        {% else %}
         <time datetime='{{updatedAt | dateIso}}'>
             {{updatedAt | date}}</time>
-        {% endif %}
     </div>
     {% endif %}
 
