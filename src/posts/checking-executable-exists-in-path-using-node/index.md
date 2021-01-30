@@ -7,10 +7,10 @@ date: 2021-01-26
 ---
 
 
+I was looking for a way to distribute a Powershell script. 
+I decided to wrap it inside an npm package and let users [run the Powershell script](/posts/running-powershell-script-in-node/) using:
 
-I was writing a mini npm package to distribute a Powershell script. It is designed for users to [run the Powershell script](/posts/running-powershell-script-in-node/) using
-
-```
+```powershell
 npx package-name [...args]
 ``` 
 

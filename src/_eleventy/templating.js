@@ -14,9 +14,10 @@ const filters = {
         }, null, 4);
     },
     date: (date) => dayjs(date).format('YYYY-MM-DD'),
-    dateIso: (date) => date.toISOString(),
+    dateIso: (date) => dayjs(date).format('YYYY-MM-DD HH:mm'),
     dateAgo: (date) => dayjs().to(dayjs(date).local()),
     cachebust: (val) => `${val}?${+new Date}`,
+    isRecent: (date) => dayjs(date).diff(dayjs(), "days") <= 7,
 };
 const pairedShortcodes = {};
 const shortcodes = {};

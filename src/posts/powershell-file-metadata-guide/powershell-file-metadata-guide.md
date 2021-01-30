@@ -62,7 +62,7 @@ Load the DLL:
 Open the file and set properties in `.ImageTag` object and save it.
 
 ```powershell
-$photo = [TagLib.File]::Create((rvpa "photo.jpg"))
+$photo = [TagLib.File]::Create((Resolve-Path "photo.jpg"))
 
 $photo.ImageTag.Title = "hello"
 $photo.ImageTag.Keywords = ("tag", "another tag")
@@ -77,7 +77,7 @@ $photo.Save()
 [TagLibSharp][taglib.github] can modify video metadata too.
 
 ```powershell
-$video = $video = [TagLib.File]::Create((rvpa ./video.mkv))
+$video = $video = [TagLib.File]::Create((Resolve-Path ./video.mkv))
 
 $video.Tag.Title = "my video"
 $video.Tag.Year = 2020
@@ -93,13 +93,13 @@ $video.Save()
 Load the image file and override `.Tag.Pictures` with an array.
 
 ```powershell
-$cover = [TagLib.Picture]::CreateFromPath((rvpa cover.png))
+$cover = [TagLib.Picture]::CreateFromPath((Resolve-Path cover.png))
 
-$video = [TagLib.File]::Create((rvpa video.mp4))
+$video = [TagLib.File]::Create((Resolve-Path video.mp4))
 $video.Tag.Pictures = ($cover)
 $video.Save()
 
-$music = [TagLib.File]::Create((rvpa music.mp3))
+$music = [TagLib.File]::Create((Resolve-Path music.mp3))
 $music.Tag.Pictures = ($cover)
 $music.Save()
 ```

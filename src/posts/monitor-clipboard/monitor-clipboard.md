@@ -1,5 +1,5 @@
 ---
-title: Monitoring clipboard with Python
+title: Monitoring clipboard on Windows with Python
 description: A way listen to clipboard updates and trigger actions depending on
   clipboard content
 tags:
@@ -10,10 +10,10 @@ tags:
 date: 2020-11-30
 ---
 
-I needed a way to listen to the clipboard and get its contents as it changed. 
-I found a couple of ways to achieve this in Python. But most solutions poll for changes, others use ctypes and Win32 APIs. 
+I was looking for ways to listen to the clipboard and get its contents as it changed. 
+I found a couple of ways to achieve this in Python. Some solutions poll for changes, others use ctypes and Win32 APIs. 
 Working with C bindings in Python is frustrating. The debugger doesn't work well with pointers and native types. 
-So I figured I should build a utility in C# instead. C# has much better support for Win32 APIs, with better debugging abilities.
+So I figured I should build a utility in C#, instead of pouring hours debugging C in Python. C# provides a much better support for Win32 APIs, with better debugging abilities.
 I've released this utility, called [**dumpclip**][dumpclip], on [Github][dumpclip_repo]. 
 
 
