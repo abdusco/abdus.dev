@@ -1,20 +1,15 @@
 @import "node_modules/highlight.js/scss/atom-one-light";
-
 @media screen and (prefers-color-scheme: dark) {
     html:not(.light) {
         @import "node_modules/highlight.js/scss/railscasts";
 
-        .hljs {
-            padding: 1rem;
-        }
-
         .snippet {
             background-color: var(--bg-code);
-
             scrollbar-color: rgba(gray, 0.5) rgba(black, 0.5);
         }
     }
 }
+
 
 
 .snippet {
@@ -25,6 +20,7 @@
 
     margin-left: -1rem;
     margin-right: -1rem;
+    padding: 1rem !important;
     background-color: var(--bg-code);
     border: 1px solid rgba(black, 0.1);
     z-index: 0;
