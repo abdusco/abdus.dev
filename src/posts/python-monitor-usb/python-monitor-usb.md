@@ -20,7 +20,8 @@ So I've written a second method that uses Win32 APIs to hook into Windows and mo
 
 Windows provides an interface for sysadmins called [Windows Management Instrumentation][wmi] (WMI) which basically allows you to monitor a local or remote system.
 
-We can use WMI [`Win32_LogicalDisk`][Win32_LogicalDisk] to list the drives currently connected to the PC.
+On PowerShell we can use [`Get-WmiObject`][Get-WmiObject] command to interact with it.
+WMI [`Win32_LogicalDisk`][Win32_LogicalDisk] class gives us a list the drives currently connected to the PC.
 
 ```powershell
 PS > Get-WmiObject -Class Win32_LogicalDisk
@@ -56,7 +57,7 @@ That's useful 👌. We can use [`DriveType`][wmi_blog] to determine if a drive i
 |`6`|RAM Disk|
 :::
 
-We can pick the fields we need and convert the command result to JSON so that Python can easily parse it.
+Finally, we can pick the fields we need and convert the command result to JSON so that Python can easily parse it.
 
 ```powershell
 PS > Get-WmiObject -Class Win32_LogicalDisk | Select-Object deviceid,volumename,drivetype | ConvertTo-Json
@@ -144,7 +145,7 @@ OK. Now the difficult part: hooking it up to Windows.
 Windows broadcasts a [`WM_DEVICECHANGE` message][WM_DEVICECHANGE] when hardware configuration of the system changes. That includes plug-and-play devices, such as USB drives, printers, mouse etc.
 We need to call native APIs to create a window and register a callback that gets triggered by Windows when a message is broadcast.
 
-We need [`pywin32`][pywin32] package, which provides wrappers to consume Win32 APIs in Python. We can install it with pip:
+We need [`pywin32`][pywin32] package, which provides extensions to consume Win32 APIs in Python. We can install it with pip:
 
 ```shell
 pip install pywin32
@@ -473,3 +474,4 @@ If you've found this post useful, consider sharing it.
 [wmi_blog]: https://devblogs.microsoft.com/scripting/inventory-drive-types-by-using-powershell/
 [subprocess]: https://docs.python.org/3/library/subprocess.html#subprocess.run
 [pywin32]: https://github.com/mhammond/pywin32
+[Get-WmiObject]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject
