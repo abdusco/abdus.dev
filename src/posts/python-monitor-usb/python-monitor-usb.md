@@ -142,9 +142,9 @@ OK. Now the difficult part: hooking it up to Windows.
 
 ## Listening to Windows `WM_DEVICECHANGE` messages
 
-Windows uses [messages][win32_messages] to notify programs of events and let them react. This includes inputs (mouse clicks, key strokes etc.) and other OS events (hardware connected, low power, A/C adapter connected etc.). 
+Windows uses [messages][win32_messages] to notify programs of events and let them react. This includes user inputs (mouse clicks, key strokes etc.) and other OS events (hardware connected, low power, A/C adapter connected etc.). 
 
-Windows broadcasts a [`WM_DEVICECHANGE` message][WM_DEVICECHANGE] when hardware configuration of the system changes. That includes plug-and-play devices, such as USB drives, printers, mouse etc. We need a way to listen to this broadcast. That involves creating a window, registering a window procedure, then running a message loop that receives messages from the operating system.
+Windows broadcasts a [`WM_DEVICECHANGE` message][WM_DEVICECHANGE] when hardware configuration of the system changes. That includes plug-and-play devices, such as USB drives, printers, mouse etc. We need a way to listen to this broadcast. That requires creating a window, registering a window procedure, then running a message loop that receives messages from the operating system.
 
 We need the [`pywin32`][pywin32] package, which provides extensions to consume Win32 APIs in Python. We can install it with pip:
 
