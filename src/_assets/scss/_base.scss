@@ -70,6 +70,10 @@ $c-gold: #FCB305;
     box-sizing: border-box;
 }
 
+html {
+    scrollbar-width: thin;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -287,6 +291,8 @@ table {
 .table {
     margin: 1rem var(--m-table-side);
     overflow-x: auto;
+
+    @extend .overflow;
 }
 
 
@@ -433,3 +439,45 @@ small,
     cursor: pointer;
 }
 
+
+.overflow {
+    scrollbar-width: thin;
+
+    &.has-overflow {
+        &:hover, &:active, &:focus-within {
+            overflow-x: scroll;
+            @media screen and (min-width: 1200px) {
+                --width: calc(var(--scrollWidth) + 1rem);
+                width: var(--width, var(--maxWidth));
+                max-width: calc(100vw - 2 * var(--p-sides-x) - 1rem);
+                --scrollbar-track: transparent;
+                --scrollbar-thumb: transparent;
+            }
+        }
+    }
+
+    &::-webkit-scrollbar {
+        height: var(--scrollbar-size);
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--scrollbar-track);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-thumb);
+    }
+
+    
+    &::-webkit-scrollbar {
+        height: var(--scrollbar-size);
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--scrollbar-track);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-thumb);
+    }
+}

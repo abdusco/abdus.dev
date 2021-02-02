@@ -206,7 +206,7 @@ All these integers are either a value or a pointer to a value. Let's break down 
 |`hwnd`|`789538`|`0xc0c22`|our window's handle|
 |`msg`|`537`|`0x0219`|[`WM_DEVICECHANGE`][WM_DEVICECHANGE] message|
 |`wparam`|`32772`|`0x8004`|[`DBT_DEVICEREMOVECOMPLETE`][DBT_DEVICEREMOVECOMPLETE] event|
-|`lparam`|`0x346174713248`|`50999eeda0`|pointer (memory address) to event info|
+|`lparam`|`346174713248`|`0x50999eeda0`|pointer (memory address) to event info|
 :::
 
 Once we decipher the message type, we can google its hexadecimal value to find which message it corresponds to, then figure out what it contains. Here we don't really need to dereference and unpack `lparam` pointer, because [we're using WMI](#getting-a-list-of-drives) for that. We just need to know something has happened.
