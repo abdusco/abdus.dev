@@ -21,6 +21,8 @@ $c-gold: #FCB305;
     --scrollbar-track: #eee;
     --scrollbar-thumb: #ccc;
     --scrollbar-size: 4px;
+
+    --m-table-side: -1rem;
 }
 
 
@@ -42,6 +44,7 @@ $c-gold: #FCB305;
         --fz: 18px;
         --p-sides-x: 2rem;
         --scrollbar-size: 6px;
+        --m-table-side: 0;
     }
 }
 
@@ -282,7 +285,7 @@ table {
 }
 
 .table {
-    margin: 1rem -1rem;
+    margin: 1rem var(--m-table-side);
     overflow-x: auto;
 }
 
