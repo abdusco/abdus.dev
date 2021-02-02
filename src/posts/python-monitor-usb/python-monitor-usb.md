@@ -377,8 +377,16 @@ INFO:__main__:Backup drive has been plugged in
 INFO:__main__:Backing up E:
 ```
 
-It works 💃.
+It works 🙌.
 
+Now what you do when your callback is called is up to you. You can:
+
+- Copy files to/from the drive
+- Backup photos when an SD card is inserted
+- Display a popup to warn the user
+- Lock the PC
+- Wipe the drive (🤷‍♀️ you do you)
+- ...
 
 ## Alternative approach: polling for drives
 
