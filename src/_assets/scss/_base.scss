@@ -274,11 +274,21 @@ kbd {
 
 table {
     // width: 100%;
+    margin: 1rem 0;
     border-spacing: 0.75rem 0.25rem;
+    .table & {
+        margin: 0;
+    }
 }
 
-td, th {
-    // padding: 0 0.25rem;
+.table {
+    margin: 1rem -1rem;
+    overflow-x: auto;
+}
+
+
+td {
+    vertical-align: top;
 }
 
 details {
@@ -349,7 +359,7 @@ small,
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    max-width: 55rem;
+    max-width: 60rem;
     margin-right: auto;
     // margin-left: auto;
     padding: var(--p-sides-y) var(--p-sides-x);

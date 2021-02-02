@@ -33,13 +33,13 @@
 
     function initOverflowExpansions() {
         window.addEventListener('mouseover', ev => {
-            if (ev.target?.classList.contains('snippet')) {
+            if (ev.target?.matches('.snippet, .table')) {
                 requestAnimationFrame(() => setOverflow(ev.target));
             }
         });
 
         function setOverflow(el) {
-            const hasOverflow = el.scrollWidth > el.clientWidth + 16;
+            const hasOverflow = el.scrollWidth >= el.clientWidth + 16;
             if (hasOverflow) {
                 el.classList.add('has-overflow');
                 const maxWidth = Math.min(el.scrollWidth, window.innerWidth);
