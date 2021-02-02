@@ -35,6 +35,7 @@ $c-gold: #FCB305;
 
         --scrollbar-track: #999;
         --scrollbar-thumb: #666;
+        --c-scrollbar: #{rgba(gray, 0.5) rgba(black, 0.5)};
     }
 }
 
@@ -442,10 +443,12 @@ small,
 
 .overflow {
     scrollbar-width: thin;
+    scrollbar-color: var(--c-scrollbar);
 
     &.has-overflow {
         &:hover, &:active, &:focus-within {
             overflow-x: scroll;
+
             @media screen and (min-width: 1200px) {
                 --width: calc(var(--scrollWidth) + 1rem);
                 width: var(--width, var(--maxWidth));
@@ -456,19 +459,6 @@ small,
         }
     }
 
-    &::-webkit-scrollbar {
-        height: var(--scrollbar-size);
-    }
-
-    &::-webkit-scrollbar-track {
-        background: var(--scrollbar-track);
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: var(--scrollbar-thumb);
-    }
-
-    
     &::-webkit-scrollbar {
         height: var(--scrollbar-size);
     }
