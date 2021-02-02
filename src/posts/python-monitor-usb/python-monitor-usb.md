@@ -145,7 +145,7 @@ OK. Now the difficult part: hooking it up to Windows.
 Windows broadcasts a [`WM_DEVICECHANGE` message][WM_DEVICECHANGE] when hardware configuration of the system changes. That includes plug-and-play devices, such as USB drives, printers, mouse etc.
 We need to call native APIs to create a window and register a callback that gets triggered by Windows when a message is broadcast.
 
-We need [`pywin32`][pywin32] package, which provides extensions to consume Win32 APIs in Python. We can install it with pip:
+We need the [`pywin32`][pywin32] package, which provides extensions to consume Win32 APIs in Python. We can install it with pip:
 
 ```shell
 pip install pywin32
@@ -188,6 +188,8 @@ LRESULT CALLBACK MainWndProc(
 { ... }
 ```
 
+Python's `print` function accepts an arbitrary number of parameters and dumps all its arguments to console, so its signature is compatible. 
+
 Once we run this script we can see the messages received by our window:
 
 ```
@@ -204,10 +206,12 @@ All these integers are either a value or a pointer to a value. Let's break down 
 |`hwnd`|`789538`|`0xc0c22`|our window's handle|
 |`msg`|`537`|`0x0219`|[`WM_DEVICECHANGE`][WM_DEVICECHANGE] message|
 |`wparam`|`32772`|`0x8004`|[`DBT_DEVICEREMOVECOMPLETE`][DBT_DEVICEREMOVECOMPLETE] event|
-|`lparam`|`346174713248`|`50999eeda0`|pointer to event info|
+|`lparam`|`0x346174713248`|`50999eeda0`|pointer (memory address) to event info|
 :::
 
-Once we decipher the message type, we can google its hexadecimal value to find which message it corresponds to, then figure out that it also contains. Here we don't really need to dereference and unpack `lparam` pointer, because we're using WMI for that. We only need to know this event happened.
+Once we decipher the message type, we can google its hexadecimal value to find which message it corresponds to, then figure out what it contains. Here we don't really need to dereference and unpack `lparam` pointer, because [we're using WMI][#getting-a-list-of-drives] for that. We only need to know this event happened.
+
+`WM_DEVICECHANGE` message gives us us `DBT_DEVICEARRIVAL` and `DBT_DEVICEREMOVECOMPLETE` events to notify when a device is added or removed respectively.
 
 Now putting these all together:
 
@@ -215,9 +219,9 @@ Now putting these all together:
 
 I wrapped the code I've explained above inside `DeviceListener` class. It provides an easy way to attach your own listener and perform a task when a drive is attached/removed.
 
-Right now it assumes the script will be run as the main script, that's why `DeviceListener.start()` is blocking. You can run it inside a thread and include it in your own scripts.
+It assumes the script will be run as the main script, that's why `DeviceListener.start()` is blocking. You can run it inside a thread if you want it to be non-blocking.
 
-You can change the highlighted line to trigger the callback only when a drive inserted or removed.
+You can also change the highlighted line to trigger the callback only when a drive either inserted or removed.
 
 ```python;lines=77
 import json
