@@ -174,8 +174,8 @@ function markdownFactory() {
             let actualLang = lang || 'text';
             let highlightedLines = new Set();
 
-            if (actualLang.includes(';lines')) {
-                const [_, lang, ranges] = actualLang.match(/(.*);lines=(\S+)/);
+            if (actualLang.includes('lines')) {
+                const [_, lang, ranges] = actualLang.match(/(.*)\Wlines=(\S+)/);
                 actualLang = lang;
                 highlightedLines = parseLineNumbers(ranges);
             }
