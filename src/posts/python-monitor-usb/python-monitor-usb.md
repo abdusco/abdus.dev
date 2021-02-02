@@ -21,7 +21,7 @@ So I've written a second method that uses Win32 APIs to hook into Windows and mo
 Windows provides an interface for sysadmins called [Windows Management Instrumentation][wmi] (WMI) which basically allows you to monitor a local or remote system.
 
 On PowerShell we can use [`Get-WmiObject`][Get-WmiObject] command to interact with it.
-WMI [`Win32_LogicalDisk`][Win32_LogicalDisk] class gives us a list the drives currently connected to the PC.
+WMI [`Win32_LogicalDisk`][Win32_LogicalDisk] class gives us a list of the drives currently connected to the PC.
 
 ```powershell
 PS > Get-WmiObject -Class Win32_LogicalDisk
@@ -43,7 +43,7 @@ Size         : 62706155520
 VolumeName   : ABDUS
 ```
 
-That's useful 👌. We can use [`DriveType`][wmi_blog] to determine if a drive is removable or not.
+That's a lot of useful information 👌. We can use [`DriveType`][wmi_blog] to determine if a drive is removable or not.
 
 :::table
 |DriveType|Description|
@@ -209,9 +209,9 @@ All these integers are either a value or a pointer to a value. Let's break down 
 |`lparam`|`0x346174713248`|`50999eeda0`|pointer (memory address) to event info|
 :::
 
-Once we decipher the message type, we can google its hexadecimal value to find which message it corresponds to, then figure out what it contains. Here we don't really need to dereference and unpack `lparam` pointer, because [we're using WMI](#getting-a-list-of-drives) for that. We only need to know this event happened.
+Once we decipher the message type, we can google its hexadecimal value to find which message it corresponds to, then figure out what it contains. Here we don't really need to dereference and unpack `lparam` pointer, because [we're using WMI](#getting-a-list-of-drives) for that. We just need to know something has happened.
 
-`WM_DEVICECHANGE` message gives us us `DBT_DEVICEARRIVAL` and `DBT_DEVICEREMOVECOMPLETE` events to notify when a device is added or removed respectively.
+`WM_DEVICECHANGE` message gives us `DBT_DEVICEARRIVAL` and `DBT_DEVICEREMOVECOMPLETE` events to notify when a device is added or removed respectively.
 
 Now putting these all together:
 
@@ -221,7 +221,7 @@ I wrapped the code I've explained above inside `DeviceListener` class. It provid
 
 It assumes the script will be run as the main script, that's why `DeviceListener.start()` is blocking. You can run it inside a thread if you want it to be non-blocking.
 
-You can also change the highlighted line to trigger the callback only when a drive either inserted or removed.
+You can also change the highlighted line to trigger the callback only when a drive is either inserted or removed.
 
 ```python;lines=77
 import json
