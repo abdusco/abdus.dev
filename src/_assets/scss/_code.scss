@@ -2,10 +2,12 @@
 @media screen and (prefers-color-scheme: dark) {
     html:not(.light) {
         @import "node_modules/highlight.js/scss/railscasts";
+
+        .snippet {
+            background-color: var(--bg-code);
+        }
     }
 }
-
-
 
 .snippet {
     position: relative;
