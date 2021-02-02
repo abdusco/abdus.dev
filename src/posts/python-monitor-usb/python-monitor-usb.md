@@ -398,11 +398,6 @@ import subprocess
 from dataclasses import dataclass
 from typing import Callable, List
 
-import win32api, win32con, win32gui
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
 
 @dataclass
 class Drive:
