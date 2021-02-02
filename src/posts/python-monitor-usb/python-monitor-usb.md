@@ -475,7 +475,7 @@ If you've found this post useful, consider sharing it.
 
 
 [WM_DEVICECHANGE]: https://docs.microsoft.com/en-us/windows/win32/devio/wm-devicechange#parameters
-[docs_create_window]: https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-createwindowexa#example
+[docs_create_window]: https://docs.microsoft.com/en-us/windows/win32/learnwin32/creating-a-window
 [window_procedure]: https://docs.microsoft.com/en-us/windows/win32/winmsg/using-window-procedures
 [DBT_DEVICEREMOVECOMPLETE]: https://docs.microsoft.com/en-us/windows/win32/devio/dbt-deviceremovecomplete
 [Win32_LogicalDisk]: https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-logicaldisk
