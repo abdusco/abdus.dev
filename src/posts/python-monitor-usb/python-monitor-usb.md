@@ -168,10 +168,10 @@ def create_window() -> int:
     """
     wc = win32gui.WNDCLASS()
     wc.lpfnWndProc = print
-    wc.lpszClassName = self.__class__.__name__
+    wc.lpszClassName = 'Demo'
     wc.hInstance = win32api.GetModuleHandle(None)
     class_atom = win32gui.RegisterClass(wc)
-    return win32gui.CreateWindow(class_atom, self.__class__.__name__, 0, 0, 0, 0, 0, 0, 0, wc.hInstance, None)
+    return win32gui.CreateWindow(class_atom, 'Demo', 0, 0, 0, 0, 0, 0, 0, wc.hInstance, None)
 
 if __name__ == '__main__':
     create_window()
@@ -470,6 +470,10 @@ Here's the output after I plug a USB drive in and out:
 [Drive(letter='C:', label='', drive_type='Local Disk'), Drive(letter='E:', label='ABDUS', drive_type='Removable Disk')]
 [Drive(letter='C:', label='', drive_type='Local Disk')]
 ```
+
+That's it.  
+
+--- 
 
 If you've found this post useful, consider sharing it.
 
