@@ -142,8 +142,9 @@ OK. Now the difficult part: hooking it up to Windows.
 
 ## Listening to Windows `WM_DEVICECHANGE` messages
 
-Windows broadcasts a [`WM_DEVICECHANGE` message][WM_DEVICECHANGE] when hardware configuration of the system changes. That includes plug-and-play devices, such as USB drives, printers, mouse etc.
-We need to call native APIs to create a window and register a callback that gets triggered by Windows when a message is broadcast.
+Windows uses [messages][win32_messages] to notify programs of events and let them react. This includes inputs (mouse clicks, key strokes etc.) and other OS events (hardware connected, low power, A/C adapter connected etc.). 
+
+Windows broadcasts a [`WM_DEVICECHANGE` message][WM_DEVICECHANGE] when hardware configuration of the system changes. That includes plug-and-play devices, such as USB drives, printers, mouse etc. We need a way to listen to this broadcast. That involves creating a window, registering a window procedure, then running a message loop that receives messages from the operating system.
 
 We need the [`pywin32`][pywin32] package, which provides extensions to consume Win32 APIs in Python. We can install it with pip:
 
@@ -151,7 +152,7 @@ We need the [`pywin32`][pywin32] package, which provides extensions to consume W
 pip install pywin32
 ```
 
-Then we can follow [Microsoft's docs][docs_create_window] and translate the given C++ example to its Python equivalent.
+To create a window, we can follow [Microsoft's docs][docs_create_window] and translate the given C++ example to its Python equivalent.
 
 ```python;lines=13
 import win32api, win32con, win32gui
@@ -179,6 +180,7 @@ if __name__ == '__main__':
 
 The highlighted line is the critical part. It is our ["window procedure"][window_procedure] that gets called when the window receives a message. 
 It must have the following signature:
+
 ```c++
 LRESULT CALLBACK MainWndProc(
     HWND hwnd,        // handle to window
@@ -482,3 +484,4 @@ If you've found this post useful, consider sharing it.
 [subprocess]: https://docs.python.org/3/library/subprocess.html#subprocess.run
 [pywin32]: https://github.com/mhammond/pywin32
 [Get-WmiObject]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject
+[win32_messages]: https://docs.microsoft.com/en-us/windows/win32/learnwin32/window-messages
