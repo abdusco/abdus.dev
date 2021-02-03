@@ -20,8 +20,19 @@
 
 {% block foot %}
 <script>
+    renderAnchors();
     initOverflowExpansions();
     initImageExpansions();
+
+    function renderAnchors() {
+        document.querySelectorAll(':is(h2,h3,h4,h5)[id]')
+            .forEach(h => {
+                const a = document.createElement('a');
+                a.classList.add('anchor');
+                a.href = `#${h.id}`;
+                h.appendChild(a);
+            });
+    }
 
     function initImageExpansions() {
         document.querySelector('.single')?.addEventListener('click', e => {
