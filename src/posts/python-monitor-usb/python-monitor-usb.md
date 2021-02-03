@@ -387,12 +387,12 @@ Now what you do when your callback is called is up to you. You can:
 - Backup photos when an SD card is inserted
 - Display a popup to warn the user
 - Lock the PC
-- Wipe the drive (🤷‍♀️ you do you)
+- Wipe the drive (🤷‍♂️ you do you)
 - ...
 
 ## Alternative approach: polling for drives
 
-This is my older attempt where I poll disks and trigger a callback when the set of drives change. It's considerably simpler, doesn't depend on [`pywin32`][pywin32] and easier to port to other OSs (provided you know how to list drives on that platform).
+This is my older attempt where I poll disks and trigger a callback when the set of drives change. It's considerably simpler, doesn't depend on [`pywin32`][pywin32] and easier to port to other operating systems (provided you know how to list drives on that platform).
 
 ```python
 import json
@@ -472,10 +472,12 @@ Here's the output after I plug a USB drive in and out:
 ```
 
 That's it.  
+Cheers ✌
 
---- 
 
+:::text--small
 If you've found this post useful, consider sharing it.
+:::
 
 
 [WM_DEVICECHANGE]: https://docs.microsoft.com/en-us/windows/win32/devio/wm-devicechange#parameters
