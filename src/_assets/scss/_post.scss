@@ -117,7 +117,8 @@
 .anchor {
     visibility: hidden;
     opacity: 0.25;
-    &:hover {
+
+    &:hover, &:focus {
         opacity: 1;
     }
 
@@ -126,7 +127,8 @@
         margin-left: 0.5rem;
     }
 
-    :is(h2,h3,h4,h5,h6):hover & {
+    :is(h2,h3,h4,h5,h6):hover &,  
+    :is(h2,h3,h4,h5,h6):focus-within & {
         visibility: visible;
     }
 }
