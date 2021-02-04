@@ -100,12 +100,12 @@ class Clipboard:
         return 0
 
     def listen(self):
-        def runner(self):
+        def runner():
             hwnd = self._create_window()
             ctypes.windll.user32.AddClipboardFormatListener(hwnd)
             win32gui.PumpMessages()
 
-        th = threading.Thread(target=runner, daemon=True, args=(self,))
+        th = threading.Thread(target=runner, daemon=True)
         th.start()
         while th.is_alive():
             th.join(0.25)
@@ -275,12 +275,12 @@ class Clipboard:
         if self._trigger_at_start:
             self._process_clip()
 
-        def runner(self):
+        def runner():
             hwnd = self._create_window()
             ctypes.windll.user32.AddClipboardFormatListener(hwnd)
             win32gui.PumpMessages()
 
-        th = threading.Thread(target=runner, daemon=True, args=(self,))
+        th = threading.Thread(target=runner, daemon=True)
         th.start()
         while th.is_alive():
             th.join(0.25)
