@@ -125,7 +125,8 @@ Now that we have the notification working, let's retrieve the what's actually in
 
 [Windows clipboard][win32_using_clipboard] has a concept called ["clipboard format"][win32_clipboard_formats]. When you copy something, (depending on application) the payload is also attached a bunch of metadata, allowing it to be used in various contexts. For example, when you copy a table from a webpage, you have the option to paste it as plain text, or paste it in Excel and have it formatted as a table. You can copy files, images, screenshots into the clipboard and each payload gets stored formatted (again, depending on how the application sets the clipboard content).
 
-Therefore, if we want to get the clipboard contents, we need to specify which format we want in. Right now we'll be dealing with:
+Therefore, if we want to get the clipboard contents, we need to specify which format we want in. For now, we'll be dealing with:
+
 
 :::table
 |Format|Value|Description|
