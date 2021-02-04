@@ -89,6 +89,10 @@ body {
 
 strong, b {
     font-weight: 580;
+
+    :is(h2,h3,h4,h5,h6):hover & {
+        color: darken($c-red, 10%);
+    }
 }
 
 img, video {
