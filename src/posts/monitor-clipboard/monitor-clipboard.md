@@ -114,7 +114,7 @@ Now that we have the notification working, let's retrieve the what's actually in
 
 ## Getting clipboard contents
 
-[Windows clipboard][win32_using_clipboard] has a concept called ["clipboard format"][win32_clipboard_formats]. When you copy something, (depending on application) the payload is also attached a bunch of metadata, allowing the it to be used in various scenarios. For example, when you copy a table from a webpage, you have the option to paste it as plain text, or paste it in Excel and have it formatted as a table. You can copy files, images, screenshots into the clipboard and each payload gets stored formatted (again, depending on how the application sets the clipboard content).
+[Windows clipboard][win32_using_clipboard] has a concept called ["clipboard format"][win32_clipboard_formats]. When you copy something, (depending on application) the payload is also attached a bunch of metadata, allowing it to be used in various contexts. For example, when you copy a table from a webpage, you have the option to paste it as plain text, or paste it in Excel and have it formatted as a table. You can copy files, images, screenshots into the clipboard and each payload gets stored formatted (again, depending on how the application sets the clipboard content).
 
 Therefore, if we want to get the clipboard contents, we need to specify which format we want in. Right now we'll be dealing with:
 
@@ -144,24 +144,24 @@ class Clip:
     value: Union[str, List[Path]]
     
 def read_clipboard() -> Clip:
-    win32clipboard.OpenClipboard()
-    output = None
-
-    if win32clipboard.IsClipboardFormatAvailable(win32con.CF_HDROP):
-        files: tuple = win32clipboard.GetClipboardData(win32con.CF_HDROP)
-        output = Clip('files', [Path(f) for f in files])
-    elif win32clipboard.IsClipboardFormatAvailable(win32con.CF_UNICODETEXT):
-        text: str = win32clipboard.GetClipboardData(win32con.CF_UNICODETEXT)
-        output = Clip('text', text)
-    elif win32clipboard.IsClipboardFormatAvailable(win32con.CF_TEXT):
-        text_bytes: bytes = win32clipboard.GetClipboardData(win32con.CF_TEXT)
-        output = Clip('text', text_bytes.decode())
-    elif win32clipboard.IsClipboardFormatAvailable(win32con.CF_BITMAP):
-        # TODO: handle screenshots
-        pass
-
-    win32clipboard.CloseClipboard()
-    return output
+    try:
+        win32clipboard.OpenClipboard()
+        output = None
+        if win32clipboard.IsClipboardFormatAvailable(win32con.CF_HDROP):
+            data: tuple = win32clipboard.GetClipboardData(win32con.CF_HDROP)
+            output = Clip('files', [Path(f) for f in data])
+        elif win32clipboard.IsClipboardFormatAvailable(win32con.CF_UNICODETEXT):
+            data: str = win32clipboard.GetClipboardData(win32con.CF_UNICODETEXT)
+            output = Clip('text', data)
+        elif win32clipboard.IsClipboardFormatAvailable(win32con.CF_TEXT):
+            data: bytes = win32clipboard.GetClipboardData(win32con.CF_TEXT)
+            output = Clip('text', data.decode())
+        elif win32clipboard.IsClipboardFormatAvailable(win32con.CF_BITMAP):
+            # TODO: handle screenshots
+            pass
+        return output
+    finally:
+        win32clipboard.CloseClipboard()
 
 if __name__ == '__main__':
     print(read_clipboard())
@@ -240,26 +240,28 @@ class Clipboard:
     
     @staticmethod
     def read_clipboard() -> Clip:
-        win32clipboard.OpenClipboard()
-        output = None
+        try:
+            win32clipboard.OpenClipboard()
+            output = None
 
-        def get_formatted(fmt):
-            if win32clipboard.IsClipboardFormatAvailable(fmt):
-                return win32clipboard.GetClipboardData(fmt)
-            return None
+            def get_formatted(fmt):
+                if win32clipboard.IsClipboardFormatAvailable(fmt):
+                    return win32clipboard.GetClipboardData(fmt)
+                return None
 
-        if files := get_formatted(win32con.CF_HDROP):
-            output = Clipboard.Clip('files', [Path(f) for f in files])
-        elif text := get_formatted(win32con.CF_UNICODETEXT):
-            output = Clipboard.Clip('text', text)
-        elif text_bytes := get_formatted(win32con.CF_TEXT):
-            output = Clipboard.Clip('text', text_bytes.decode())
-        elif bitmap_handle := get_formatted(win32con.CF_BITMAP):
-            # TODO: handle screenshots
-            pass
+            if files := get_formatted(win32con.CF_HDROP):
+                output = Clipboard.Clip('files', [Path(f) for f in files])
+            elif text := get_formatted(win32con.CF_UNICODETEXT):
+                output = Clipboard.Clip('text', text)
+            elif text_bytes := get_formatted(win32con.CF_TEXT):
+                output = Clipboard.Clip('text', text_bytes.decode())
+            elif bitmap_handle := get_formatted(win32con.CF_BITMAP):
+                # TODO: handle screenshots
+                pass
 
-        win32clipboard.CloseClipboard()
-        return output
+            return output
+        finally:
+            win32clipboard.CloseClipboard()
 
     def listen(self):
         if self._trigger_at_start:
