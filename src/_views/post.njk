@@ -20,14 +20,15 @@
 
 {% block foot %}
 <script>
-    renderAnchors();
-    initOverflowExpansions();
-    initImageExpansions();
+    function init() {
+        renderAnchors();
+        initOverflowExpansions();
+        initImageExpansions();
+    }
 
     function renderAnchors() {
-        document.querySelectorAll(':is(h2,h3,h4,h5)[id]')
+        document.querySelectorAll(':is(h2,h3,h4,h5,h6)[id]')
             .forEach(h => {
-                h.setAttribute('tabindex', 0);
                 h.setAttribute('title', `Permalink for "${h.textContent}"`);
                 const a = document.createElement('a');
                 a.classList.add('anchor');
@@ -38,7 +39,7 @@
 
     function initImageExpansions() {
         document.querySelector('.single')?.addEventListener('click', e => {
-            if (e.target?.tagName?.toUpperCase() === 'IMG') {
+            if (e.target?.matches('img')) {
                 e.target.classList.toggle('zoom');
             }
         })
@@ -60,5 +61,15 @@
             }
         }
     }
+
+    function whenReady(cb) {
+        if (document.readyState === 'complete') {
+            cb();
+        } else {
+            window.addEventListener('DOMContentLoaded', cb);
+        }
+    }
+
+    whenReady(init);
 </script>
 {% endblock %}
