@@ -11,7 +11,7 @@ tags:
 I was looking for a way to monitor USB drives and trigger a backup when I plug in my backup drive.
 Most solutions online describe a way to do it in C# or C++, but I wanted to write one in Python.
 
-[My first naive attempt](#alternative-approach%3A-polling-for-drives) was to get the list of drives, and poll for changes every couple of seconds. I've explained this method below and it works fine. 
+[My first naive attempt](#alternative-approach-polling-for-drives) was to get the list of drives, and poll for changes every couple of seconds. I've explained this method below and it works fine. 
 
 However I wasn't really comfortable with launching a subprocess every second. It seemed wasteful.
 So I've written a second method that uses Win32 APIs to hook into Windows and monitor drive changes.

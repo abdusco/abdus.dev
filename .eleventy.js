@@ -13,7 +13,7 @@ const siteData = yaml.load(fs.readFileSync('./src/_data/site.yaml', 'utf-8'));
 
 /** @param {import('@11ty/eleventy/src/UserConfig')} config */
 module.exports = (config) => {
-    
+
     _.forEach(tmpl.transforms, (f, key) => config.addTransform(key, f));
     _.forEach(tmpl.filters, (f, key) => config.addFilter(key, f));
     _.forEach(tmpl.shortcodes, (f, key) => {
@@ -202,7 +202,9 @@ function markdownFactory() {
         .use(require('markdown-it-attrs'))
         .use(require('markdown-it-footnote'))
         .use(require('markdown-it-task-lists'))
-        .use(require('markdown-it-anchor'))
+        .use(require('markdown-it-anchor'), {
+            slugify: (s) => encodeURIComponent(String(s).trim().toLowerCase().replace(/:/g, '').replace(/\s+/g, '-')),
+        })
         .use(require('markdown-it-kbd'))
         .use(require('markdown-it-table-of-contents'), {
             includeLevel: [2, 3, 4]
