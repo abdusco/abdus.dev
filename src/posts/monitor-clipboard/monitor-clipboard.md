@@ -24,9 +24,7 @@ Windows provides a couple of methods for data exchange between applications. Cli
 
 Windows uses **window**s (hah!) as the building block of applications. I've written about how windows and messaging works on Windows in [another post][post_usb] where I explored USB hotplugging events, which might be worth reading. 
 
-{#% recommend /posts/monitor-usb-windows/ %#}
-
-Let's create a window, and set `print` function as its ["window procedure"][window_procedure]:
+Let's create a window, and set `print` function as its [window procedure][window_procedure]:
 
 ```python
 import win32api, win32gui
@@ -116,9 +114,9 @@ Now that we have the notification working, let's retrieve the what's actually in
 
 ## Getting clipboard contents
 
-Without going much into details, [Windows clipboard][win32_using_clipboard] has a concept called "clipboard format". When you copy something, (depending on application) the payload is also attached a bunch of metadata. For example, copying something from a webpage, you have the option to paste it as HTML, or plain text. You can copy files, images, screenshots into the clipboard. 
+[Windows clipboard][win32_using_clipboard] has a concept called ["clipboard format"][win32_clipboard_formats]. When you copy something, (depending on application) the payload is also attached a bunch of metadata, allowing the it to be used in various scenarios. For example, when you copy a table from a webpage, you have the option to paste it as plain text, or paste it in Excel and have it formatted as a table. You can copy files, images, screenshots into the clipboard and each payload gets stored formatted (again, depending on how the application set the clipboard contents).
 
-If we want to get clipboard contents, we need to specify which format we want in. [Clipboard formats][win32_clipboard_formats] include:
+Therefore, if we want to get clipboard contents, we need to specify which format we want in. Right now we'll be dealing with:
 
 :::table
 |Format|Value|Description|
@@ -129,9 +127,9 @@ If we want to get clipboard contents, we need to specify which format we want in
 |`CF_BITMAP`|`2`|Images e.g. screenshots|
 :::
 
-We'll use [`OpenClipboard`][OpenClipboard] to set a lock. This ensures other programs can't modify the clipboard while we're trying to read it. We need to release the lock with [`CloseClipboard`][CloseClipboard] once we're done.
+To read the clipboard, we'll use [`OpenClipboard`][OpenClipboard] to set a lock first. This ensures other programs can't modify the clipboard while we're trying to read it. We need to release the lock with [`CloseClipboard`][CloseClipboard] once we're done.
 
-We need to check [`IsClipboardFormatAvailable`][IsClipboardFormatAvailable] to query a format, then get its contents using [`GetClipboardData`][GetClipboardData], or fallback to other formats.
+Then we'll call [`IsClipboardFormatAvailable`][IsClipboardFormatAvailable] to query a format, then get its contents using [`GetClipboardData`][GetClipboardData], or fallback to other formats.
 
 ```python
 from pathlib import Path
@@ -285,7 +283,7 @@ Clipboard.Clip(type='text', value='Clipboard')
 Clipboard.Clip(type='files', value=[WindowsPath('C:/Python39/python.exe')])
 ```
 
-I haven't managed to retrieve bitmap from the clipboard when taking a screenshot, though it shouldn't be too difficult. 
+I haven't managed to retrieve bitmap from the clipboard when taking a screenshot yet, though it shouldn't be too difficult. 
 
 It should prove useful for the use case where when you take a screenshot, you can save it automatically as PNG, upload it and copy its URL to clipboard, ready for pasting.
 
@@ -294,7 +292,7 @@ It should prove useful for the use case where when you take a screenshot, you ca
 
 Before I could navigate around Win32 APIs easily, I used higher level APIs provided in C# to listen to the clipboard. On that end, I created a mini utility called [**dumpclip**][dumpclip] that prints clipboard contents to console as JSON or streams clipboard updates.
 
-The first version of dumpclip had a single function: dumping clipboard contents to console as JSON. 
+The first version of **dumpclip** had a single function: dumping clipboard contents to console as JSON. 
 
 ```powershell
 > dumpclip.v1.exe
@@ -345,9 +343,10 @@ if __name__ == "__main__":
 
 It's functional, but we can do better.
 
-## Second iteration: registering a clipboard listener
 
-The second iteration of dumpclip involved using Win32 APIs. I've used [`AddClipboardFormatListener`][AddClipboardFormatListener] to register a callback for clipboard changes in C#, then retrieved & dumped clipboard contents as the new content came in.
+## Using **dumpclip**: streaming clipboard updates
+
+The second iteration of **dumpclip** involved using Win32 APIs. I've used [`AddClipboardFormatListener`][AddClipboardFormatListener] to register a callback for clipboard changes in C#, then retrieved & dumped clipboard contents as the new content came in.
 
 ```powershell
 > dumpclip.v2.exe --listen
@@ -357,9 +356,7 @@ The second iteration of dumpclip involved using Win32 APIs. I've used [`AddClipb
 ...
 ```
 
-This worked much better. I can process its `stdout` stream, and trigger a callback directly, instead of polling for changes. But dumpclip launched in listener mode never terminates. We need to read its stdout in real-time.
-
-## Using **dumpclip**: streaming clipboard updates
+This worked much better. I can process its `stdout` stream, and trigger a callback directly, instead of polling for changes. But **dumpclip** launched in listener mode never terminates. We need to read its stdout in real-time.
 
 To stream `stdout` of a process, we need to launch it with `subprocess.Popen` and pipe its output to `subprocess.PIPE`.
 Then we can read its `stdout` in a separate thread. Because, the main thread that launches the process will be waiting for the process to terminate (although it never will).
@@ -369,7 +366,6 @@ import json
 import subprocess
 import threading
 from typing import Callable
-
 
 def monitor_clipboard(on_change: Callable[[dict], None]) -> None:
     def read_stdout(proc: subprocess.Popen):
@@ -393,7 +389,6 @@ def monitor_clipboard(on_change: Callable[[dict], None]) -> None:
     except KeyboardInterrupt:
         proc.kill()
         raise
-
 
 if __name__ == "__main__":
     monitor_clipboard(on_change=print)
@@ -458,3 +453,4 @@ If you've found this post useful, consider sharing it.
 [CloseClipboard]: https://docs.microsoft.com/en-us/windows/desktop/api/Winuser/nf-winuser-closeclipboard
 [GetClipboardData]: https://docs.microsoft.com/en-us/windows/desktop/api/Winuser/nf-winuser-getclipboarddata
 [window_procedure]: https://docs.microsoft.com/en-us/windows/win32/winmsg/using-window-procedures
+[clipboard_format_html]: https://docs.microsoft.com/en-us/windows/win32/dataxchg/html-clipboard-format
