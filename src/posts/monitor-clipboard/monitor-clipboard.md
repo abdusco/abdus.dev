@@ -76,6 +76,7 @@ Decoding the second message:
 We've received a [`WM_CLIPBOARDUPDATE`][WM_CLIPBOARDUPDATE] message notifying us that the clipboard content has changed. Now we can build our script around it.
 
 ```python
+import threading
 import ctypes
 import win32api, win32gui
 
@@ -99,14 +100,22 @@ class Clipboard:
         return 0
 
     def listen(self):
-        hwnd = self._create_window()
-        ctypes.windll.user32.AddClipboardFormatListener(hwnd)
-        win32gui.PumpMessages()
+        def runner(self):
+            hwnd = self._create_window()
+            ctypes.windll.user32.AddClipboardFormatListener(hwnd)
+            win32gui.PumpMessages()
+
+        th = threading.Thread(target=runner, daemon=True, args=(self,))
+        th.start()
+        while th.is_alive():
+            th.join(0.25)
 
 if __name__ == '__main__':
     clipboard = Clipboard()
     clipboard.listen()
 ```
+
+One thing we need to watch out for is that because `win32gui.PumpMessages()` is blocking, we cannot stop the script using [[Ctrl]] + [[C]]. So we run it inside a thread, which lets `KeyboardInterrupt` to bubble up and terminate the script.
 
 When we run it, and copy something (text, files) and check the console, we can see it prints `clipboard updated!`.
 
@@ -134,7 +143,7 @@ Then we'll call [`IsClipboardFormatAvailable`][IsClipboardFormatAvailable] to qu
 ```python
 from pathlib import Path
 from dataclasses import dataclass
-from typing import Union, List
+from typing import Union, List, Optional
 
 import win32clipboard, win32con
 
@@ -143,23 +152,22 @@ class Clip:
     type: str
     value: Union[str, List[Path]]
     
-def read_clipboard() -> Clip:
+def read_clipboard() -> Optional[Clip]:
     try:
         win32clipboard.OpenClipboard()
-        output = None
         if win32clipboard.IsClipboardFormatAvailable(win32con.CF_HDROP):
             data: tuple = win32clipboard.GetClipboardData(win32con.CF_HDROP)
-            output = Clip('files', [Path(f) for f in data])
+            return Clip('files', [Path(f) for f in data])
         elif win32clipboard.IsClipboardFormatAvailable(win32con.CF_UNICODETEXT):
             data: str = win32clipboard.GetClipboardData(win32con.CF_UNICODETEXT)
-            output = Clip('text', data)
+            return Clip('text', data)
         elif win32clipboard.IsClipboardFormatAvailable(win32con.CF_TEXT):
             data: bytes = win32clipboard.GetClipboardData(win32con.CF_TEXT)
-            output = Clip('text', data.decode())
+            return Clip('text', data.decode())
         elif win32clipboard.IsClipboardFormatAvailable(win32con.CF_BITMAP):
             # TODO: handle screenshots
             pass
-        return output
+        return None
     finally:
         win32clipboard.CloseClipboard()
 
@@ -184,9 +192,10 @@ For convenience, you can enable `trigger_at_start` to trigger callbacks with the
 
 ```python
 import ctypes
+import threading
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Union, List
+from typing import Callable, Union, List, Optional
 
 import win32api, win32clipboard, win32con, win32gui
 
@@ -239,10 +248,9 @@ class Clipboard:
             self._on_files(clip.value)
     
     @staticmethod
-    def read_clipboard() -> Clip:
+    def read_clipboard() -> Optional[Clip]:
         try:
             win32clipboard.OpenClipboard()
-            output = None
 
             def get_formatted(fmt):
                 if win32clipboard.IsClipboardFormatAvailable(fmt):
@@ -250,16 +258,16 @@ class Clipboard:
                 return None
 
             if files := get_formatted(win32con.CF_HDROP):
-                output = Clipboard.Clip('files', [Path(f) for f in files])
+                return Clipboard.Clip('files', [Path(f) for f in files])
             elif text := get_formatted(win32con.CF_UNICODETEXT):
-                output = Clipboard.Clip('text', text)
+                return Clipboard.Clip('text', text)
             elif text_bytes := get_formatted(win32con.CF_TEXT):
-                output = Clipboard.Clip('text', text_bytes.decode())
+                return Clipboard.Clip('text', text_bytes.decode())
             elif bitmap_handle := get_formatted(win32con.CF_BITMAP):
                 # TODO: handle screenshots
                 pass
 
-            return output
+            return None
         finally:
             win32clipboard.CloseClipboard()
 
@@ -267,9 +275,15 @@ class Clipboard:
         if self._trigger_at_start:
             self._process_clip()
 
-        hwnd = self._create_window()
-        ctypes.windll.user32.AddClipboardFormatListener(hwnd)
-        win32gui.PumpMessages()
+        def runner(self):
+            hwnd = self._create_window()
+            ctypes.windll.user32.AddClipboardFormatListener(hwnd)
+            win32gui.PumpMessages()
+
+        th = threading.Thread(target=runner, daemon=True, args=(self,))
+        th.start()
+        while th.is_alive():
+            th.join(0.25)
 
 
 if __name__ == '__main__':
