@@ -28,7 +28,7 @@
         document.querySelectorAll(':is(h2,h3,h4,h5)[id]')
             .forEach(h => {
                 h.setAttribute('tabindex', 0);
-                h.setAttribute('aria-title', `anchor for the title: ${h.textContent}`);
+                h.setAttribute('title', `Permalink for "${h.textContent}"`);
                 const a = document.createElement('a');
                 a.classList.add('anchor');
                 a.href = `#${h.id}`;

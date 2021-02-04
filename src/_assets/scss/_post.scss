@@ -115,20 +115,16 @@
 }
 
 .anchor {
-    visibility: hidden;
     opacity: 0.25;
-
-    &:hover, &:focus {
-        opacity: 1;
-    }
-
+    
     &::after {
-        content: '⚓';
-        margin-left: 0.5rem;
+        font-weight: normal;
+        content: ' ⚓\FE0E';
     }
 
     :is(h2,h3,h4,h5,h6):hover &,  
     :is(h2,h3,h4,h5,h6):focus-within & {
-        visibility: visible;
+        opacity: 1;
+        color: var(--c-primary);
     }
 }
