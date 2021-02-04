@@ -20,7 +20,7 @@ To make working with Win32 APIs easier, we need to install [`pywin32`][pywin32] 
 
 ## Monitoring clipboard updates
 
-Windows provides a couple of methods for data exchange between applications. Clipboard is one of them. All applications have access to it. But we first need to create a primitive "application" that Windows recognizes. We then register it to be notified when clipboard content changes.
+Windows provides a couple of methods for data exchange between applications. Clipboard is one of them. All applications have access to it. But we first need to create a primitive "application" that Windows recognizes. We subscribe it for the clipboard updates.
 
 Windows uses **window**s (hah!) as the building block of applications. I've written about how windows and messaging works on Windows in [another post][post_usb] where I explored USB hotplugging events, which might be worth reading. 
 
