@@ -73,7 +73,7 @@ Decoding the second message:
 |--|--|--|
 |`797`|`0x031D`|`WM_CLIPBOARDUPDATE` 🥳|
 
-We've received a [`WM_CLIPBOARDUPDATE`][WM_CLIPBOARDUPDATE] message notifying us that the clipboard contents has changed. Now we can build our script around it.
+We've received a [`WM_CLIPBOARDUPDATE`][WM_CLIPBOARDUPDATE] message notifying us that the clipboard content has changed. Now we can build our script around it.
 
 ```python
 import ctypes
@@ -114,9 +114,9 @@ Now that we have the notification working, let's retrieve the what's actually in
 
 ## Getting clipboard contents
 
-[Windows clipboard][win32_using_clipboard] has a concept called ["clipboard format"][win32_clipboard_formats]. When you copy something, (depending on application) the payload is also attached a bunch of metadata, allowing the it to be used in various scenarios. For example, when you copy a table from a webpage, you have the option to paste it as plain text, or paste it in Excel and have it formatted as a table. You can copy files, images, screenshots into the clipboard and each payload gets stored formatted (again, depending on how the application set the clipboard contents).
+[Windows clipboard][win32_using_clipboard] has a concept called ["clipboard format"][win32_clipboard_formats]. When you copy something, (depending on application) the payload is also attached a bunch of metadata, allowing the it to be used in various scenarios. For example, when you copy a table from a webpage, you have the option to paste it as plain text, or paste it in Excel and have it formatted as a table. You can copy files, images, screenshots into the clipboard and each payload gets stored formatted (again, depending on how the application sets the clipboard content).
 
-Therefore, if we want to get clipboard contents, we need to specify which format we want in. Right now we'll be dealing with:
+Therefore, if we want to get the clipboard contents, we need to specify which format we want in. Right now we'll be dealing with:
 
 :::table
 |Format|Value|Description|
@@ -178,9 +178,9 @@ Now let's bring it all together:
 
 ## Clipboard listener in Python
 
-I've placed `read_clipboard` inside `Clipboard` class, which creates a window and subscribes to clipboard updates. When the clipboard contents change, it triggers suitable callbacks with the parsed contents.
+I've placed `read_clipboard` inside `Clipboard` class, which creates a window and subscribes to clipboard updates. When the clipboard content changes, it triggers suitable callbacks with the parsed content.
 
-For convenience, you can enable `trigger_at_start` to trigger callbacks with the current clipboard contents immediately after listening.
+For convenience, you can enable `trigger_at_start` to trigger callbacks with the current clipboard content immediately after listening.
 
 ```python
 import ctypes
@@ -275,7 +275,7 @@ if __name__ == '__main__':
     clipboard.listen()
 ```
 
-When we run it and copy some text, or some files, it dumps clipboard contents just as we want it.
+When we run it and copy some text, or some files, it dumps the clipboard content just as we want it.
 
 ```console
 Clipboard.Clip(type='text', value='Clipboard')
@@ -289,9 +289,9 @@ It should prove useful for the use case where when you take a screenshot, you ca
 
 ## Using **dumpclip**: polling for changes
 
-Before I could navigate around Win32 APIs easily, I used higher level APIs provided in C# to listen to the clipboard. On that end, I created a mini utility called [**dumpclip**][dumpclip] that prints clipboard contents to console as JSON or streams clipboard updates.
+Before I could navigate around Win32 APIs easily, I used higher level APIs provided in C# to listen to the clipboard. On that end, I created a mini utility called [**dumpclip**][dumpclip] that prints the clipboard content to console as JSON or streams clipboard updates.
 
-The first version of **dumpclip** had a single function: dumping clipboard contents to console as JSON. 
+The first version of **dumpclip** had a single function: dumping the clipboard content to console as JSON. 
 
 ```powershell
 > dumpclip.v1.exe
@@ -345,7 +345,7 @@ It's functional, but we can do better.
 
 ## Using **dumpclip**: streaming clipboard updates
 
-The second iteration of **dumpclip** involved using Win32 APIs. I've used [`AddClipboardFormatListener`][AddClipboardFormatListener] to register a callback for clipboard changes in C#, then retrieved & dumped clipboard contents as the new content came in.
+The second iteration of **dumpclip** involved using Win32 APIs. I've used [`AddClipboardFormatListener`][AddClipboardFormatListener] to register a callback for clipboard changes in C#, then retrieved & dumped its content as the new content came in.
 
 ```powershell
 > dumpclip.v2.exe --listen
