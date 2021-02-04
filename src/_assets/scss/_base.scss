@@ -291,9 +291,12 @@ table {
     margin: 1rem 0;
     border-spacing: 0.75rem 0.25rem;
     .table & {
+        // width: 100%;
         margin: 0;
+        white-space: nowrap;
     }
 }
+
 
 .table {
     margin: 1rem var(--m-table-side);
