@@ -33,7 +33,8 @@ module.exports = (config) => {
         'src/_assets/**/*.{css,map}': 'assets/css',
         'src/_assets/fonts/*': 'assets/fonts',
         'src/_assets/**/*.{js,map}': 'assets/js',
-        'admin/*': 'admin'
+        'admin/*': 'admin',
+        'src/_assets/favicon.svg': 'favicon.svg',
     });
 
     config.addPassthroughCopy('src/**/*.{jpg,png,jpeg,svg,gif,webm}');
