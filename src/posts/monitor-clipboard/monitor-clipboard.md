@@ -1,32 +1,307 @@
 ---
-title: Monitoring clipboard on Windows with Python
-description: A way listen to clipboard updates and trigger actions depending on
-  clipboard content
+title: Monitoring clipboard contents on Windows with Python
+description: A guide on using Win32 APIs to build a clipboard listener that triggers a callback when the clipboard content changes
 tags:
   - python
-  - c#
   - windows
   - post
 date: 2020-11-30
 ---
 
-I was looking for ways to listen to the clipboard and get its contents as it changed. 
+I was looking for ways to listen to the clipboard and get called for updates as its content changes. 
 I found a couple of ways to achieve this in Python. Some solutions poll for changes, others use ctypes and Win32 APIs. 
-Working with C bindings in Python is frustrating. The debugger doesn't work well with pointers and native types. 
-So I figured I should build a utility in C#, instead of pouring hours debugging C in Python. C# provides a much better support for Win32 APIs, with better debugging abilities.
-I've released this utility, called [**dumpclip**][dumpclip], on [Github][dumpclip_repo]. 
+
+Working with C bindings in Python is frustrating. The debugger doesn't work well with pointers and C types. You have to build your own C structs to unpack a pointer. Win32 APIs are no exception, as they're written in C/C++ and Python is probably not the best language to use them. But still, it works well enough for our purposes.
+
+We'll explore how do to it in Python using Win32 APIs, or alternatively integrating [a utility](#using-dumpclip-polling-for-changes) I've written in C# that retrieves clipboard contents or streams updates to it. I had written this earlier when I didn't know much about Win32 APIs or how to use them, but it still functions well, so I'm leaving it here in this post as reference.
+
+To make working with Win32 APIs easier, we need to install [`pywin32`][pywin32] package which provides most of the primitives and types for Win32 APIs, though it's not a strict dependency.
 
 
-## First attempt: polling for changes
+## Monitoring clipboard updates
 
-The first iteration of the script involved dumping the clipboard contents as JSON then exiting. But that meant polling for changes every second. 
+Windows provides a couple of methods for data exchange between applications. Clipboard is one of them. All applications have access to it. But we first need to create a primitive "application" that Windows recognizes. We then register it to be notified when clipboard content changes.
+
+Windows uses **window**s (hah!) as the building block of applications. I've written about how windows and messaging works on Windows in [another post][post_usb] where I explored USB hotplugging events, which might be worth reading. 
+
+{#% recommend /posts/monitor-usb-windows/ %#}
+
+Let's create a window, and set `print` function as its ["window procedure"][window_procedure]:
+
+```python
+import win32api, win32gui
+
+def create_window() -> int:
+    """
+    Create a window for listening to messages
+    :return: window hwnd
+    """
+    wc = win32gui.WNDCLASS()
+    wc.lpfnWndProc = print
+    wc.lpszClassName = 'demo'
+    wc.hInstance = win32api.GetModuleHandle(None)
+    class_atom = win32gui.RegisterClass(wc)
+    return win32gui.CreateWindow(class_atom, 'demo', 0, 0, 0, 0, 0, 0, 0, wc.hInstance, None)
+
+if __name__ == '__main__':
+    hwnd = create_window()
+    win32gui.PumpMessages()
+```
+
+When we run it doesn't do much except to dump messages sent by Windows to console. We receive the first message `WM_DWMNCRENDERINGCHANGED`, which doesn't concern us.
+
+We need to register this window as a "clipboard format listener" using [`AddClipboardFormatListener`][AddClipboardFormatListener] API, to get notified by Windows whenever the contents of the clipboard change.
+
+```python
+import ctypes
+# ...
+
+if __name__ == '__main__':
+    hwnd = create_window()
+    ctypes.windll.user32.AddClipboardFormatListener(hwnd)
+    win32gui.PumpMessages()
+```
+
+Now when we run this, it still prints the previous message, but when you copy something to the clipboard it receives another message:
+
+```console;lines=2
+2033456 799 1 0
+2033456 797 8 0
+```
+
+Decoding the second message:
+
+|Value|Hex|Message|
+|--|--|--|
+|`797`|`0x031D`|`WM_CLIPBOARDUPDATE` 🥳|
+
+We've received a [`WM_CLIPBOARDUPDATE`][WM_CLIPBOARDUPDATE] message notifying us that the clipboard contents has changed. Now we can build our script around it.
+
+```python
+import ctypes
+import win32api, win32gui
+
+class Clipboard:
+    def _create_window(self) -> int:
+        """
+        Create a window for listening to messages
+        :return: window hwnd
+        """
+        wc = win32gui.WNDCLASS()
+        wc.lpfnWndProc = self._process_message
+        wc.lpszClassName = self.__class__.__name__
+        wc.hInstance = win32api.GetModuleHandle(None)
+        class_atom = win32gui.RegisterClass(wc)
+        return win32gui.CreateWindow(class_atom, self.__class__.__name__, 0, 0, 0, 0, 0, 0, 0, wc.hInstance, None)
+
+    def _process_message(self, hwnd: int, msg: int, wparam: int, lparam: int):
+        WM_CLIPBOARDUPDATE = 0x031D
+        if msg == WM_CLIPBOARDUPDATE:
+            print('clipboard updated!')
+        return 0
+
+    def listen(self):
+        hwnd = self._create_window()
+        ctypes.windll.user32.AddClipboardFormatListener(hwnd)
+        win32gui.PumpMessages()
+
+if __name__ == '__main__':
+    clipboard = Clipboard()
+    clipboard.listen()
+```
+
+When we run it, and copy something (text, files) and check the console, we can see it prints `clipboard updated!`.
+
+Now that we have the notification working, let's retrieve the what's actually in the clipboard.
+
+## Getting clipboard contents
+
+Without going much into details, [Windows clipboard][win32_using_clipboard] has a concept called "clipboard format". When you copy something, (depending on application) the payload is also attached a bunch of metadata. For example, copying something from a webpage, you have the option to paste it as HTML, or plain text. You can copy files, images, screenshots into the clipboard. 
+
+If we want to get clipboard contents, we need to specify which format we want in. [Clipboard formats][win32_clipboard_formats] include:
+
+:::table
+|Format|Value|Description|
+|--|--|--|
+|`CF_UNICODETEXT`|`13`|Unicode text format|
+|`CF_TEXT`|`1`|Text format for ANSI text|
+|`CF_HDROP`|`15`|List of files|
+|`CF_BITMAP`|`2`|Images e.g. screenshots|
+:::
+
+We'll use [`OpenClipboard`][OpenClipboard] to set a lock. This ensures other programs can't modify the clipboard while we're trying to read it. We need to release the lock with [`CloseClipboard`][CloseClipboard] once we're done.
+
+We need to check [`IsClipboardFormatAvailable`][IsClipboardFormatAvailable] to query a format, then get its contents using [`GetClipboardData`][GetClipboardData], or fallback to other formats.
+
+```python
+from pathlib import Path
+from dataclasses import dataclass
+from typing import Union, List
+
+import win32clipboard, win32con
+
+@dataclass
+class Clip:
+    type: str
+    value: Union[str, List[Path]]
+    
+def read_clipboard() -> Clip:
+    win32clipboard.OpenClipboard()
+    output = None
+
+    if win32clipboard.IsClipboardFormatAvailable(win32con.CF_HDROP):
+        files: tuple = win32clipboard.GetClipboardData(win32con.CF_HDROP)
+        output = Clip('files', [Path(f) for f in files])
+    elif win32clipboard.IsClipboardFormatAvailable(win32con.CF_UNICODETEXT):
+        text: str = win32clipboard.GetClipboardData(win32con.CF_UNICODETEXT)
+        output = Clip('text', text)
+    elif win32clipboard.IsClipboardFormatAvailable(win32con.CF_TEXT):
+        text_bytes: bytes = win32clipboard.GetClipboardData(win32con.CF_TEXT)
+        output = Clip('text', text_bytes.decode())
+    elif win32clipboard.IsClipboardFormatAvailable(win32con.CF_BITMAP):
+        # TODO: handle screenshots
+        pass
+
+    win32clipboard.CloseClipboard()
+    return output
+
+if __name__ == '__main__':
+    print(read_clipboard())
+```
+
+When we run it, and try copying some text or files, it prints the contents to the console:
+
+```console
+Clip(type='text', value='read_clipboard')
+Clip(type='files', value=[WindowsPath('C:/Python39/vcruntime140_1.dll'), WindowsPath('C:/Python39/python.exe')])
+```
+
+Now let's bring it all together:
+
+## Clipboard listener in Python
+
+I've placed `read_clipboard` inside `Clipboard` class, which creates a window and subscribes to clipboard updates. When the clipboard contents change, it triggers suitable callbacks with the parsed contents.
+
+For convenience, you can enable `trigger_at_start` to trigger callbacks with the current clipboard contents immediately after listening.
+
+```python
+import ctypes
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Callable, Union, List
+
+import win32api, win32clipboard, win32con, win32gui
+
+
+class Clipboard:
+    @dataclass
+    class Clip:
+        type: str
+        value: Union[str, List[Path]]
+
+    def __init__(
+            self,
+            trigger_at_start: bool = False,
+            on_text: Callable[[str], None] = None,
+            on_update: Callable[[Clip], None] = None,
+            on_files: Callable[[str], None] = None,
+    ):
+        self._trigger_at_start = trigger_at_start
+        self._on_update = on_update
+        self._on_files = on_files
+        self._on_text = on_text
+
+    def _create_window(self) -> int:
+        """
+        Create a window for listening to messages
+        :return: window hwnd
+        """
+        wc = win32gui.WNDCLASS()
+        wc.lpfnWndProc = self._process_message
+        wc.lpszClassName = self.__class__.__name__
+        wc.hInstance = win32api.GetModuleHandle(None)
+        class_atom = win32gui.RegisterClass(wc)
+        return win32gui.CreateWindow(class_atom, self.__class__.__name__, 0, 0, 0, 0, 0, 0, 0, wc.hInstance, None)
+
+    def _process_message(self, hwnd: int, msg: int, wparam: int, lparam: int):
+        WM_CLIPBOARDUPDATE = 0x031D
+        if msg == WM_CLIPBOARDUPDATE:
+            self._process_clip()
+        return 0
+
+    def _process_clip(self):
+        clip = self.read_clipboard()
+        if not clip:
+            return
+
+        if self._on_update:
+            self._on_update(clip)
+        if clip.type == 'text' and self._on_text:
+            self._on_text(clip.value)
+        elif clip.type == 'files' and self._on_text:
+            self._on_files(clip.value)
+    
+    @staticmethod
+    def read_clipboard() -> Clip:
+        win32clipboard.OpenClipboard()
+        output = None
+
+        def get_formatted(fmt):
+            if win32clipboard.IsClipboardFormatAvailable(fmt):
+                return win32clipboard.GetClipboardData(fmt)
+            return None
+
+        if files := get_formatted(win32con.CF_HDROP):
+            output = Clipboard.Clip('files', [Path(f) for f in files])
+        elif text := get_formatted(win32con.CF_UNICODETEXT):
+            output = Clipboard.Clip('text', text)
+        elif text_bytes := get_formatted(win32con.CF_TEXT):
+            output = Clipboard.Clip('text', text_bytes.decode())
+        elif bitmap_handle := get_formatted(win32con.CF_BITMAP):
+            # TODO: handle screenshots
+            pass
+
+        win32clipboard.CloseClipboard()
+        return output
+
+    def listen(self):
+        if self._trigger_at_start:
+            self._process_clip()
+
+        hwnd = self._create_window()
+        ctypes.windll.user32.AddClipboardFormatListener(hwnd)
+        win32gui.PumpMessages()
+
+
+if __name__ == '__main__':
+    clipboard = Clipboard(on_update=print, trigger_at_start=True)
+    clipboard.listen()
+```
+
+When we run it and copy some text, or some files, it dumps clipboard contents just as we want it.
+
+```console
+Clipboard.Clip(type='text', value='Clipboard')
+Clipboard.Clip(type='files', value=[WindowsPath('C:/Python39/python.exe')])
+```
+
+I haven't managed to retrieve bitmap from the clipboard when taking a screenshot, though it shouldn't be too difficult. 
+
+It should prove useful for the use case where when you take a screenshot, you can save it automatically as PNG, upload it and copy its URL to clipboard, ready for pasting.
+
+
+## Using **dumpclip**: polling for changes
+
+Before I could navigate around Win32 APIs easily, I used higher level APIs provided in C# to listen to the clipboard. On that end, I created a mini utility called [**dumpclip**][dumpclip] that prints clipboard contents to console as JSON or streams clipboard updates.
+
+The first version of dumpclip had a single function: dumping clipboard contents to console as JSON. 
 
 ```powershell
 > dumpclip.v1.exe
 {"text":"monitor"}
 ```
 
-integrating this into a Python script:
+Calling it from Python is quite straightforward using `subprocess` module. But that also meant polling for changes every second.
 
 ```python
 import json
@@ -68,12 +343,11 @@ if __name__ == "__main__":
 
 ```
 
-This worked fine, but I didn't want to keep launching a process every second.
-
+It's functional, but we can do better.
 
 ## Second iteration: registering a clipboard listener
 
-The second iteration involved using Win32 APIs. I've used [`AddClipboardFormatListener`][clip_api] to register a callback for clipboard changes in C#, then retrieved & dumped clipboard contents as the new content came in.
+The second iteration of dumpclip involved using Win32 APIs. I've used [`AddClipboardFormatListener`][AddClipboardFormatListener] to register a callback for clipboard changes in C#, then retrieved & dumped clipboard contents as the new content came in.
 
 ```powershell
 > dumpclip.v2.exe --listen
@@ -83,17 +357,12 @@ The second iteration involved using Win32 APIs. I've used [`AddClipboardFormatLi
 ...
 ```
 
-This worked much better. Because now I can capture this process's output, and trigger a callback directly, instead of polling for changes. But **dumpclip** launched in listener mode never terminates. We need to read its stdout in real-time.
+This worked much better. I can process its `stdout` stream, and trigger a callback directly, instead of polling for changes. But dumpclip launched in listener mode never terminates. We need to read its stdout in real-time.
 
-## Capturing stdout of a long-running process in real time
+## Using **dumpclip**: streaming clipboard updates
 
-To capture the output of a process, we need to launch it with `subprocess.Popen` and pipe its output to `subprocess.PIPE`.
-Also, we need to capture its stdout in a separate thread. Because the thread that launches the process will be waiting for it to terminate (although it never will).
-
-Because the process doesn't terminate, the thread that consumes its output doesn't stop, either. 
-It keeps processing the output as new content comes in, and idles if there's nothing to consume, because `proc.stdout.readline()` call is blocking.
-When the process gets killed, `proc.stdout` stops blocking and the thread terminates.
-
+To stream `stdout` of a process, we need to launch it with `subprocess.Popen` and pipe its output to `subprocess.PIPE`.
+Then we can read its `stdout` in a separate thread. Because, the main thread that launches the process will be waiting for the process to terminate (although it never will).
 
 ```python
 import json
@@ -128,12 +397,16 @@ def monitor_clipboard(on_change: Callable[[dict], None]) -> None:
 
 if __name__ == "__main__":
     monitor_clipboard(on_change=print)
-
 ```
 
-To prevent blocking interrupt signal (to let the script terminate), we need to `.wait()` the subprocess. This allows `KeyboardInterrupt` to bubble up and terminate the script (and its subprocesses) when we hit [[Ctrl]] + [[C]].
+Because the process doesn't terminate, the thread that consumes its output doesn't stop, either. 
+It keeps processing the output as new content comes in, and idles if there's nothing to consume, as `proc.stdout.readline()` call is blocking.
+When the process gets killed, `proc.stdout` stops blocking and the thread terminates.
 
-## Async workflow
+To prevent blocking interrupt signal and to allow the script and the process terminate, we need to `.wait()` the subprocess. This allows `KeyboardInterrupt` to bubble up and terminate the script (and its subprocesses) when we hit [[Ctrl]] + [[C]].
+
+
+## Using dumpclip: async workflow
 
 Just for kicks, I wanted to implement the same operation in async. It turned out to be more straightforward to write and consume. One caveat is that you have to create a wrapper async function to use `async`/`await` keywords, so I had to add a `main` function to do that.
 
@@ -142,7 +415,6 @@ import asyncio
 import json
 from pathlib import Path
 from typing import AsyncIterable
-
 
 async def monitor_clipboard() -> AsyncIterable[dict]:
     proc = await asyncio.subprocess.create_subprocess_exec(
@@ -158,16 +430,31 @@ async def monitor_clipboard() -> AsyncIterable[dict]:
             if text:
                 yield json.loads(text)
 
-
 if __name__ == "__main__":
     async def main():
         async for clip in monitor_clipboard():
             print(clip)
 
-
     asyncio.get_event_loop().run_until_complete(main())
 ```
 
+That's it.  
+Cheers ✌
+
+:::text--small
+If you've found this post useful, consider sharing it.
+:::
+
+
 [dumpclip]: https://abdus.dev/projects/dumpclip/
-[dumpclip_repo]: https://github.com/abdusco/dumpclip
-[clip_api]: https://docs.microsoft.com/en-us/windows/win32/dataxchg/using-the-clipboard#creating-a-clipboard-format-listener
+[AddClipboardFormatListener]: https://docs.microsoft.com/en-us/windows/win32/dataxchg/using-the-clipboard#creating-a-clipboard-format-listener
+[pywin32]: https://github.com/mhammond/pywin32
+[win32_using_clipboard]: https://docs.microsoft.com/en-us/windows/win32/dataxchg/using-the-clipboard#creating-a-clipboard-format-listener
+[post_usb]: /posts/python-monitor-usb/#listening-to-windows-wm_devicechange-messages
+[WM_CLIPBOARDUPDATE]: https://docs.microsoft.com/en-us/windows/win32/dataxchg/wm-clipboardupdate
+[win32_clipboard_formats]: https://docs.microsoft.com/en-us/windows/win32/dataxchg/standard-clipboard-formats#constants
+[IsClipboardFormatAvailable]: https://docs.microsoft.com/en-us/windows/desktop/api/Winuser/nf-winuser-isclipboardformatavailable
+[OpenClipboard]: https://docs.microsoft.com/en-us/windows/desktop/api/Winuser/nf-winuser-openclipboard
+[CloseClipboard]: https://docs.microsoft.com/en-us/windows/desktop/api/Winuser/nf-winuser-closeclipboard
+[GetClipboardData]: https://docs.microsoft.com/en-us/windows/desktop/api/Winuser/nf-winuser-getclipboarddata
+[window_procedure]: https://docs.microsoft.com/en-us/windows/win32/winmsg/using-window-procedures
