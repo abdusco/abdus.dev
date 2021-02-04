@@ -190,7 +190,6 @@ from typing import Callable, Union, List
 
 import win32api, win32clipboard, win32con, win32gui
 
-
 class Clipboard:
     @dataclass
     class Clip:
