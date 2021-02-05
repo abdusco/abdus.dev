@@ -214,7 +214,12 @@ function markdownFactory() {
             validate: params => true,
             render(tokens, idx, _options, env, slf) {
                 if (tokens[idx].nesting === 1) {
-                    tokens[idx].attrJoin('class', tokens[idx].info.trim());
+                    const info = tokens[idx].info.trim();
+                    let [cls = info, title] = info.match(/(.*)\s+["'](.*)["']$/)?.slice(1) || [];
+                    tokens[idx].attrJoin('class', cls);
+                    if (title) {
+                        tokens[idx].attrJoin('data-title', title);
+                    }
                 }
 
                 return slf.renderToken(tokens, idx, _options, env, slf);

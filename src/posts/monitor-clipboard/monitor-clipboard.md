@@ -22,7 +22,12 @@ To make working with Win32 APIs easier, we need to install [`pywin32`][pywin32] 
 
 Windows provides a couple of methods for data exchange between applications. Clipboard is one of them. All applications have access to it. But we first need to create a primitive "application" that Windows recognizes. We subscribe it for the clipboard updates.
 
+:::
 Windows uses **window**s (hah!) as the building block of applications. I've written about how windows and messaging works on Windows in [another post][post_usb] where I explored USB hotplugging events, which might be worth reading. 
+
+:::recommend
+[Detecting USB drive insertion & removal on Windows using Python][post_usb]{.link}
+:::
 
 Let's create a window, and set `print` function as its [window procedure][window_procedure]:
 
@@ -452,9 +457,7 @@ if __name__ == "__main__":
 That's it.  
 Cheers ✌
 
-:::text--small
-If you've found this post useful, consider sharing it.
-:::
+If you've found this post useful, consider sharing it.  {.text--small}
 
 
 [dumpclip]: https://abdus.dev/projects/dumpclip/

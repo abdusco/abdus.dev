@@ -1,24 +1,19 @@
 {% extends "base.njk" %}
 
 {% block content %}
-<div class="single {% if updatedAt and (updatedAt | isRecent) %}page--recently-updated{% endif %}">
+<div class="post single {% if updatedAt and (updatedAt | isRecent) %}page--recently-updated{% endif %}">
     <h1 class="{{ 'page-title' if fancyTitle else ''}}">{{ title }}</h1>
-    {% if (updatedAt | isRecent) %}
-    <div class="page__updated-at" title='{{updatedAt | dateIso}} ({{updatedAt | dateAgo}})'>
-        <b>Last updated:</b>
-        <time datetime='{{updatedAt | dateIso}}'>
-            {{updatedAt | date}}</time>
-    </div>
-    {% endif %}
 
     {{ content | safe }}
-
-    {% if not (updatedAt | isRecent) %}
+    
+    {% if (updatedAt | isRecent) %}
+    <div class="page__meta">
         <div class="page__updated-at" title='{{updatedAt | dateIso}} ({{updatedAt | dateAgo}})'>
             <b>Last updated:</b>
             <time datetime='{{updatedAt | dateIso}}'>
                 {{updatedAt | date}}</time>
         </div>
+    </div>
     {% endif %}
 </div>
 {% endblock %}

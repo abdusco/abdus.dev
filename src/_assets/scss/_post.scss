@@ -5,6 +5,22 @@
     }
 }
 
+.post {
+    display: flex;
+    flex-direction: column;
+
+    & > h1 {
+        order: -2;
+    }
+    & > .page__meta {
+        order: -1;
+    }
+    & > * {
+        order: 0;
+        position: relative;
+    }
+}
+
 .page__updated-at {
     margin: 1rem 0;
     font-size: 14px;
@@ -126,5 +142,29 @@
     :is(h2,h3,h4,h5,h6):focus-within & {
         opacity: 1;
         color: var(--c-primary);
+    }
+}
+
+.post > div {
+    .recommend {
+        &:before {
+            content: 'Recommended';
+            font-weight: 400;
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+        
+        margin: 1rem 0;
+        font-weight: 600;
+        border-left: 3px solid var(--c-primary);
+        padding-left: 1rem;
+
+        @media (min-width: 1300px) {   
+            margin: 0 0 0 1rem;
+            top: 0;
+            left: 100%;
+            position: absolute;
+            width: 50%;
+        }
     }
 }

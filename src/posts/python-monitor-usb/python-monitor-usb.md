@@ -16,6 +16,14 @@ Most solutions online describe a way to do it in C# or C++, but I wanted to writ
 However I wasn't really comfortable with launching a subprocess every second. It seemed wasteful.
 So I've written a second method that uses Win32 APIs to hook into Windows and monitor drive changes.
 
+:::
+If you're interested, I have [another post][post_clipboard] where I build a clipboard listener that you can use to monitor clipboard contents.
+
+:::recommend
+    [Monitoring clipboard contents on Windows with Python][post_clipboard]{.link}
+:::
+
+
 ## Getting a list of drives
 
 Windows provides an interface for sysadmins called [Windows Management Instrumentation][wmi] (WMI) which basically allows you to monitor a local or remote system.
@@ -475,9 +483,7 @@ That's it.
 Cheers ✌
 
 
-:::text--small
-If you've found this post useful, consider sharing it.
-:::
+If you've found this post useful, consider sharing it. {.text--small}
 
 
 [WM_DEVICECHANGE]: https://docs.microsoft.com/en-us/windows/win32/devio/wm-devicechange#parameters
@@ -491,3 +497,4 @@ If you've found this post useful, consider sharing it.
 [pywin32]: https://github.com/mhammond/pywin32
 [Get-WmiObject]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject
 [win32_messages]: https://docs.microsoft.com/en-us/windows/win32/learnwin32/window-messages
+[post_clipboard]: /posts/monitor-clipboard/
