@@ -17,8 +17,11 @@
     }
     & > * {
         order: 0;
-        position: relative;
     }
+}
+
+.post__content > * {
+    position: relative;
 }
 
 .page__updated-at {
