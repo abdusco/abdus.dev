@@ -4,7 +4,9 @@
 <div class="post single {% if updatedAt and (updatedAt | isRecent) %}page--recently-updated{% endif %}">
     <h1 class="{{ 'page-title' if fancyTitle else ''}}">{{ title }}</h1>
 
-    {{ content | safe }}
+    <div class="post__content">
+        {{ content | safe }}
+    </div>
     
     {% if (updatedAt | isRecent) %}
     <div class="page__meta">
