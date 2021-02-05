@@ -37,6 +37,7 @@ module.exports = {
             return tags.includes('post');
         },
     },
+    commentable: true,
     layout: 'post',
     today: dayjs(),
 };

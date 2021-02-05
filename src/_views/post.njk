@@ -17,6 +17,11 @@
         </div>
     </div>
     {% endif %}
+
+    
+    {% if commentable %}
+        {% include "partials/comments.njk" %}
+    {% endif %}
 </div>
 {% endblock %}
 

@@ -1,0 +1,27 @@
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2/dist/alpine.js" defer="defer"></script>
+<script>
+    const commentsApp = () => ({
+        ready: false,
+        startLoading: false,
+        init() {
+            window.addEventListener('message', m => {
+                if (!m.origin.includes('utteranc.es')) 
+                    return;
+                this.ready = true;
+            });
+        }
+    })
+</script>
+<aside x-data="commentsApp()" x-init="init" x-ref="comments" x-on:mouseover="startLoading = true">
+    <details>
+        <summary x-on:click="startLoading = true">Comments</summary>
+        <template x-if="!ready">
+            <p>Loading...</p>
+        </template>
+        <template x-if="startLoading">
+            <div x-show="ready">
+                <script src="https://utteranc.es/client.js" repo="abdusco/abdus.dev" issue-term="pathname" label="comments" theme="preferred-color-scheme" crossorigin="anonymous" async="async"></script>
+            </div>
+        </template>
+    </details>
+</aside>
