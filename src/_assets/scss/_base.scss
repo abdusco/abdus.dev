@@ -79,6 +79,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: $font;
+    word-break: break-word;
     font-size: var(--fz);
     line-height: 1.6;
     color: var(--c-body);
