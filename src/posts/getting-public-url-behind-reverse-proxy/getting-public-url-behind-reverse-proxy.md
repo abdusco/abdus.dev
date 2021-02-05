@@ -174,8 +174,8 @@ public void ConfigureServices(IServiceCollection services)
 
 We've got a [deadlock][deadlock].
 
-```text
->dotnet run
+```powershell
+PS> dotnet run
 Building...
 info: WaitForFirstRequestDemo.BackgroundWorker[0]
       Waiting for the first request
@@ -209,8 +209,8 @@ public class Program
 
 When I run the app and send a request, everything works as it should.
 
-```text
->dotnet run
+```powershell
+PS> dotnet run
 Building...
 info: Microsoft.Hosting.Lifetime[0]
       Now listening on: https://localhost:5001

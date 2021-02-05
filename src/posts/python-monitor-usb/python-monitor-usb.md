@@ -374,7 +374,7 @@ if __name__ == '__main__':
 
 When we run it and plug in a drive, it logs:
 
-```text
+```console
 INFO:__main__:Listening to drive changes
 DEBUG:__main__:Created listener window with hwnd=d60b86
 DEBUG:__main__:Listening to messages
@@ -473,7 +473,7 @@ if __name__ == '__main__':
 You can supply your own `on_change` callback and perform a job if a drive is present.
 
 Here's the output after I plug a USB drive in and out: 
-```text
+```console
 [Drive(letter='C:', label='', drive_type='Local Disk')]
 [Drive(letter='C:', label='', drive_type='Local Disk'), Drive(letter='E:', label='ABDUS', drive_type='Removable Disk')]
 [Drive(letter='C:', label='', drive_type='Local Disk')]

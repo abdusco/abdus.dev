@@ -9,13 +9,11 @@ tags:
 date: 2020-02-20
 ---
 
-
-
 SQLite has an extension called [`JSON1`][json1] that allows working with JSON. 
 It's really useful for storing data that wouldn't necessarily belong to a separate column, like metadata. 
 
-Unfortunately on Windows, the SQLite driver for Python doesn't come bundled with this extension. 
-We need to upgrade the driver to a newer version.
+Unfortunately on Windows, SQLite driver for Python doesn't come bundled with this extension. 
+We need to upgrade the driver to a newer version to get it.
 
 You can find the compiled binaries for Windows on [SQLite website][sqlite]. 
 Here are the links, scraped directly from the page:  
@@ -38,7 +36,8 @@ Here are the links, scraped directly from the page:
         },
         async scrape() {
             const url = `https://www.sqlite.org/download.html#win32`;
-            const html = await fetch(`https://proxy.abdusco.workers.dev?url=${decodeURIComponent(url)}`).then(r => r.text());
+            const html = await fetch(`https://proxy.abdusco.workers.dev?url=${decodeURIComponent(url)}`)
+              .then(r => r.text());
             return html.match(/(\d+\/[^.]+.zip)/gm)
                 .filter(path => /dll-win/.test(path))
                 .map(path => `https://www.sqlite.org/${path}`);
@@ -48,27 +47,23 @@ Here are the links, scraped directly from the page:
 :::
 
 
-
 Extract the ZIP file and place the DLL into `$PYTHON_DIR/DLLs`. 
 
 You can find the exact location using PowerShell:
 
 ```powershell
-(join-path (split-path (get-command python).Path) "dlls")
-# C:\Python38\dlls
-
-# open the folder
-start (join-path (split-path (get-command python).Path) "dlls")  
+start (Join-Path (Split-Path (Get-Command python).Path) "dlls")
+# C:\Python39\dlls
 ```
 or use cmd directly:
 
 ```cmd
-powershell -command "start (join-path (split-path (get-command python).Path) "dlls")"
+powershell -command "start (Join-Path (Split-Path (Get-Command python).Path) "dlls")"
 ```
 
 ## SQLite compile options
 
-Run `python`, and fetch the list of compile options to verify if it's worked:
+Run `python`, and fetch the list of compilation options to verify if it has succeeded:
 
 ```python
 import sqlite3
@@ -76,7 +71,7 @@ options = sqlite3.connect(':memory:').execute('pragma compile_options').fetchall
 for o in options: print(o[0])
 ```
 
-```
+```console
 COMPILER=msvc-1500
 ENABLE_BYTECODE_VTAB
 ENABLE_COLUMN_METADATA
