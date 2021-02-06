@@ -4,16 +4,16 @@
 
 {% block content %}
     <section class='intro'>
-        <p class='h5'>hey there,</p>
-        <h1>I'm Abdüssamet Koçak</h1>
-        <p class='h5'>I build things for the web.</p>
+        <p class='h6'>hey there,</p>
+        <h1>I'm Abdussamet Koçak</h1>
+        <p class='h6'>I am just trying to document things as I learn and build.</p>
     </section>
 
     <hr>
 
     <section>
-        <h2>updates</h2>
-        {% set posts = collections.updates %}
+        <h2>latest</h2>
+        {% set posts = collections.updates.slice(0, 12) %}
         {% include 'partials/post-list.njk' %}
     </section>
 {% endblock %}
