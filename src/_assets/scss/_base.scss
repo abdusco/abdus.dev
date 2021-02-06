@@ -183,7 +183,7 @@ a {
         text-decoration-skip-ink: auto;
     }
 
-    h1 &, h2 & {
+    :is(h1, h2, h3, h4, h5, h6) & {
         color: currentColor;
         text-decoration: none;
     }
@@ -365,6 +365,11 @@ summary {
 .text--lowercase {
     text-transform: lowercase;
 }
+
+.text--narrow {
+    letter-spacing: -1px;
+}
+
 
 small,
 .text--small {
