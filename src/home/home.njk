@@ -13,7 +13,7 @@
 
     <section>
         <h2>latest</h2>
-        {% set posts = collections.updates.slice(0, 12) %}
+        {% set posts = collections.updates %}
         {% include 'partials/post-list.njk' %}
     </section>
 {% endblock %}
