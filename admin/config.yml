@@ -37,7 +37,6 @@ collections:
     sortable_fields:
       - date
       - title
-      - 
     fields:
       - {name: title, label: Title, widget: string}
       - {name: description, label: Description, widget: string}
