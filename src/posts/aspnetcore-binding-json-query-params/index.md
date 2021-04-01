@@ -23,7 +23,7 @@ This is unnecessarily verbose, field path prefixes are repeated multiple times. 
 
 I prefer querying the API with arguments serialized as JSON. It's more succinct, and also easier for clients to serialize.
 
-```json
+```http
 GET /products?query=
   {
     "filter": {
@@ -82,7 +82,7 @@ We could `POST` this JSON in the request body, but that breaks the convention an
 
 ## Binding JSON query parameters
 
-We can work around this by accepting a JSON string, then deserializing it inside the action.
+We can work around it by accepting a JSON string, then deserializing it inside the action.
 
 ```c#
 [HttpGet]
@@ -94,8 +94,8 @@ public Task<ActionResult<SearchResult>> SearchProducts(
 }
 ```
 
-This works, but I don't like performing parsing, model binding & validation myself that MVC platform already does for me.
-It'd be best if we can utilize ASP.NET as much as possible.
+This works, but I don't like parsing, model binding & validation myself that MVC platform already does for me.
+It'd be best if we could utilize ASP.NET as much as possible.
 
 MVC gives us a better extension point: model binders. We will use them to create our own binder and use it just like we would with `[FromQuery]`, or `[FromBody]`.
 
@@ -381,4 +381,4 @@ Cheers ✌.
 [operation_filter]: https://github.com/domaindrivendev/Swashbuckle.AspNetCore#operation-filters
 [swashbuckle]: https://github.com/domaindrivendev/Swashbuckle.AspNetCore
 
-[^400]: You need to annotate your controller with `[ApiController]` attribute to get auto-validation, along with other useful things based on conventions. See [docs][apicontroller] for further info.
+[^400]: You need to annotate your controller with `[ApiController]` attribute to get auto-validation, along with other useful behaviors for APIs. See [docs][apicontroller] for further info.
