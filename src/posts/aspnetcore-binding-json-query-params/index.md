@@ -95,6 +95,7 @@ public Task<ActionResult<SearchResult>> SearchProducts(
 ```
 
 This works, but I don't like performing parsing, model binding & validation myself that MVC platform already does for me.
+It'd be best if we can utilize ASP.NET as much as possible.
 
 MVC gives us a better extension point: model binders. We will use them to create our own binder and use it just like we would with `[FromQuery]`, or `[FromBody]`.
 
