@@ -38,7 +38,8 @@ GET /products?query=
   }
 ```
 
-Let's say we have a controller action that accepts a `SearchQuery` instance, populated from the query string:
+With ASP.NET Core, we get neither of them.
+To illustrate it, let's create an action that accepts a `SearchQuery` instance, populated from the query string:
 
 ```c#
 [HttpGet]
