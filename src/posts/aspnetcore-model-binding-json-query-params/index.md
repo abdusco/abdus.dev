@@ -363,7 +363,8 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-That's it. With everything together, our API is well-annotated and shows the correct Swagger UI for testing.
+When we send a request, the query parameter is serialized as JSON 💃. 
+Our API is now easier to ues, well-annotated and shows the correct Swagger UI for testing.
 
 Cheers ✌.
 
