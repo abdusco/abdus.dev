@@ -21,7 +21,24 @@ GET /products?
 
 This is unnecessarily verbose, field path prefixes are repeated multiple times. Not to mention, ASP.NET Core doesn't seem to support this bracketed format for binding complex types.
 
-Let's say I have a controller action that accepts a `SearchQuery` instance, populated from the query string:
+I prefer querying the API with arguments serialized as JSON. It's more succinct, and also easier for clients to serialize.
+
+```json
+GET /products?query=
+  {
+    "filter": {
+      "title": {
+        "contains": "ssd"
+      },
+    },
+    "sort": {
+      "field": "price",
+      "direction": "ASC"
+    }
+  }
+```
+
+Let's say we have a controller action that accepts a `SearchQuery` instance, populated from the query string:
 
 ```c#
 [HttpGet]
@@ -30,7 +47,7 @@ public async Task<ActionResult<SearchResult>> SearchProducts(
 ) { ... }
 ```
 
-When I inspect the OpenAPI / Swagger document, the action is described as having separate parameters for each property in my query type. 
+When we inspect the OpenAPI / Swagger schema, the action is described as having separate parameters for each property in my query type. 
 
 ```json
 {
@@ -54,31 +71,12 @@ GET /products?
   Sort.Field=price&
   Sort.Direction=ASC
 ```
-This gets displayed as a form with with separate inputs in Swagger UI.
+
+This is rendered as a form with with separate inputs in Swagger UI.
 
 ![swagger ui with separate inputs](./swagger_fromquery.png)
 
-This is not what I want. I prefer querying the API with arguments serialized as JSON.
-
-```json
-GET /products?query=
-  {
-    "filter": {
-      "title": {
-        "contains": "ssd"
-      },
-    },
-    "sort": {
-      "field": "price",
-      "direction": "ASC"
-    }
-  }
-```
-
-It's more succinct, and also easier for clients to serialize.
-
-So trying this out, we meet with the first roadblock:
-We cannot send a query parameter and have it bind to a complex type. `SearchQuery query` parameter is always empty.
+If we try to send the parameter as JSON we can't have it bind to a complex type. `SearchQuery query` parameter is always empty.
 
 We could `POST` this JSON in the request body, but that breaks the convention and doesn't signal that the endpoint is actually idempotent.
 
