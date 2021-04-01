@@ -19,7 +19,7 @@ GET /products?
   sort[direction]=ASC
 ```
 
-This is unnecessarily verbose, field path prefixes are repeated multiple times. Not to mention, ASP.NET Core doesn't seem to support this bracketed format for binding complex types.
+This is unnecessarily verbose. Field path prefixes are repeated multiple times. ASP.NET Core doesn't seem to support this bracketed format for binding complex types, either.
 
 I prefer querying the API with arguments serialized as JSON. It's more succinct, and also easier for clients to serialize.
 
@@ -72,11 +72,11 @@ GET /products?
   Sort.Direction=ASC
 ```
 
-This is rendered as a form with separate inputs in Swagger UI.
+and it is rendered as a form with separate inputs in Swagger UI.
 
 ![swagger ui with separate inputs](./swagger_fromquery.png)
 
-If we try to send the parameter as JSON we can't have it bind to a complex type. `SearchQuery query` parameter is always empty.
+If we try to send the parameter as JSON we can't get it to bind to a complex type. `SearchQuery query` parameter is always empty.
 
 We could `POST` this JSON in the request body, but that breaks the convention and doesn't signal that the endpoint is actually idempotent.
 
@@ -121,15 +121,14 @@ public Task<ActionResult<SearchResult>> SearchProducts(
 ) { ... }
 ```
 
-Now let's create the `JsonQueryBinder` class to get it working. It needs to implement `IModelBinder` interface with a single method. The steps we need to take is:
-
+Now let's create the `JsonQueryBinder` class to get it working. It needs to implement `IModelBinder` interface. The steps we need to follow are:
 
 - Get raw JSON from the request.
 
-  `ModelBindingContext` contains `ValueProvider` for retrieving values from the request, if it's not enough, you can also use `HttpContext` and work the request directly. 
+  `ModelBindingContext` contains `ValueProvider` for retrieving values from the request, if it's not enough, you can also use `HttpContext` and work on the request directly. 
 - Turn it into a useful type.
 
-  We deserialize it with [System.Text.Json][system_text_json], which is available for all .NET versions, but you could can't go wrong with [Json.NET][json_net], either.
+  We deserialize it with [System.Text.Json][system_text_json], which is available for all .NET versions, but you can't go wrong with [Json.NET][json_net], either.
 
 - Validate it ([later](#utilizing-asp.net-core's-validation-tools)).
 - Accept / reject the result.
@@ -188,11 +187,11 @@ GET /products?query={
 }
 ```
 
-But validation doesn't work yet. If I omit a `[Required]` property or pass in a string to boolean, it just fails. We can improve this further.
+But validation doesn't work yet. If we omit a `[Required]` property or pass in a string to boolean, it just fails. We can improve this further.
 
 ### Utilizing ASP.NET Core's validation tools
 
-After we've deserialized the payload, we can let ASP.NET take care of the validation. [`IObjectModelValidator`][IObjectModelValidator] interface gives us the tools to validate an object graph with all its properties and sub types.
+After we deserialize the payload, we can let ASP.NET take care of the validation. [`IObjectModelValidator`][IObjectModelValidator] interface gives us the tools to validate an object graph with all its properties and sub types.
 
 We inject it into our binder, and call its `.Validate()` method after deserialization. 
 
@@ -276,7 +275,7 @@ sending an invalid JSON returns a nicely formatted HTTP 400 error[^400].
 
 ## Adding OpenAPI support
 
-When we've created the `FromJsonQueryAttribute`, its `BindingSource` property is set to [`BindingSource.Custom`][BindingSource.Custom], which prevents Swagger from displaying the parameter properties as individual inputs. 
+When we created the `FromJsonQueryAttribute`, its `BindingSource` property was set to [`BindingSource.Custom`][BindingSource.Custom]. This keeps Swagger from displaying the properties as individual inputs. 
 
 ![swagger ui with single input](./swagger_fromjsonquery.png)
 
@@ -306,7 +305,6 @@ OpenAPI specification [addresses][openapi_json] our exact use-case, and gives us
 
 We can fix it by hooking into SwashBuckle with an [operation filter][operation_filter] and modify the generated schema. From there, we correct the parameters annotated with `[FromJsonQuery]` with the right schema.
 
-When writing a plugin for a third party library, I prefer having an extension method to hide the glue code, and keep the hooks as nested private classes.
 
 ```c#
 internal static class JsonQuerySwaggerGenExtensions
@@ -349,7 +347,9 @@ internal static class JsonQuerySwaggerGenExtensions
 }
 ```
 
-Now we can enable the filter in our `Startup` class.
+When writing a plugin for a third party library, I prefer having an extension method to hide the glue code, and keep the implementations as nested private classes.
+
+Anyway, now we can enable the filter in our `Startup` class.
 
 ```c#
 public void ConfigureServices(IServiceCollection services)
@@ -363,7 +363,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-When we send a request, the query parameter is serialized as JSON 💃. 
+When we send a request, the query parameter is now serialized as JSON 💃. 
 Our API is now easier to use, well-annotated and shows up with the correct Swagger UI for testing.
 
 Cheers ✌.
