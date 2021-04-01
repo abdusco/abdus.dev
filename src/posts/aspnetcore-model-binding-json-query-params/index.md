@@ -124,14 +124,15 @@ public Task<ActionResult<SearchResult>> SearchProducts(
 Now let's create the `JsonQueryBinder` class to get it working. It needs to implement `IModelBinder` interface with a single method. The steps we need to take is:
 
 
-- Get raw JSON from the request
-- Turn in into a useful type
-- Validate it ([later](#utilizing-asp.net-core's-validation-tools))
-- Accept / reject the result
+- Get raw JSON from the request.
 
-`ModelBindingContext` contains `ValueProvider` for retrieving values from the request, if it's not enough, you can also use `HttpContext` and work the request directly. 
+  `ModelBindingContext` contains `ValueProvider` for retrieving values from the request, if it's not enough, you can also use `HttpContext` and work the request directly. 
+- Turn it into a useful type.
 
-Then we deserialize it with System.Text.Json, which is available for all .NET versions, but you could can't go wrong with Json.NET, either.
+  We deserialize it with [System.Text.Json][system_text_json], which is available for all .NET versions, but you could can't go wrong with [Json.NET][json_net], either.
+
+- Validate it ([later](#utilizing-asp.net-core's-validation-tools)).
+- Accept / reject the result.
 
 ```c#
 internal class JsonQueryBinder : IModelBinder
@@ -380,5 +381,8 @@ Cheers ✌.
 [BindingSource.Custom]: https://github.com/dotnet/aspnetcore/blob/85a6cb07ae2e1adf5a03740f8d40333b7b8e360c/src/Mvc/Mvc.Core/src/BindPropertyAttribute.cs#L65
 [operation_filter]: https://github.com/domaindrivendev/Swashbuckle.AspNetCore#operation-filters
 [swashbuckle]: https://github.com/domaindrivendev/Swashbuckle.AspNetCore
+[json_net]: https://www.nuget.org/packages/Newtonsoft.Json/
+[system_text_json]: https://www.nuget.org/packages/System.Text.Json
+
 
 [^400]: You need to annotate your controller with `[ApiController]` attribute to get auto-validation, along with other useful behaviors for APIs. See [docs][apicontroller] for further info.
