@@ -3,7 +3,7 @@ title: Getting the public URL for an ASP.NET app behind a reverse proxy
 description: Detecting the public URL for ASP.NET Core app inside a hosted service
 tags:
   - post
-  - aspnet
+  - aspnetcore
 date: 2020-11-14
 $aliases:
     - posts/getting-public-url-for-an-asp-net-app-behind-reverse-proxy/
