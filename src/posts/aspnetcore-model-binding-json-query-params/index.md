@@ -72,7 +72,7 @@ GET /products?
   Sort.Direction=ASC
 ```
 
-This is rendered as a form with with separate inputs in Swagger UI.
+This is rendered as a form with separate inputs in Swagger UI.
 
 ![swagger ui with separate inputs](./swagger_fromquery.png)
 
@@ -192,7 +192,7 @@ But validation doesn't work yet. If I omit a `[Required]` property or pass in a 
 
 ### Utilizing ASP.NET Core's validation tools
 
-After we've deserialized the the payload, we can let ASP.NET take care of the validation. [`IObjectModelValidator`][IObjectModelValidator] interface gives us the tools to validate an object graph with all its properties and sub types.
+After we've deserialized the payload, we can let ASP.NET take care of the validation. [`IObjectModelValidator`][IObjectModelValidator] interface gives us the tools to validate an object graph with all its properties and sub types.
 
 We inject it into our binder, and call its `.Validate()` method after deserialization. 
 
