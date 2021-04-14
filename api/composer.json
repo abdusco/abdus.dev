@@ -1,6 +1,6 @@
 {
     "require": {
-        "php": "8.0",
+        "php": "^8.0",
         "vlucas/phpdotenv": "^5.2",
         "ext-json": "*",
         "symfony/http-foundation": "^5.2",
