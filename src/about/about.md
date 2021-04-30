@@ -11,5 +11,5 @@ My name is Abdussamet Koçak. I'm a developer based in Istanbul, focusing mainly
 
 I enjoy films, photography and nerding out on science and technology. I love learning a new language and a culture. Tatsächlich lerne ich gern seit 3 Jahren Deutsch selbst und schätze, dass ich um Niveau C1 bin. Ich kann ohne Probleme Deutsch lesen und hören aber meine schriftliche und mündliche Sprachkenntnisse bleiben immer hinter den anderen. Ich mache mir darüber keine Sorge. Ich mag den Verlauf, nicht das Ergebnis.
 
-You can react out to me about anything at [abdus@abdus.dev](abdus@abdus.dev). 
+You can react out to me about anything at [mailto:hey@abdus.dev](hey@abdus.dev). 
 
