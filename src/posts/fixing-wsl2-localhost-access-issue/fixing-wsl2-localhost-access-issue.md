@@ -1,6 +1,6 @@
 ---
 title: Fixing WSL2 localhost access issue
-description: A fix for not being able to access WSL apps from localhost
+description: A fix for when localhost forwarding stops working
 tags:
   - post
   - windows10
