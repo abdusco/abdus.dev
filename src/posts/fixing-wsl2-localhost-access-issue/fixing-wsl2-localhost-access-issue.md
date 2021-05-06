@@ -14,7 +14,7 @@ images:
 
 I've been using [WSL][wsl] ever since it came out. It was nice being able to run Linux on Windows without the overhead of VMs. But it had some issues, like not being able to run Docker natively. Microsoft then released a new version called WSL2 which has brought native Docker support. 
 
-One feature of WSL is that it allows sharing IP address space for services listening to [localhost][localhost]. This means one can access servers running on WSL on Windows as if it were running on Windows. This lets us, for instance, access a Docker container listening to `0.0.0.0:8000` on WSL from Windows using `localhost:8000`.
+One feature of WSL is that it allows sharing IP address space for services listening to [localhost][localhost]. This means one can access servers running on WSL from Windows as if it were running on Windows. This lets us, for instance, access a Docker container listening to `0.0.0.0:8000` on WSL from Windows using `localhost:8000`.
 
 ## Problem 
 
@@ -55,7 +55,7 @@ HTTP/1.0 200 OK
 
 Now we can make the experience better by not having to type in the full IP address everytime we want to access WSL. We can use the [`hosts` file][hosts] for that. But there's a catch: we can't just use `localhost`, because that'd break a lot of systems that rely on `localhost` working as a loopback address. That's why I chose `wsl` as the hostname, you're free to use something else.
 
-For this I've written a PowerShell script that gets the IP address of WSL instance, then creates (or updates) an entry in the `hosts` file.
+For this I've written a PowerShell script that gets the IP address of WSL instance, then adds (or updates) an entry in the `hosts` file.
 
 
 ```powershell
@@ -101,7 +101,7 @@ catch {
 }
 ```
 
-Save this file as `wsl.ps1` and run it as admin to add an entry for WSL in hosts file.
+Save this script as `wsl.ps1` and run it as admin to add an entry for WSL in hosts file.
 
 ```cmd
 powershell -file wsl.ps1
@@ -125,9 +125,9 @@ PS> wsl -- ip -4 addr show eth0
        valid_lft forever preferred_lft forever
 ```
 
-We can use Scheduled Tasks to monitor WSL events and let it run our script.
+We can use Scheduled Tasks to monitor WSL network events and have it run our script everytime it's assigned a new IP address.
 
-Watching new entries Event Viewer under **Windows Logs > System** for **Hyper-V**, we can see a couple of events logged. 
+Watching new entries Event Viewer under **Windows Logs > System** for **Hyper-V**, we can see a couple of new entries when we restart WSL.
 
 ![](wsl-event.png)
 
@@ -147,7 +147,7 @@ Open Scheduled Tasks and go to **Task Scheduler Library > Event Viewer Tasks**. 
 
 then save the task.
 
-Run the task and check hosts file to see if WSL IP address is added. Also restart WSL instance using:
+Run the task and check the hosts file to see if WSL IP address is added. Also restart WSL using:
 
 ```powershell
 # shutdown
