@@ -213,11 +213,11 @@ Now `/me` returns claims for both sessions:
 ]
 ```
 
-## Removing the boilerplate
+## Setting a default authorization policy
 
 Specifying all these magic values by hand is tedious. Luckily ASP.NET Core gives us some other options to achieve the same result.
 
-After configuring a default authorization policy that forces the user authenticate with multiple schemes
+After configuring a default authorization policy that forces the user authenticate with multiple schemes,
 
 ```c#
 services.AddAuthorization(options =>
