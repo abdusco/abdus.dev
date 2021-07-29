@@ -5,7 +5,7 @@ tags:
   - aspnetcore
   - auth
   - post
-date: 2021-07-29
+date: 2021-06-28
 ---
 
 C# lets us add `virtual` modifier to a method to indicate that it can be overridden by the subclasses of that (non-`sealed`) class.
