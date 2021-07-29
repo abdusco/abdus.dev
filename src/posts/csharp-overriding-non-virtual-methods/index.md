@@ -1,6 +1,6 @@
 ---
 title: Overriding non-virtual methods in C#
-description: Not all methods are virtual, but we can still override them (with caveats)
+description: Not all methods are virtual, but we can still override them (with a caveat)
 tags:
   - c#
   - post
@@ -11,7 +11,7 @@ C# lets us add `virtual` modifier to a method to indicate that it can be overrid
 
 ## Problem
 
-[Microsoft says](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/override):
+[C# spec says](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/override):
 
 > You cannot override a non-virtual or static method. The overridden base method must be `virtual`, `abstract`, or `override`.
 
