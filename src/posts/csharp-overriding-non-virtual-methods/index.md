@@ -45,7 +45,7 @@ We want to override the `SendAsync` method, but it's not `virtual`/`override`. D
 2. Add `new` modifier
 
 ```c#
-public class ConsoleEmailSender : IEmailSender
+public class ConsoleEmailSender : DefaultEmailSender, IEmailSender
 {
     public new Task<SendResult> SendAsync(MailMessage email)
     {
@@ -57,7 +57,7 @@ public class ConsoleEmailSender : IEmailSender
 We can modify the arguments, call the base implementation and modify the result:
 
 ```c#
-public class ConsoleEmailSender : IEmailSender
+public class ConsoleEmailSender : DefaultEmailSender, IEmailSender
 {
     public new async Task<SendResult> SendAsync(MailMessage email)
     {
