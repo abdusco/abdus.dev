@@ -8,7 +8,7 @@ tags:
 date: 2021-07-29
 ---
 
-Assume we have an app that gives users the option to [login with Google, GitHub, Facebook, etc.][social_auth]. We want to let users login with any identity provider but store their session to access the claims they provide.
+Assume we have an app that gives users the option to [login with Google, GitHub, Facebook, etc.][social_auth]. We want to let users login with any identity provider and save their session to access the claims they provide later.
 
 For example, if I login with Google, it returns claims about the logged-in user, such as his name, email, account id. The same holds true for GitHub and all other OIDC providers.
 
