@@ -1,5 +1,5 @@
 ---
-title: Authenticating a user with multiple external providers simultaneously in ASP.NET Core
+title: Authenticating a user with multiple social providers simultaneously in ASP.NET Core
 description: A guide on setting up and troubleshooting multiple auth schemes in ASP.NET Core
 tags:
   - aspnetcore
