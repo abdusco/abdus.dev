@@ -22,6 +22,8 @@ When working with a library, sometimes we _really_ need to override a method to 
 
 We have one crucial condition for this trick to work: **the method we want to override must come from an interface implemented by the class.**
 
+Take this example:
+
 ```c#
 interface IEmailSender {
     Task<SendResult> SendAsync(MailMessage email);
