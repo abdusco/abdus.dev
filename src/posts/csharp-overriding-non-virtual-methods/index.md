@@ -2,8 +2,7 @@
 title: Overriding non-virtual methods in C#
 description: Not all methods are virtual, but we can still override them (with caveats)
 tags:
-  - aspnetcore
-  - auth
+  - c#
   - post
 date: 2021-06-28
 ---
