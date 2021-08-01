@@ -8,9 +8,6 @@ tags:
 date: 2021-06-29
 ---
 
-Cancellation tokens in C# signals an async operation that the operations needs to be cancelled. 
-Async operations need to work in cooperation and share and pass each other a common cancellation token to cancel the tasks in a timely manner when signalled.
-
 ASP.NET Core allows us to inject a `CancellationToken` in actions:
 
 ```c#
