@@ -5,6 +5,7 @@ description: Read a small chunk from the beginning of an io.Reader into memory a
 tags:
   - golang
   - ffmpeg
+  - post
 date: 2022-07-17
 ---
 
