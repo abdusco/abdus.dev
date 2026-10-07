@@ -1,4 +1,3 @@
-{% set hidden_tags = hidden_tags | default(value=[]) %}
 {% if posts | length %}
 <ul>
     {% for p in posts -%}
@@ -10,9 +9,7 @@
                 {% if tags | length %}
                 <nav class="d--ib">
                     {%- for tag in tags -%}
-                    {%- if tag not in hidden_tags -%}
                     <a class='tag d--ib' href='{{ get_taxonomy_url(kind="tags", name=tag) }}'>{{ tag }}</a>
-                    {%- endif -%}
                     {%- endfor -%}
                 </nav>
                 {% endif %}

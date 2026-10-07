@@ -6,5 +6,4 @@ sort_by = "date"
 
 [extra]
 fancy_title = true
-hidden_tags = []
 +++

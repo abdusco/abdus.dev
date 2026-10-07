@@ -6,7 +6,6 @@
     <div class="single">
         <h1 class="{{ 'page-title' if section.extra.fancy_title else '' }}">{{ section.title }}</h1>
         {% set posts = section.pages %}
-        {% set hidden_tags = section.extra.hidden_tags | default(value=[]) %}
         {% include 'partials/post-list.html' %}
     </div>
 {% endblock content %}
