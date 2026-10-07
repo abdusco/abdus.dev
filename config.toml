@@ -3,6 +3,9 @@ title = "abdus.dev"
 description = "personal website of Abdussamet Kocak"
 output_dir = "dist"
 
+# keep links root-relative, so the site works behind a proxy like ngrok
+link_strategy = "relative"
+
 generate_sitemap = true
 generate_robots_txt = false
 generate_feeds = false
