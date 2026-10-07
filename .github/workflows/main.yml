@@ -21,7 +21,7 @@ jobs:
         run: go install github.com/abdusco/kopkop/cmd/kopkop@latest
 
       - name: build site
-        run: PATH="$PATH:$(go env GOPATH)/bin" make build
+        run: PATH="$PATH:$(go env GOPATH)/bin" ./scripts/build.sh
 
       - name: deploy files
         run: |-
