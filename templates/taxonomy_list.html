@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Tags - {{ config.title }}{% endblock title %}
+
+{% block head %}
+    <meta name="robots" content="noindex">
+{% endblock head %}
+
+{% block content %}
+    <div class="single">
+        <h1 class='page-title'>Tags</h1>
+        <p>
+            {%- for term in terms | sort(attribute="name") %}
+            <a class="tag d--ib" href="{{ term.path }}">{{ term.name }}</a>
+            {%- endfor %}
+        </p>
+    </div>
+{% endblock content %}

@@ -1,7 +1,7 @@
 .idea
-node_modules
 dist
 .cache
 .env
 api/vendor
-*.map
+data/updated.json
+.kopkop-linkcheck-cache.json

@@ -1,1 +1,0 @@
-python %~dp0run_server.py

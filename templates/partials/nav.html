@@ -1,0 +1,10 @@
+<header>
+    {% if config.extra.nav | length %}
+        <nav class='nav'>
+            {%- for it in config.extra.nav -%}
+                <a class='nav__link link {% if it.name %}nav__link--{{ it.name }}{% endif %}'
+                   href='{{ it.href }}'>{{ it.text }}</a>
+            {%- endfor -%}
+        </nav>
+    {% endif %}
+</header>

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Posts tagged #{{ taxonomy.term }} - {{ config.title }}{% endblock title %}
+
+{% block head %}
+    <meta name="robots" content="noindex">
+{% endblock head %}
+
+{% block content %}
+    <div class="single">
+        <h1 class='page-title'><span class='c--primary'>Tagged</span> <span>{{ taxonomy.term }}</span></h1>
+        {% set posts = taxonomy.pages | sort(attribute="date") | reverse %}
+        {% include 'partials/post-list.html' %}
+    </div>
+{% endblock content %}

@@ -10,7 +10,7 @@ encode gzip
 root * dist
 file_server
 handle_errors {
-    rewrite * /{http.error.status_code}/
+    rewrite * /{http.error.status_code}.html
     file_server
     templates
 }

@@ -1,0 +1,9 @@
+<div class="table-of-contents">
+    <ul>
+        {%- for h in page.toc %}
+        {%- if h.level >= 2 and h.level <= 4 %}
+        <li style="margin-left: {{ h.level - 2 }}rem"><a href="#{{ h.id }}">{{ h.title }}</a></li>
+        {%- endif %}
+        {%- endfor %}
+    </ul>
+</div>

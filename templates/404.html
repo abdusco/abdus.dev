@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}404 - {{ config.title }}{% endblock title %}
+
+{% block content %}
+    <div class="single">
+        <h1 class="page-title">404</h1>
+
+        {% set path %}{% raw %}{{ .OriginalReq.URL.Path }}{% endraw %}{% endset %}
+        <p><code data-path>{{ path | trim | default(value="This page") }}</code> isn't there anymore.<br>
+        Or you have a typo in the URL.</p>
+
+        <p>Visit <a href="/">homepage</a> instead?</p>
+
+        <script>document.querySelector('[data-path]').textContent = document.location.pathname</script>
+    </div>
+{% endblock content %}

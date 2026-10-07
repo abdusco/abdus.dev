@@ -1,0 +1,25 @@
+{% set hidden_tags = hidden_tags | default(value=[]) %}
+{% if posts | length %}
+<ul>
+    {% for p in posts -%}
+    <li class='mb--2'>
+        <article class='post'>
+            <h2 class='h5 mb--1'><a href='{{ p.path }}'>{{ p.title }}</a></h2>
+            <div>
+                {% set tags = p.taxonomies.tags | default(value=[]) %}
+                {% if tags | length %}
+                <nav class="d--ib">
+                    {%- for tag in tags -%}
+                    {%- if tag not in hidden_tags -%}
+                    <a class='tag d--ib' href='{{ get_taxonomy_url(kind="tags", name=tag) }}'>{{ tag }}</a>
+                    {%- endif -%}
+                    {%- endfor -%}
+                </nav>
+                {% endif %}
+                <time class='text--small text--dim text--bold' datetime='{{ p.date | date(format="%Y-%m-%d %H:%M") }}'>{{ p.date | date(format="%Y-%m-%d") }}</time>
+            </div>
+        </article>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}

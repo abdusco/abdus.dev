@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+    <link rel="stylesheet"
+          href="{{ get_url(path='assets/css/style.css', cachebust=true) }}">
+    <meta name='theme-color' content='#db7093'>
+
+    {% block head %}
+    {% endblock head %}
+
+    <script>
+        const isDark = () => JSON.parse(localStorage.getItem('darkmode') || 'true');
+        const setDarkMode = (isDark) => {
+            document.documentElement.classList.toggle('light', !isDark);
+            localStorage.setItem('darkmode', isDark);
+        }
+        const toggleDarkMode = () => setDarkMode(!isDark())
+        setDarkMode(isDark());
+    </script>
+</head>
+<body>
+<div class='page-wrapper'>
+    {% include 'partials/nav.html' %}
+    <div class="content">
+        {% block content %}
+        {% endblock content %}
+    </div>
+    <footer>
+        <hr>
+        <p class='text--small text--bold text--dim'><span title="toggle dark mode" onclick="toggleDarkMode()">{{ config.extra.copyright }}</span></p>
+    </footer>
+</div>
+
+{% block foot %}
+{% endblock foot %}
+
+
+{% if get_env(name="SITE_ENV", default="") == "production" %}
+{% include 'partials/analytics.html' %}
+{% endif %}
+<script src="/assets/js/instant.min.js" type="module"></script>
+</body>
+</html>

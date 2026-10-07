@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ config.title }}{% endblock title %}
+
+{% block head %}
+    {% if page.description %}<meta name='description' content='{{ page.description }}'>{% endif %}
+{% endblock head %}
+
+{% block content %}
+{% set updated_at = load_data(path="data/updated.json")[page.relative_path] %}
+<div class="post single {% if updated_at %}page--recently-updated{% endif %}">
+    <h1>{{ page.title }}</h1>
+
+    <div class="post__content">
+        {{ page.content | safe }}
+    </div>
+
+    {% if updated_at %}
+    <div class="page__meta">
+        <div class="page__updated-at" title='{{ updated_at | date(format="%Y-%m-%d %H:%M") }}'>
+            <b>Last updated:</b>
+            <time datetime='{{ updated_at | date(format="%Y-%m-%d %H:%M") }}'>
+                {{ updated_at | date(format="%Y-%m-%d") }}</time>
+        </div>
+    </div>
+    {% endif %}
+
+    {% include "partials/comments.html" %}
+</div>
+{% endblock content %}
+
+{% block foot %}
+<script>
+    function init() {
+        renderAnchors();
+        initOverflowExpansions();
+        initImageExpansions();
+    }
+
+    function renderAnchors() {
+        document.querySelectorAll(':is(h2,h3,h4,h5,h6)[id]')
+            .forEach(h => {
+                h.setAttribute('title', `Permalink for "${h.textContent}"`);
+                const a = document.createElement('a');
+                a.classList.add('anchor');
+                a.href = `#${h.id}`;
+                h.appendChild(a);
+            });
+    }
+
+    function initImageExpansions() {
+        document.querySelector('.single')?.addEventListener('click', e => {
+            if (e.target?.matches('img')) {
+                e.target.classList.toggle('zoom');
+            }
+        })
+    }
+
+    function initOverflowExpansions() {
+        window.addEventListener('mouseover', ev => {
+            if (ev.target?.matches('pre, .table')) {
+                requestAnimationFrame(() => setOverflow(ev.target));
+            }
+        });
+
+        function setOverflow(el) {
+            const hasOverflow = el.scrollWidth >= el.clientWidth + 16;
+            if (hasOverflow) {
+                el.classList.add('has-overflow');
+                const maxWidth = Math.min(el.scrollWidth, window.innerWidth);
+                el.style.setProperty('--scrollWidth', `${maxWidth}px`);
+            }
+        }
+    }
+
+    function whenReady(cb) {
+        if (document.readyState === 'complete') {
+            cb();
+        } else {
+            window.addEventListener('DOMContentLoaded', cb);
+        }
+    }
+
+    whenReady(init);
+</script>
+{% endblock foot %}

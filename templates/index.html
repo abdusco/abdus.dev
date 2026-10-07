@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }}{% endblock title %}
+
+{% block head %}
+    <style>
+        .intro > * {
+            margin: 0 0 1rem;
+        }
+    </style>
+{% endblock head %}
+
+{% block content %}
+    <section class='intro'>
+        <p class='h6'>hey there,</p>
+        <h1>I'm Abdussamet Koçak</h1>
+        <p class='h6'>this is my blog, where I try to document things as I learn and build.</p>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>latest</h2>
+        {% set posts = get_section(path="posts/_index.md").pages | concat(with=get_section(path="projects/_index.md").pages) | sort(attribute="date") | reverse %}
+        {% include 'partials/post-list.html' %}
+    </section>
+{% endblock content %}
