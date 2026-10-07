@@ -1,11 +1,8 @@
-.PHONY: build serve data
+.PHONY: build serve
 
-data:
-	python3 scripts/updated.py
-
-build: data
+build:
 	SITE_ENV=production kopkop build
 	python3 scripts/redirects.py
 
-serve: data
+serve:
 	kopkop serve --port 8080 --open

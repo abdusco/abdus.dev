@@ -7,7 +7,7 @@
 {% endblock head %}
 
 {% block content %}
-{% set updated_at = load_data(path="data/updated.json")[page.relative_path] %}
+{% set updated_at = page.updated %}
 <div class="post single {% if updated_at %}page--recently-updated{% endif %}">
     <h1>{{ page.title }}</h1>
 

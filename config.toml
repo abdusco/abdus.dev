@@ -6,6 +6,9 @@ output_dir = "dist"
 # keep links root-relative, so the site works behind a proxy like ngrok
 link_strategy = "relative"
 
+# page.updated = last git commit (needs full history; see .git-blame-ignore-revs)
+git_dates = true
+
 generate_sitemap = true
 generate_robots_txt = false
 generate_feeds = false

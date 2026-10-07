@@ -3,5 +3,4 @@ dist
 .cache
 .env
 api/vendor
-data/updated.json
 .kopkop-linkcheck-cache.json
