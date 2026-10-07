@@ -16,15 +16,15 @@ You can find the compiled binaries for Windows on [SQLite website][sqlite].
 Here are the links, scraped directly from the page:  
 
 {% download() %}
-<ul x-data="app()" x-init="init()">
+<ul x-data="app()">
   <template x-if="!links.length">
     <li>Fetching the latest download URLs...</li>
   </template>
-  <template x-for="url in links" x-bind:key="url">
-    <li><a x-bind:href="url" x-text="url"></a></li>
+  <template x-for="url in links" :key="url">
+    <li><a :href="url" x-text="url"></a></li>
   </template>
 </ul>
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2/dist/alpine.js" defer></script>
+<script src="/assets/js/alpine-3.17.4.min.js" defer></script>
 <script>
     const app = () => ({
         links: [],

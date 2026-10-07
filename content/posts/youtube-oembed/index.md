@@ -43,7 +43,7 @@ Paste in a url and click fetch to inspect an oembed json for a Youtube video.
 <pre class="snippet" data-lang="json"><code x-text="text"></code></pre>
 </form>
 
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2/dist/alpine.js" defer></script>
+<script src="/assets/js/alpine-3.17.4.min.js" defer></script>
 <script>
     function app() {
         return {
