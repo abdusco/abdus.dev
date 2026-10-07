@@ -1,27 +1,7 @@
-<script src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js" defer="defer"></script>
-<script>
-    const commentsApp = () => ({
-        ready: false,
-        startLoading: false,
-        init() {
-            window.addEventListener('message', m => {
-                if (!m.origin.includes('utteranc.es')) {
-                    return;
-                }
-                this.ready = true;
-            });
-        }
-    })
-</script>
-<aside x-data="commentsApp()" x-ref="comments" x-on:mouseover="startLoading = true">
+<aside id="comments">
     <details>
-        <summary x-on:click="startLoading = true">Comments</summary>
-        <template x-if="!ready">
-            <p>Loading...</p>
-        </template>
-        <template x-if="startLoading">
-            <script src="https://utteranc.es/client.js" repo="abdusco/abdus.dev" issue-term="pathname" label="comments" theme="preferred-color-scheme" crossorigin="anonymous" async="async"></script>
-        </template>
+        <summary>Comments</summary>
+        <p class="comments__loading">Loading...</p>
     </details>
     <style>
         .utterances {
@@ -30,3 +10,38 @@
         }
     </style>
 </aside>
+<script>
+    (() => {
+        const aside = document.getElementById('comments');
+        const details = aside.querySelector('details');
+        const loading = aside.querySelector('.comments__loading');
+        let started = false;
+
+        // utteranc.es posts a message once its iframe has rendered.
+        window.addEventListener('message', (event) => {
+            if (event.origin.includes('utteranc.es')) {
+                loading.remove();
+            }
+        });
+
+        // utterances inserts its iframe right after the script that loaded it.
+        const load = () => {
+            if (started) {
+                return;
+            }
+            started = true;
+            const script = document.createElement('script');
+            script.src = 'https://utteranc.es/client.js';
+            script.async = true;
+            script.crossOrigin = 'anonymous';
+            script.setAttribute('repo', 'abdusco/abdus.dev');
+            script.setAttribute('issue-term', 'pathname');
+            script.setAttribute('label', 'comments');
+            script.setAttribute('theme', 'preferred-color-scheme');
+            details.append(script);
+        };
+
+        aside.addEventListener('mouseover', load, { once: true });
+        details.addEventListener('toggle', load, { once: true });
+    })();
+</script>
