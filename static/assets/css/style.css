@@ -559,6 +559,29 @@ pre {
     letter-spacing: -1px;
 }
 
+/* the page takes the field's paper colour so the canvas blends in */
+body.home {
+    --bg-body: #eeece5;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    html:not(.light) body.home {
+        --bg-body: #151d1c;
+    }
+}
+
+.field {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: min(90vh, 60rem);
+    pointer-events: none;
+    /* fade into the page below the hero */
+    mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
+
 /* posts */
 
 .single img {

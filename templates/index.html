@@ -2,15 +2,27 @@
 
 {% block title %}{{ section.title }}{% endblock title %}
 
+{% block body_class %}home{% endblock body_class %}
+
 {% block head %}
     <style>
+        .intro {
+            margin: 8rem 0 12rem;
+        }
+
         .intro > * {
-            margin: 0 0 1rem;
+            margin: 0 0 1.5rem;
         }
     </style>
 {% endblock head %}
 
+{% block foot %}
+    <script src="{{ get_url(path='assets/js/field.js', cachebust=true, absolute=false) }}" defer></script>
+{% endblock foot %}
+
 {% block content %}
+    <canvas id="field" class="field" aria-hidden="true"></canvas>
+
     <section class='intro'>
         <p class='h6'>hey there,</p>
         <h1>I'm Abdussamet Koçak</h1>
