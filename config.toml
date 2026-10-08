@@ -1,5 +1,6 @@
 base_url = "https://abdus.dev"
 title = "abdus.dev"
+author = "Abdussamet Kocak"
 description = "personal website of Abdussamet Kocak"
 output_dir = "dist"
 
@@ -11,7 +12,8 @@ git_dates = true
 
 generate_sitemap = true
 generate_robots_txt = false
-generate_feeds = false
+generate_feeds = true
+feed_filenames = ['rss.xml']
 build_search_index = false
 
 [markdown]
