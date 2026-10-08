@@ -207,11 +207,11 @@
     let palette;
     const updatePalette = () => {
         const dark = darkQuery.matches && !document.documentElement.classList.contains("light");
-        // In light mode, shadows become pink ink and highlights become paper.
+        // In light mode, shadows become accent ink and highlights become paper.
         const paper = getComputedStyle(imageFrame).backgroundColor.match(/[\d.]+/g).slice(0, 3).map((value) => Number(value) / 255);
         palette = dark
-            ? { shadow: [0.055, 0.085, 0.078], highlight: [0.86, 0.44, 0.58] }
-            : { shadow: [0.64, 0.28, 0.41], highlight: paper };
+            ? { shadow: [0.055, 0.085, 0.078], highlight: [0.482, 0.549, 0.941] }
+            : { shadow: [0.141, 0.227, 0.710], highlight: paper };
         dirty = true;
         requestRender();
     };

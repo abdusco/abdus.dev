@@ -37,8 +37,8 @@
 
     --fz: 16px;
     --bg-code: rgb(51 51 51 / 0.03);
-    --c-red: #db7093;
-    --c-red-dark: #d24b78;
+    --c-accent: #243ab5;
+    --c-accent-dark: #1d2e91;
     --c-gold: #fcb305;
 
     --c-body: #333;
@@ -46,8 +46,8 @@
     --bg-body: #fcfcfc;
     --p-sides-x: 1.5rem;
     --p-sides-y: 2rem;
-    --c-link: var(--c-red);
-    --c-primary: var(--c-red);
+    --c-link: var(--c-accent);
+    --c-primary: var(--c-accent);
 
     --stripe-size: 0.5rem;
 
@@ -81,6 +81,9 @@
         --c-body_rgb: 254 254 254;
         --bg-body: #222;
         --bg-code: rgb(20 20 20 / 0.46);
+
+        --c-accent: #7b8cf0;
+        --c-accent-dark: #a3b1f5;
 
         --scrollbar-track: #999;
         --scrollbar-thumb: #666;
@@ -160,7 +163,7 @@ b {
     font-weight: 580;
 
     :is(h2, h3, h4, h5, h6):hover & {
-        color: var(--c-red-dark);
+        color: var(--c-accent-dark);
     }
 }
 
@@ -413,7 +416,7 @@ summary {
 }
 
 .c--error {
-    color: var(--c-red);
+    color: var(--c-accent);
 }
 
 .text--dim {

@@ -32,8 +32,8 @@
     // how long a finished field stays before the next one is drawn
     const HOLD_SECONDS = 15;
 
-    // [paper, ink]: the site's red (--c-red) on the paper colour of each theme
-    const PALETTES = { light: ["#eeece5", "#db7093"], dark: ["#151d1c", "#db7093"] };
+    // [paper, ink]: the site's accent (--c-accent) on the paper colour of each theme
+    const PALETTES = { light: ["#eeece5", "#243ab5"], dark: ["#151d1c", "#7b8cf0"] };
 
     const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const darkQuery = matchMedia("(prefers-color-scheme: dark)");
