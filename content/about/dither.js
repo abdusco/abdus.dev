@@ -204,14 +204,18 @@
     let dirty = true;
     let revealed = false;
     const darkQuery = matchMedia("(prefers-color-scheme: dark)");
+    const hexToRgb = (hex) => {
+        const value = Number.parseInt(hex.slice(1), 16);
+        return [((value >> 16) & 255) / 255, ((value >> 8) & 255) / 255, (value & 255) / 255];
+    };
     let palette;
     const updatePalette = () => {
         const dark = darkQuery.matches && !document.documentElement.classList.contains("light");
         // In light mode, shadows become accent ink and highlights become paper.
         const paper = getComputedStyle(imageFrame).backgroundColor.match(/[\d.]+/g).slice(0, 3).map((value) => Number(value) / 255);
         palette = dark
-            ? { shadow: [0.055, 0.085, 0.078], highlight: [0.482, 0.549, 0.941] }
-            : { shadow: [0.141, 0.227, 0.710], highlight: paper };
+            ? { shadow: hexToRgb("#0e1614"), highlight: hexToRgb("#7b8cf0") }
+            : { shadow: hexToRgb("#243ab5"), highlight: paper };
         dirty = true;
         requestRender();
     };
