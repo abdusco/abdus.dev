@@ -26,10 +26,8 @@ case "${DEPLOY_PATH%/}" in
         echo "refusing to deploy over '$DEPLOY_PATH'" >&2; exit 1 ;;
 esac
 
-if [[ ! -f dist/index.html ]]; then
-    echo "dist/ is missing or empty; run scripts/build.sh first" >&2
-    exit 1
-fi
+SITE_ENV=production kopkop build
+python3 scripts/redirects.py
 
 ssh_cmd=(ssh)
 [[ -n "${DEPLOY_PORT:-}" ]] && ssh_cmd+=(-p "$DEPLOY_PORT")
