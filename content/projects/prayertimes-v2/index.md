@@ -9,7 +9,7 @@ taxonomies:
 I built [the first version of this API](@/projects/prayertimes/index.md) back in 2020, and it has been chugging along since then. 
 However, it was based on scraping data from the [Presidency of Religious Affairs of Turkey][diyanet] website, which was not very stable, and I even have a cronjob that restarts the server because it kept breaking and I didn't have time to fix it.
 
-Since then, I started been working on a newer version this year that functions by calculating the times based on the location and date. 
+I started been working on a newer version this year that functions by calculating the times based on the location and date that is actually based on studies published by Diyanet. 
 This also turns out to be how Diyanet's own app works under the hood (I reverse engineered it). 
 It is much more stable and reliable. 
 The only caveat is that if you can't get the exact coordinates of a location as the original app, you'll get slightly different times. It's not too big of a deal in my opinion.

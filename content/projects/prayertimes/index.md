@@ -7,6 +7,9 @@ taxonomies:
 ---
 
 
+**2026 EDIT**: ⚠️ This API has been deprecated, please use [the new version](@/projects/prayertimes-v2/index.md) instead.
+
+---
 
 This API lets you fetch daily prayer times from [Presidency of Religious Affairs of Turkey][diyanet] 
 (Diyanet İşleri Başkanlığı) in a nice, clean format. 
