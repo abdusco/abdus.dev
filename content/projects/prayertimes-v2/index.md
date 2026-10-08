@@ -6,6 +6,23 @@ taxonomies:
   tags: [api]
 ---
 
+<div class="prayertimes-logo">{{ embed_file(path="./mosque.svg") }}</div>
+
+<style>
+.prayertimes-logo {
+    width: 8rem;
+    height: 8rem;
+    margin-bottom: 2rem;
+}
+.prayertimes-logo svg {
+    width: 100%;
+    height: 100%;
+    color: var(--c-accent);
+}
+</style>
+
+
+
 I built [the first version of this API](@/projects/prayertimes/index.md) back in 2020, and it has been chugging along since then. 
 However, it was based on scraping data from the [Presidency of Religious Affairs of Turkey][diyanet] website, which was not very stable, and I even have a cronjob that restarts the server because it kept breaking and I didn't have time to fix it.
 
