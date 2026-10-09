@@ -1,7 +1,12 @@
+{% set headers = ["Accept: application/vnd.github+json", "User-Agent: abdus.dev"] %}
+{% set github_token = get_env(name="GITHUB_PERSONAL_ACCESS_TOKEN", default="") %}
+{% if github_token %}
+{% set headers = headers | concat(with=["Authorization: Bearer " ~ github_token]) %}
+{% endif %}
 {% set repository = load_url(
     url="https://api.github.com/repos/" ~ repo,
     format="json",
-    headers=["Accept: application/vnd.github+json", "User-Agent: abdus.dev"]
+    headers=headers
 ) %}
 <a class="repo-card" href="{{ repository.html_url }}" target="_blank" rel="noopener noreferrer">
     <span class="repo-card__name">
