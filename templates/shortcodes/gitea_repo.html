@@ -1,0 +1,32 @@
+{% set repository = load_url(
+    url="https://git.abdus.dev/api/v1/repos/" ~ repo,
+    format="json",
+    headers=["Accept: application/json", "User-Agent: abdus.dev"]
+) %}
+<a class="repo-card" href="{{ repository.html_url }}" target="_blank" rel="noopener noreferrer">
+    <span class="repo-card__name">
+        <span class="repo-card__owner">{{ repository.owner.login }}</span>
+        <span aria-hidden="true">/</span>
+        <strong>{{ repository.name }}</strong>
+    </span>
+    {% if repository.description %}
+    <span class="repo-card__description">{{ repository.description }}</span>
+    {% endif %}
+    <span class="repo-card__meta">
+        {% if repository.language %}
+        <span>{{ repository.language }}</span>
+        {% endif %}
+        <span aria-label="{{ repository.stars_count }} stars">
+            <svg aria-hidden="true" focusable="false" width="1em" height="1em">
+                <use href="{{ get_url(path='assets/images/repo-icons.svg', cachebust=true, absolute=false) }}#repo-star" />
+            </svg>
+            {{ repository.stars_count }}
+        </span>
+        <span aria-label="{{ repository.forks_count }} forks">
+            <svg aria-hidden="true" focusable="false" width="1em" height="1em">
+                <use href="{{ get_url(path='assets/images/repo-icons.svg', cachebust=true, absolute=false) }}#repo-fork" />
+            </svg>
+            {{ repository.forks_count }}
+        </span>
+    </span>
+</a>

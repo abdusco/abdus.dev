@@ -40,3 +40,5 @@ It also has [a web UI][prayertimes_ui] that also works as a PWA, so you can inst
 [geonames]: https://www.geonames.org/
 [geonames_dump]: https://download.geonames.org/export/dump/
 [prayertimes_ui]: https://prayertimes.api.abdus.dev/
+
+{{ gitea_repo(repo="abdus/prayertimes-go") }}

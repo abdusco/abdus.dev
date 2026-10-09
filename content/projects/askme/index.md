@@ -11,12 +11,10 @@ taxonomies:
 **askme** is a mini utility that prompts user questions and prints answers in key-value format to the console.
 Questions are provided as command arguments as `"question"` or as `"question=default answer"` format. You can also specify a key with `key:` prefix.
 
-{% download() %}
-You can find the latest release and source on Github:
 
-- [Source code](https://github.com/abdusco/askme)
-- [Latest release](https://github.com/abdusco/askme/releases)
-{% end %}
+You can find the [latest release](https://github.com/abdusco/askme/releases) on Github:
+
+{{ github_repo(repo="abdusco/askme") }}
 
 ## Usage
 
@@ -45,4 +43,3 @@ Hitting <kbd>Esc</kbd> key closes the window and nothing is printed to console.
 |`0`| User submitted the answers|
 |`1`| Failed to parse questions|
 |`2`| User cancelled the prompt|
-

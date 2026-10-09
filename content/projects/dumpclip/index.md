@@ -10,16 +10,9 @@ taxonomies:
 
 ![](./dumpclip.png)
 
-**dumpclip** is a simple utility that prints clipboard contents to the console as JSON. It supports text and files content.
+**dumpclip** is a simple utility that prints clipboard contents to the console as JSON. It supports text and files content. You can find the [latest release](https://github.com/abdusco/dumpclip/releases) on Github:
 
-
-{% download() %}
-You can find the latest release and source on Github:
-
-- [Source code](https://github.com/abdusco/dumpclip)
-- [Latest release](https://github.com/abdusco/dumpclip/releases)
-{% end %}
-
+{{ github_repo(repo="abdusco/dumpclip") }}
 
 ## Usage
 Copy some text into the clipboard and run the program.

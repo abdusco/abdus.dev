@@ -23,6 +23,8 @@ taxonomies:
 
 Shimmer is a live wallpaper app for Android that lets you apply cool GPU-accelerated blur and duotone effects to your wallpapers.
 
+{{ github_repo(repo="abdusco/shimmer") }}
+
 I wanted to build this app ever since I first tried [Muzei][muzei] back in 2014. I loved the idea of a wallpaper app just that gets out of your way. I didn't know much about OpenGL, but with the help of AI, I was able to create one with GPU accelerated blur effects (with clever optimizations). It's been a fun project to work on, and I've been fixing the bugs as I come across them.
 
 ## Features 

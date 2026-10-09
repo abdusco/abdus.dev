@@ -16,6 +16,8 @@ This API lets you fetch daily prayer times from [Presidency of Religious Affairs
 You can use it to find a location with available prayer times info, 
 then query the schedule of that month's prayer times.   
 
+{{ gitea_repo(repo="abdus/prayertimes") }}
+
 I've created this API to prepare for a web app I'll be building soon. 
 I am planning to structure it as a progressive web app that can be easily installed 
 and even planning to add push notifications to let user know of upcoming prayers.

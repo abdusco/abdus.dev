@@ -26,6 +26,9 @@ taxonomies:
 
 htmlpopup is a simple utility for macOS that allows you to open up an HTML page in a popup window. It provides a JS API to control the window, interact with the filesystem, returning values to the caller on exit etc. You can call it with a URL, or a local HTML file, or a directory, or an HTML literal or pipe HTML to it. It supports `localStorage` as well.
 
+{{ github_repo(repo="abdusco/htmlpopup") }}
+
+
 I built it to show basic UIs for other utilities, e.g. one for having an AI chat window, or a grammar checker, or a UI in front of a UI. You can inject environment variables and other data into the webview (accessible via `window.env.*`). 
 
 For example, this is how I use it for the AI chat:

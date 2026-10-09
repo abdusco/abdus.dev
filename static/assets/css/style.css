@@ -946,3 +946,60 @@ pre.z-chroma {
         font-weight: bold;
     }
 }
+
+/* GitHub repository cards */
+
+.repo-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 2rem 0;
+    padding: 1rem 1.25rem;
+    border: 1px solid rgb(var(--c-body_rgb) / 0.18);
+    border-radius: 0.6rem;
+    color: var(--c-body);
+    text-decoration: none;
+    transition: border-color 150ms ease, transform 150ms ease;
+
+    &:hover {
+        border-color: var(--c-accent);
+        transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--c-accent);
+        outline-offset: 3px;
+    }
+}
+
+.repo-card__name {
+    display: flex;
+    gap: 0.35em;
+    align-items: baseline;
+    color: var(--c-accent);
+    font-size: 0.95em;
+}
+
+.repo-card__owner {
+    opacity: 0.75;
+}
+
+.repo-card__description {
+    font-size: 0.8em;
+    line-height: 1.45;
+}
+
+.repo-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.7em;
+    opacity: 0.75;
+
+    svg {
+        width: 1.2em;
+        height: 1.2em;
+        vertical-align: -0.2em;
+    }
+}
