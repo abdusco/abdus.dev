@@ -6,15 +6,15 @@ taxonomies:
   tags: [app, android]
 ---
 
-<div class="shimmer-logo">{{ embed_file(path="./shimmer.svg") }}</div>
+<div class="app-logo">{{ embed_file(path="./shimmer.svg") }}</div>
 
 <style>
-.shimmer-logo {
+.app-logo {
     width: 8rem;
     height: 8rem;
     margin-bottom: 2rem;
 }
-.shimmer-logo svg {
+.app-logo svg {
     width: 100%;
     height: 100%;
     fill: var(--c-accent);
