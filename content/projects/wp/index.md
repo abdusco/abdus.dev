@@ -6,7 +6,7 @@ taxonomies:
   tags: [app, macos]
 ---
 
-<div class="app-logo"><img src="wp.svg" alt="wp app icon"/></div>
+<div class="app-logo"><img src="wp-icon.svg" alt="wp app icon"/></div>
 
 <style>
 .app-logo {

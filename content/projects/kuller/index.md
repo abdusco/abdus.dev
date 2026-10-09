@@ -6,7 +6,7 @@ taxonomies:
   tags: [app, macos]
 ---
 
-<div class="app-logo"><img src="./kuller.svg" alt="kuller app icon"></div>
+<div class="app-logo"><img src="./kuller-icon.svg" alt="kuller app icon"></div>
 
 <style>
 .app-logo {

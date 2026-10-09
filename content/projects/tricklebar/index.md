@@ -7,7 +7,7 @@ taxonomies:
 ---
 
 
-<div class="app-logo"><img src="./tricklebar.svg" alt="TrickleBar Logo"></div>
+<div class="app-logo"><img src="./tricklebar-icon.svg" alt="TrickleBar Logo"></div>
 
 <style>
 .app-logo {
