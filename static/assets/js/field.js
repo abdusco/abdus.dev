@@ -33,7 +33,7 @@
     const HOLD_SECONDS = 15;
 
     // [paper, ink]: the site's accent (--c-accent) on the paper colour of each theme
-    const PALETTES = { light: ["#eeece5", "#243ab5"], dark: ["#151d1c", "#7b8cf0"] };
+    const PALETTES = { light: ["#fcfcfc", "#243ab5"], dark: ["#151d1c", "#7b8cf0"] };
 
     const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const darkQuery = matchMedia("(prefers-color-scheme: dark)");

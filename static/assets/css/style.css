@@ -562,11 +562,6 @@ pre {
     letter-spacing: -1px;
 }
 
-/* the page takes the field's paper colour so the canvas blends in */
-body.home {
-    --bg-body: #eeece5;
-}
-
 @media screen and (prefers-color-scheme: dark) {
     html:not(.light) body.home {
         --bg-body: #151d1c;
