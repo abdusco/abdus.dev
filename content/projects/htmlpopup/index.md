@@ -6,21 +6,13 @@ taxonomies:
   tags: [app, macos]
 ---
 
-<div class="htmlpopup-logo">{{ embed_file(path="./htmlpopup-logo.svg") }}</div>
+<div class="htmlpopup-icon"><img src="./htmlpopup-icon.svg" alt="htmlpopup app icon"/></div>
 
 <style>
-.htmlpopup-logo {
+.htmlpopup-icon {
     width: 8rem;
     height: 8rem;
     margin-bottom: 2rem;
-}
-.htmlpopup-logo svg {
-    width: 100%;
-    height: 100%;
-}
-.htmlpopup-logo :is(rect) {
-    fill: var(--c-accent);
-    stroke: var(--c-accent);
 }
 </style>
 
