@@ -16,30 +16,32 @@ You can find the compiled binaries for Windows on [SQLite website][sqlite].
 Here are the links, scraped directly from the page:  
 
 {% download() %}
-<ul x-data="app()">
-  <template x-if="!links.length">
-    <li>Fetching the latest download URLs...</li>
-  </template>
-  <template x-for="url in links" :key="url">
-    <li><a :href="url" x-text="url"></a></li>
-  </template>
+<ul id="sqlite-downloads">
+  <li>Fetching the latest download URLs...</li>
 </ul>
-<script src="/assets/js/alpine-3.17.4.min.js" defer></script>
 <script>
-    const app = () => ({
-        links: [],
-        async init() {
-            this.links = await this.scrape(); 
-        },
-        async scrape() {
-            const url = `https://www.sqlite.org/download.html#win32`;
-            const html = await fetch(`https://proxy.abdusco.workers.dev?url=${decodeURIComponent(url)}`)
-              .then(r => r.text());
-            return html.match(/(\d+\/[^.]+.zip)/gm)
-                .filter(path => /dll-win/.test(path))
-                .map(path => `https://www.sqlite.org/${path}`);
+    (async () => {
+        const list = document.getElementById('sqlite-downloads');
+        try {
+            const url = 'https://www.sqlite.org/download.html#win32';
+            const response = await fetch(`https://cors.abdus.dev?url=${encodeURIComponent(url)}`);
+            if (!response.ok) throw new Error('Failed to fetch SQLite downloads');
+            const html = await response.text();
+            const paths = [...new Set((html.match(/\d+\/[^\s"'<>]+\.zip/g) || [])
+                .filter(path => /dll-win/.test(path)))];
+            if (!paths.length) throw new Error('No SQLite DLL downloads found');
+            list.replaceChildren(...paths.map(path => {
+                const item = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = `https://www.sqlite.org/${path}`;
+                link.textContent = link.href;
+                item.append(link);
+                return item;
+            }));
+        } catch (error) {
+            list.firstElementChild.textContent = 'Unable to fetch downloads. Please use the SQLite website link above.';
         }
-    });
+    })();
 </script>
 {% end %}
 
