@@ -855,6 +855,7 @@ pre.z-chroma {
     .z-n,
     .z-nx,
     .z-o,
+    .z-go,
     .z-ow,
     .z-p {
         color: var(--tok-fg);
