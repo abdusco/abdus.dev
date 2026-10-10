@@ -503,6 +503,11 @@ small,
     opacity: 1;
 }
 
+.post-list .post__link {
+    display: inline-block;
+    min-width: 8rem;
+}
+
 .page-wrapper > .content,
 .content > .single,
 .post > .post__content,

@@ -3,7 +3,7 @@
     {% for p in posts -%}
     <li class='mb--2'>
         <article class='post'>
-            <h2 class='h5 mb--1'><a href='{{ p.path }}'>{{ p.title }}</a></h2>
+            <h2 class='h5 mb--1'><a class="post__link" href='{{ p.path }}'>{{ p.title }}</a></h2>
             <p class="post__description">{{ p.description }}</p>
             <div>
                 {% set tags = p.taxonomies.tags | default(value=[]) %}
