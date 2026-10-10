@@ -267,7 +267,7 @@ p {
     }
 }
 
-p:has(+ div) {
+p:has(+ :not(p)) {
     margin-bottom: 0;
 }
 
