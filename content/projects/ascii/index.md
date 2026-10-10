@@ -1,18 +1,23 @@
 ---
-title: ASCII Art Generator
+title: artscii
 description: Create ASCII arts from text
 date: 2020-01-16
 taxonomies:
-  tags: [app]
+  tags: [app, pwa]
 ---
 
 
+This is a simple PWA app for [figlet][figlet] to generate ASCII word art with hundreds of fonts to choose from. It uses [figlet.js][figlet.js] library to render ASCII text.
 
-This is a simple interface for [figlet][figlet] to generate basic ASCII art with hundreds of fonts to choose from. 
-It uses [pyfiglet][pyfiglet] library to render ascii art.
+{% gallery() %}
+<img src="./artscii.png" alt="artscii app screenshot" loading="lazy">
+{% end %}
 
-The app is reachable at [ascii.app.abdus.dev][ascii]
+The app is reachable [here][addr]. The source is available on:
 
-[ascii]: https://ascii.app.abdus.dev/
+{{ gitea_repo(repo="abdus/ascii-pwa") }}
+
+
+[addr]: https://artscii-abdusdev.vercel.app/
 [figlet]: http://www.figlet.org/
-[pyfiglet]: https://github.com/pwaller/pyfiglet
+[figlet.js]: https://github.com/patorjk/figlet.js
