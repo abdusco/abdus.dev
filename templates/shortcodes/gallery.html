@@ -1,0 +1,6 @@
+<image-gallery class="image-gallery" role="region" aria-label="{{ label | default('Image gallery') }}">
+    <div class="image-gallery__track" tabindex="0" aria-label="Scroll to see more images">
+        {{ body | safe }}
+    </div>
+</image-gallery>
+<script type="module" src="{{ get_url(path='assets/js/gallery.js', cachebust=true, absolute=false) }}"></script>

@@ -50,7 +50,7 @@
 
     function initImageExpansions() {
         document.querySelector('.single')?.addEventListener('click', e => {
-            if (e.target?.matches('img')) {
+            if (e.target?.matches('img') && !e.target.closest('image-gallery')) {
                 e.target.classList.toggle('zoom');
             }
         })
