@@ -22,7 +22,12 @@ wp is a menu app that offers a minimal wallpaper switcher. It lets you cycle thr
 
 It can also stack multiple portrait images side-by-side to create a collage wallpaper. It has a settings panel to configure the hotkeys, auto-cycle timeout, HTTP API port, and other options.
 
-![wp menu app screenshot](./wp-menuapp.png)
+{% gallery(label="wp screenshots") %}
+<img src="./wp-menu.png" alt="wp menu app screenshot" loading="lazy">
+<img src="./wp-settings.png" alt="wp settings panel screenshot" loading="lazy">
+<img src="./wp-sources.png" alt="wp settings panel screenshot" loading="lazy">
+<img src="./wp-hotkeys.png" alt="wp settings panel screenshot" loading="lazy">
+{% end %}
 
 The HTTP server is meant for remote control, which you can activate by specifying a `PORT` environment variable or in the settings panel. You can use `curl` to send commands to it e.g. with Alfred on a hotkey press.
 
