@@ -20,15 +20,13 @@
     // scaling, up to MAX_DEPTH) so the sheet does not look flat on a tall, narrow canvas.
     // Rounded to 0.1 so small resizes do not regenerate the field.
     const BASE_DEPTH = 1.52;
-    const MAX_DEPTH = 2.3;
+    const MAX_DEPTH = 3.3;
     const depthFor = (width) =>
-        width >= 900
-            ? BASE_DEPTH
-            : Math.min(MAX_DEPTH, Math.max(BASE_DEPTH, Math.round(BASE_DEPTH * Math.sqrt(900 / width) * 10) / 10));
+        width >= 900 ? BASE_DEPTH : Math.min(MAX_DEPTH, Math.max(BASE_DEPTH, Math.round(BASE_DEPTH * Math.sqrt(900 / width) * 10) / 10));
     const SPEED = 1;
     const WAVE_STRENGTH = 0.75;
     const WAVE_SPEED = 0.95;
-    const ROTATION = (11 * Math.PI) / 180;
+    const ROTATION = (25 * Math.PI) / 180;
     const DECAY = 1;
     // how long a finished field stays before the next one is drawn
     const HOLD_SECONDS = 15;
