@@ -17,7 +17,10 @@
 {% endblock head %}
 
 {% block foot %}
-    <script src="{{ get_url(path='assets/js/field.js', cachebust=true, absolute=false) }}" defer></script>
+    <script src="{{ get_url(path='assets/js/field.js', cachebust=true, absolute=false) }}"
+            data-color-paper="{{ config.extra.palette.paper }}" data-color-ink="{{ config.extra.palette.ink }}"
+            data-color-dark-paper="{{ config.extra.palette.dark_paper }}" data-color-dark-ink="{{ config.extra.palette.dark_ink }}"
+            defer></script>
 {% endblock foot %}
 
 {% block content %}

@@ -36,14 +36,14 @@
     --font-mono: jetbrainsmono, menlo, hack, consolas, "roboto mono", "droid sans mono", monospace;
 
     --fz: 16px;
-    --bg-code: rgb(51 51 51 / 0.03);
-    --c-accent: #243ab5;
-    --c-accent-dark: #1d2e91;
-    --c-gold: #fcb305;
+    --bg-code: rgb(54 86 107 / 0.04);
+    --bg-body: var(--color-paper);
+    --c-accent: var(--color-ink);
+    --c-accent-dark: #284252;
+    --c-gold: #ad956a;
 
-    --c-body: #333;
-    --c-body_rgb: 51 51 51;
-    --bg-body: #fcfcfc;
+    --c-body: #42545e;
+    --c-body_rgb: 66 84 94;
     --p-sides-x: 1.5rem;
     --p-sides-y: 2rem;
     --c-link: var(--c-accent);
@@ -51,57 +51,57 @@
 
     --stripe-size: 0.5rem;
 
-    --scrollbar-track: #eee;
-    --scrollbar-thumb: #ccc;
+    --scrollbar-track: #efeee9;
+    --scrollbar-thumb: #a7b2b7;
     --scrollbar-size: 4px;
     --c-scrollbar: auto;
 
     --m-table-side: -1rem;
 
     /* syntax highlighting (atom one light) */
-    --tok-fg: #383a42;
-    --tok-comment: #a0a1a7;
+    --tok-fg: #42545e;
+    --tok-comment: #728188;
     --tok-keyword: #a626a4;
     --tok-string: #50a14f;
     --tok-number: #986801;
-    --tok-function: #4078f2;
+    --tok-function: var(--c-accent);
     --tok-type: #c18401;
     --tok-builtin: #c18401;
     --tok-tag: #e45649;
     --tok-attr: #986801;
     --tok-variable: #e45649;
-    --tok-meta: #4078f2;
+    --tok-meta: var(--c-accent);
     --tok-inserted: #50a14f;
     --tok-deleted: #e45649;
 }
 
 @media screen and (prefers-color-scheme: dark) {
     html:not(.light) {
-        --c-body: #fefefe;
-        --c-body_rgb: 254 254 254;
-        --bg-body: #222;
-        --bg-code: rgb(20 20 20 / 0.46);
+        --bg-body: var(--color-dark-paper);
+        --c-accent: var(--color-dark-ink);
+        --c-body: #e5e9e7;
+        --c-body_rgb: 229 233 231;
+        --bg-code: rgb(166 191 204 / 0.06);
 
-        --c-accent: #7b8cf0;
-        --c-accent-dark: #a3b1f5;
+        --c-accent-dark: #c4d5dd;
 
-        --scrollbar-track: #999;
-        --scrollbar-thumb: #666;
-        --c-scrollbar: rgb(128 128 128 / 0.5) rgb(0 0 0 / 0.5);
+        --scrollbar-track: #21333e;
+        --scrollbar-thumb: #657c89;
+        --c-scrollbar: #657c89 #21333e;
 
         /* syntax highlighting (night owl) */
-        --tok-fg: #d6deeb;
-        --tok-comment: #637777;
+        --tok-fg: #e5e9e7;
+        --tok-comment: #8a9da6;
         --tok-keyword: #c792ea;
         --tok-string: #ecc48d;
         --tok-number: #f78c6c;
-        --tok-function: #82aaff;
+        --tok-function: var(--c-accent);
         --tok-type: #ffcb8b;
         --tok-builtin: #addb67;
         --tok-tag: #7fdbca;
         --tok-attr: #7fdbca;
         --tok-variable: #addb67;
-        --tok-meta: #82aaff;
+        --tok-meta: var(--c-accent);
         --tok-inserted: #addb67;
         --tok-deleted: #ef5350;
     }
@@ -594,12 +594,6 @@ pre {
     letter-spacing: -1px;
 }
 
-@media screen and (prefers-color-scheme: dark) {
-    html:not(.light) body.home {
-        --bg-body: #151d1c;
-    }
-}
-
 .field {
     position: fixed;
     top: 0;
@@ -708,7 +702,7 @@ pre {
     padding: 1rem;
     margin: 2rem -1rem;
     font-weight: 600;
-    background-color: rgb(0 0 128 / 0.03);
+    background-color: var(--bg-code);
 
     &::before {
         content: "Table Of Contents";

@@ -1,5 +1,7 @@
 (async () => {
     "use strict";
+    // Capture the script attributes before image.decode() yields.
+    const scriptColors = document.currentScript?.dataset || {};
 
     const figure = document.querySelector(".portrait-effect");
     if (!figure) return;
@@ -211,11 +213,12 @@
     let palette;
     const updatePalette = () => {
         const dark = darkQuery.matches && !document.documentElement.classList.contains("light");
+        const paper = hexToRgb(dark ? scriptColors.colorDarkPaper || "#17242c" : scriptColors.colorPaper || "#fdfcf9");
+        const ink = hexToRgb(dark ? scriptColors.colorDarkInk || "#a6bfcc" : scriptColors.colorInk || "#36566b");
         // In light mode, shadows become accent ink and highlights become paper.
-        const paper = getComputedStyle(imageFrame).backgroundColor.match(/[\d.]+/g).slice(0, 3).map((value) => Number(value) / 255);
         palette = dark
-            ? { shadow: hexToRgb("#0e1614"), highlight: hexToRgb("#7b8cf0") }
-            : { shadow: hexToRgb("#243ab5"), highlight: paper };
+            ? { shadow: paper, highlight: ink }
+            : { shadow: ink, highlight: paper };
         dirty = true;
         requestRender();
     };

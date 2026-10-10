@@ -9,6 +9,7 @@
 
     const canvas = document.getElementById("field");
     if (!canvas) return;
+    const scriptColors = document.currentScript?.dataset || {};
 
     // settings
     // lines at desktop width (900px and up); narrower screens get more, up to MAX_DENSITY
@@ -32,12 +33,14 @@
     // how long a finished field stays before the next one is drawn
     const HOLD_SECONDS = 15;
 
-    // [paper, ink]: the site's accent (--c-accent) on the paper colour of each theme
-    const PALETTES = { light: ["#fcfcfc", "#243ab5"], dark: ["#151d1c", "#7b8cf0"] };
-
     const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const darkQuery = matchMedia("(prefers-color-scheme: dark)");
-    const isDark = () => darkQuery.matches && !document.documentElement.classList.contains("light");
+    const readPalette = () => {
+        const dark = darkQuery.matches && !document.documentElement.classList.contains("light");
+        return dark
+            ? [scriptColors.colorDarkPaper || "#17242c", scriptColors.colorDarkInk || "#a6bfcc"]
+            : [scriptColors.colorPaper || "#fdfcf9", scriptColors.colorInk || "#36566b"];
+    };
 
     const VERTEX_SHADER = `#version 300 es
 precision highp float;
@@ -378,9 +381,7 @@ void main(){
     let active = null;
     let history = [];
     let pointerPrevious = null;
-    let dark = isDark();
-
-    const palette = () => PALETTES[dark ? "dark" : "light"];
+    let colors = readPalette();
 
     function updateWaveGrid() {
         const t = waveTime * 0.35;
@@ -465,7 +466,7 @@ void main(){
         partial = 0;
         elapsed = 0;
         hold = 0;
-        active = renderer.createLayer(rows, drawn, partial, palette()[1]);
+        active = renderer.createLayer(rows, drawn, partial, colors[1]);
         dirty = true;
     }
 
@@ -493,7 +494,7 @@ void main(){
         };
         active.drawn = drawn;
         active.partial = partial;
-        renderer.render([...history, active], camera, palette()[0], waveGrid, uploadNoise);
+        renderer.render([...history, active], camera, colors[0], waveGrid, uploadNoise);
         dirty = false;
     }
 
@@ -552,8 +553,8 @@ void main(){
     }
 
     function applyTheme() {
-        dark = isDark();
-        const ink = palette()[1];
+        colors = readPalette();
+        const ink = colors[1];
         if (active) active.color = ink;
         for (const layer of history) layer.color = ink;
         dirty = true;

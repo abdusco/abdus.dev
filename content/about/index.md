@@ -17,7 +17,13 @@ My name is Abdussamet Koçak. I'm a developer based in Stuttgart, focusing mainl
   </div>
   <noscript><span class="portrait-effect__no-script" hidden></span></noscript>
 </figure>
-<script src="dither.js" defer></script>
+
+<script src="{{ get_url(path='about/dither.js', cachebust=true, absolute=false) }}"
+        data-color-paper="{{ config.extra.palette.paper }}"
+        data-color-ink="{{ config.extra.palette.ink }}"
+        data-color-dark-paper="{{ config.extra.palette.dark_paper }}"
+        data-color-dark-ink="{{ config.extra.palette.dark_ink }}"
+        defer></script>
 
 I enjoy films, photography and nerding out on science and technology. I love learning new languages and cultures. Tatsächlich lerne ich seit Jahren gerne Deutsch. Über den Jahren, die ich in Deutschland verbracht habe, wurde mir klar dass die deutsche Sprache nicht so leicht zu beherrschen ist, aber ich liebe die Herausforderung.
 

@@ -35,3 +35,9 @@ nav = [
     { text = "projects", href = "/projects/" },
     { text = "about me", href = "/about/" },
 ]
+
+[extra.palette]
+paper = "#fdfcf9"
+ink = "#36566b"
+dark_paper = "#17242c"
+dark_ink = "#a6bfcc"
