@@ -18,13 +18,13 @@
         {% endif %}
         <span aria-label="{{ repository.stars_count }} stars">
             <svg aria-hidden="true" focusable="false" width="1em" height="1em">
-                <use href="{{ get_url(path='assets/images/repo-icons.svg', cachebust=true, absolute=false) }}#repo-star" />
+                <use href="{{ get_url(path='assets/images/repo-icons.svg', cachebust=true) }}#repo-star" />
             </svg>
             {{ repository.stars_count }}
         </span>
         <span aria-label="{{ repository.forks_count }} forks">
             <svg aria-hidden="true" focusable="false" width="1em" height="1em">
-                <use href="{{ get_url(path='assets/images/repo-icons.svg', cachebust=true, absolute=false) }}#repo-fork" />
+                <use href="{{ get_url(path='assets/images/repo-icons.svg', cachebust=true) }}#repo-fork" />
             </svg>
             {{ repository.forks_count }}
         </span>

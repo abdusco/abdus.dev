@@ -8,7 +8,7 @@
 
     <title>{% block title %}{{ config.title }}{% endblock title %}</title>
     <link rel="stylesheet"
-          href="{{ get_url(path='assets/css/style.css', cachebust=true, absolute=false) }}">
+          href="{{ get_url(path='assets/css/style.css', cachebust=true) }}">
     <style>
         :root {
             --color-paper: {{ config.extra.palette.paper }};
