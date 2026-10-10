@@ -6,9 +6,9 @@ extra:
 ---
 
 Hey,
-My name is Abdussamet Koçak. I'm a developer based in Stuttgart, focusing mainly on web, but I also like writing scripts to automate anything and everything. I work as a backend web developer at refurbed.
+My name is Abdussamet Koçak. I'm a software engineer based in Stuttgart, focusing mainly on the web. But I also like [automating anything and everything][xkcd_automation]. I work as a backend developer at [refurbed][refurbed].
 
-I enjoy films, photography and nerding out on science and technology. I love learning new languages and cultures. Tatsächlich lerne ich seit Jahren gerne Deutsch. Über den Jahren, die ich in Deutschland verbracht habe, wurde mir klar dass die deutsche Sprache nicht so leicht zu beherrschen ist, aber ich liebe die Herausforderung.
+I enjoy films, [photography][instagram] and nerding out on science and technology. I love learning new languages and cultures. Tatsächlich lerne ich seit Jahren gerne Deutsch. Über den Jahren, die ich in Deutschland verbracht habe, wurde mir klar dass die deutsche Sprache nicht so leicht zu beherrschen ist, aber ich liebe die Herausforderung.
 
 You can react out to me about anything at [hey@abdus.dev](mailto:hey@abdus.dev).
 
@@ -28,3 +28,7 @@ You can react out to me about anything at [hey@abdus.dev](mailto:hey@abdus.dev).
         data-color-dark-paper="{{ config.extra.palette.dark_paper }}"
         data-color-dark-ink="{{ config.extra.palette.dark_ink }}"
         defer></script>
+
+[xkcd_automation]: https://xkcd.com/1319/
+[refurbed]: https://refurbed.de/
+[instagram]: https://www.instagram.com/abdusph/
