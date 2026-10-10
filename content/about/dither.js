@@ -96,7 +96,7 @@
       // decision, preserving square cells and a fixed image sampling grid.
       for (int level = 0; level < 3; level++) {
         vec2 center = (floor(pixel / cell) + 0.5) * cell;
-        if (cell * 0.5 < u_fine_size) break;
+        if (cell * 0.9 < u_fine_size) break;
         vec2 delta = center - pointer;
         // Shape only the focus mask; image coordinates remain untouched.
         vec2 local = vec2(
@@ -178,7 +178,7 @@
         const scale = viewportWidth / 1440;
         const interpolate = (mobile, desktop) => mobile + (desktop - mobile) * blend;
         return {
-            pixelSize: interpolate(7, 6) * scale,
+            pixelSize: interpolate(8, 6) * scale,
             fineSize: interpolate(3, 1.5) * scale,
             radius: interpolate(715, 475) * scale,
             motion: interpolate(0.83, 0.65),
@@ -216,9 +216,7 @@
         const paper = hexToRgb(dark ? scriptColors.colorDarkPaper || "#17242c" : scriptColors.colorPaper || "#fdfcf9");
         const ink = hexToRgb(dark ? scriptColors.colorDarkInk || "#a6bfcc" : scriptColors.colorInk || "#36566b");
         // In light mode, shadows become accent ink and highlights become paper.
-        palette = dark
-            ? { shadow: paper, highlight: ink }
-            : { shadow: ink, highlight: paper };
+        palette = dark ? { shadow: paper, highlight: ink } : { shadow: ink, highlight: paper };
         dirty = true;
         requestRender();
     };
@@ -314,7 +312,9 @@
             Math.abs(targetMouse[0] - mouse[0]) > 0.001 ||
             Math.abs(targetMouse[1] - mouse[1]) > 0.001 ||
             Math.abs(Math.atan2(Math.sin(targetAngle - angle), Math.cos(targetAngle - angle))) > 0.001 ||
-            Math.abs(focusTarget - focus) > 0.002 || speed > 0.001 || animateBlob
+            Math.abs(focusTarget - focus) > 0.002 ||
+            speed > 0.001 ||
+            animateBlob
         ) {
             requestRender();
         }
@@ -326,10 +326,7 @@
 
     const updateFocus = (clientX, clientY, timeStamp) => {
         const rect = canvas.getBoundingClientRect();
-        if (
-            clientX < rect.left || clientX > rect.right ||
-            clientY < rect.top || clientY > rect.bottom
-        ) {
+        if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) {
             clearFocus();
             return;
         }
