@@ -499,9 +499,6 @@ small,
     opacity: 0.75;
     margin-bottom: 0;
 }
-.post__description:hover {
-    opacity: 1;
-}
 
 .post-list .post__link {
     display: inline-block;

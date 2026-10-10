@@ -1,42 +1,54 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}{{ section.title }}{% endblock title
+%} {% block body_class %}home{% endblock body_class %} {% block head %}
+<style>
+    .intro {
+        margin: 8rem 0 12rem;
+    }
 
-{% block title %}{{ section.title }}{% endblock title %}
+    .intro > * {
+        margin: 0 0 1.5rem;
+    }
+</style>
+{% endblock head %} {% block foot %}
+<script
+    src="{{ get_url(path='assets/js/field.js', cachebust=true) }}"
+    data-color-paper="{{ config.extra.palette.paper }}"
+    data-color-ink="{{ config.extra.palette.ink }}"
+    data-color-dark-paper="{{ config.extra.palette.dark_paper }}"
+    data-color-dark-ink="{{ config.extra.palette.dark_ink }}"
+    defer
+></script>
+{% endblock foot %} {% block content %}
+<canvas id="field" class="field" aria-hidden="true"></canvas>
 
-{% block body_class %}home{% endblock body_class %}
+<section class="intro">
+    <p class="h6">hey there,</p>
+    <h1>I'm Abdussamet Koçak</h1>
+    <p class="h6">
+        this is my blog, where I try to document things as I learn and build.
+    </p>
+</section>
 
-{% block head %}
-    <style>
-        .intro {
-            margin: 8rem 0 12rem;
-        }
+<hr />
 
-        .intro > * {
-            margin: 0 0 1.5rem;
-        }
-    </style>
-{% endblock head %}
+<section>
+    <h2>latest projects</h2>
+    {% set posts = (get_section(path="projects/_index.md").pages |
+    sort(attribute="date") | reverse | list)[:5] %} {% include
+    'partials/post-list.html' %}
+    <a href="{{ get_url(path='projects') }}">all projects...</a>
+</section>
+<section>
+    <h2>latest posts</h2>
+    {% set posts = (get_section(path="posts/_index.md").pages |
+    sort(attribute="date") | reverse | list)[:5] %} {% include
+    'partials/post-list.html' %}
+    <a href="{{ get_url(path='posts') }}">all posts...</a>
+</section>
 
-{% block foot %}
-    <script src="{{ get_url(path='assets/js/field.js', cachebust=true) }}"
-            data-color-paper="{{ config.extra.palette.paper }}" data-color-ink="{{ config.extra.palette.ink }}"
-            data-color-dark-paper="{{ config.extra.palette.dark_paper }}" data-color-dark-ink="{{ config.extra.palette.dark_ink }}"
-            defer></script>
-{% endblock foot %}
-
-{% block content %}
-    <canvas id="field" class="field" aria-hidden="true"></canvas>
-
-    <section class='intro'>
-        <p class='h6'>hey there,</p>
-        <h1>I'm Abdussamet Koçak</h1>
-        <p class='h6'>this is my blog, where I try to document things as I learn and build.</p>
-    </section>
-
-    <hr>
-
-    <section>
-        <h2>latest</h2>
-        {% set posts = get_section(path="posts/_index.md").pages | concat(with=get_section(path="projects/_index.md").pages) | sort(attribute="date") | reverse %}
-        {% include 'partials/post-list.html' %}
-    </section>
+<style>
+section + section {
+    margin-top: 4rem;
+}
+</style>
 {% endblock content %}
