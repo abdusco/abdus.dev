@@ -267,6 +267,10 @@ p {
     }
 }
 
+p:has(+ div) {
+    margin-bottom: 0;
+}
+
 thead th {
     text-align: left;
 }
@@ -663,31 +667,39 @@ pre {
 }
 
 .download {
-    padding: 1rem;
-    margin: 2rem -1rem;
-    border: 2px solid var(--c-primary);
+    padding: 1rem 1.25rem;
+    margin: 2rem 0;
+    border: 1px solid rgb(var(--c-body_rgb) / 0.18);
+    border-radius: 0.6rem;
+    color: var(--c-body);
 
     a {
+        color: var(--c-accent);
         text-decoration: none;
+        overflow-wrap: anywhere;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--c-accent);
+            outline-offset: 3px;
+        }
     }
 
     ul {
-        padding-left: 1.25rem;
+        display: grid;
+        gap: 0.6rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-size: 0.8em;
+        line-height: 1.45;
     }
 
     & > *:last-child {
         margin-bottom: 0;
-    }
-
-    &::before {
-        content: "download";
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: bold;
-        font-size: 0.75em;
-        color: var(--c-primary);
-        margin-bottom: 1rem;
-        display: block;
     }
 }
 
