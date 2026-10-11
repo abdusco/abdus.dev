@@ -5,22 +5,17 @@ taxonomies:
   tags: [golang, testing]
 ---
 
-Testing is a hot topic in software development. There are probably more approaches than there are tests [^citation_xkcd]. 
-
-Coverage is a common metric for gauging how well some piece of code is tested, but it falls apart when the lines of code are actually _not_ code: they're the SQL statements that are being executed. The language runtime can't help you gauge how well your "code" is tested. The problem is that the SQL statements are not executed by your code, but by the database engine. 
-
-So how do you test if your query is doing what it's supposed to? By actually running it against a database.
+You can have a test for a method that executes an SQL query, but it won't tell you if the query is actually correct. Seeing a 100% coverage for it is a false assurance. You actually have to test your query against a real database.
 
 ## Preparing the database
 
-Django offers [^django_tests] a built-in test framework that runs tests against a temporary database. It creates the database, runs the migrations, and then runs the tests. They can even be isolated within a transaction without causing bad interactions. 
+When I worked with Django, it offered a built-in test framework that [runs tests against a temporary database][django_tests]. It created the database, ran the migrations, and then ran the tests. They could even be isolated within a transaction without causing bad interactions. 
 
-There are some similar solutions in Golang, but they're all cumbersome to use because of one thing: fixtures. How do you populate the database with the right data for your tests? Django had a [factory_boy][factory_boy] library that would hook into the ORM and create the right objects with the right relations and plug in fake data. You'd be able to override a field nested inside a relation to make your test work.
+For Django there was even a sidekick library called [factory_boy][factory_boy], that would hook into the ORM and create the right objects with the right relations and plug in fake data where needed. You'd be able to override a field nested inside a relation to make your assertions work.
 
 ```python
-# pseudotest 
-
-# this creates a person, and a related address with the city set to 'New York'.
+# this creates a person, 
+# and a related address with the city set to 'New York'.
 p = PersonFactory.create(
     name="John Doe", 
     address__city="New York",
@@ -28,7 +23,9 @@ p = PersonFactory.create(
 assert p.address.city == "New York"
 ```
 
-ORMs are not welcome in Golang. The language is not really built for dynamism. People write SQL statements directly without using an ORM, so the relations are only mapped in the developer's head. We can accept this as a fact and build our harness around it. 
+There are some solutions for database testing in Golang, such as [sqlmock](https://github.com/DATA-DOG/go-sqlmock) or [testcontainers](https://github.com/testcontainers/testcontainers-go), but they all feel clunky, cumbersome to use because of one thing: fixtures. How do you populate the database with the right data for your tests? 
+
+ORMs are not welcome in Golang. The language is not really built for dynamism. We write SQL statements directly without using an ORM, so the relations are only mapped in the developer's head. We can accept this as a fact and build our harness around it. 
 
 The [testfixtures][testfixtures] library helps with this. You write YAML files that describe which tables have which rows, and the library will insert those rows.
 
@@ -58,11 +55,37 @@ func applyFixtures(t *testing.DB, db *sql.DB, fixturePath string) {
     
     return fixtures.Load()
 }
+
+func newTestDB(t *testing.T) *sql.DB {
+    // this is a database created from the latest seed
+    db, err := sql.Open("postgres", "user=postgres dbname=test sslmode=disable")
+    require.NoError(t, err)
+
+    t.Cleanup(func() {
+        db.Close()
+    })
+
+    return db
+}
+
+func TestGetUserAddress(t *testing.T) {
+    db := newTestDB(t)
+    applyFixtures(t, db, "testdata/get_user_address.yaml")
+
+    repo := NewRepo(db)
+    
+    userID := 1 // this refers to an ID in the fixture
+    addr, err := repo.GetUserAddress(t.Context(), userID)
+    require.NoError(t, err)
+
+    assert.Equal(t, "Berlin", addr.City)
+}
 ```
 
 ## Isolating tests
 
-This is nice and all, but it leaves the database in a dirty state. If we run multiple tests, they will interfere with each other. We need to wrap each test in a transaction and roll it back when the test ends.
+This is nice and all, but it leaves the database in a dirty state. Those rows remain in the database, and if we run multiple tests, they might interfere with each other. We need to wrap each test in a transaction and roll it back when the test ends.
+
 The [txdb][txdb] library fits well here.
 
 ```go
@@ -90,31 +113,16 @@ func newTestDB(t *testing.T) *sql.DB {
     testDB, err := sql.Open("txdb", t.Name())
     require.NoError(t, err)	
 
-    require.NoError(t, err)
-
     t.Cleanup(func() {
         testDB.Close()
     })
     return testDB
 }
-
-func TestGetUserAddress(t *testing.T) {
-    db := newTestDB(t)
-    applyFixtures(t, db, "testdata/get_user_address.yaml")
-
-    repo := NewRepo(db)
-    
-    userID := 1 // this refers to an ID in the fixture
-    addr, err := repo.GetUserAddress(t.Context(), userID)
-    require.NoError(t, err)
-
-    assert.Equal(t, "Berlin", addr.City)
-}
 ```
 
 ### Dealing with the setup overhead
 
-This works. But migrations pose an issue. They are executed for every test. The logic in `migrations.Run` hopefully skips over applied migrations, but still, it adds overhead. We need to run it once per test run, which includes all packages being tested. 
+Running migrations for every test means the schema version is checked each time. The logic in `migrations.Run` hopefully skips over applied migrations, but still, it adds overhead across multiple packages. We need to run it once per test run, which includes all packages being tested. 
 
 We might reach for a `sync.Once`, but it won't work as you'd expect. Golang compiles your tests and executes them in parallel as separate processes. So the `sync.Once` will only work for a single test process, not across all of them. 
 
@@ -159,19 +167,34 @@ func newTestDB(t *testing.T) *sql.DB {
 
 ## Where it falls short
 
-This is a simplified version of what we use in production. It works well. 
+This is a simplified version of what we use in production. However, it has some downsides. 
 
-However, it has some downsides. For one, the fixtures are not easy to prepare. We end up with a lot of boilerplate data in the YAML files, because real-world tables don't consist of 3-4 columns. They have tens of columns, and queries join many tables, so you have to specify the rows for all those tables.
+For one, the fixtures are not easy to prepare. Relations and values should make sense. Denormalized columns should be consistent across tables. We often end up with a lot of boilerplate data in the YAML files, because real-world tables don't consist of a handful of columns — they have tens of columns. Queries often join many tables, so you have to specify the supporting rows for your query [^yaml_anchor].
 
 Also, the queries are often not simple. If they have many `WHERE` clauses, it is not easy to prepare the "right" fixture that would satisfy the right combination of conditions. So you end up with huge fixtures that are difficult to maintain and reason about.
 
 The fixtures are also not reviewable, because you can't put them next to the test code that uses them. You often end up referring to records by their IDs, which are not meaningful. The reviewer has to take the author's word for it. 
 
+This setup makes it straightforward to test your business logic that's embedded in SQL queries against a real database. The harder part is maintaining the fixtures, keeping them small enough that the test's intent remains clear. 
 
-[^citation_xkcd]: https://xkcd.com/285/
-[^django_tests]: Offers? _Offered_. Haven't checked it in the last four years. https://docs.djangoproject.com/en/dev/topics/testing/tools/#django.test.TransactionTestCase.fixtures
 [^xkcd_dice]: https://xkcd.com/221/
+[^yaml_anchor]: One way to reduce YAML bloat is to use YAML anchors, which allow you to define a table record once and reference it in multiple places. For example:
 
+    ```yaml
+    addresses:
+      - &address_props
+        id: 21
+        city: Berlin
+        street: Boxhagenstr. 10
+        # imagine we have 10 more columns...
+
+      - <<: *address_props # reuse the fields from the first record, override the ID and city
+        id: 22
+        city: Hamburg
+        # street and other columns are left out because they're irrelevant for the test that references this address record.
+    ```
+
+[django_tests]: https://docs.djangoproject.com/en/dev/topics/testing/tools/#django.test.TransactionTestCase.fixtures
 [testfixtures]: https://github.com/go-testfixtures/testfixtures
 [txdb]: https://github.com/DATA-DOG/go-txdb
 [factory_boy]: https://factoryboy.readthedocs.io/en/stable/
