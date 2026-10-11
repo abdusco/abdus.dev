@@ -18,6 +18,8 @@ taxonomies:
 
 kuller is an image culling app to quickly weed out bad photos and keep the best ones. It is designed to be minimal. It has a canvas window like Photoshop, and a side panel with a filmstrip of all the images in the current folder. You can quickly go through the images and mark them as keep or discard, or crop them in various aspect ratios using hotkeys. 
 
+{{ video(src="./kuller_demo.mp4", poster="./kuller_demo.jpg", width=1626, height=1080) }}
+
 {{ github_repo(repo="abdusco/kuller") }}
 
 I built it to get ahead of my ever-growing pile of photos and I didn't like Lightroom's interface to do it. The first iteration was built as a web app backed by golang. I found myself using it quote often, so I decided to turn it into a native macOS app. 

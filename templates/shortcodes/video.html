@@ -1,0 +1,11 @@
+<video
+    src="{{ src | escape }}"
+    {% if poster | default('') %}poster="{{ poster | escape }}"{% endif %}
+    {% if width | default('') %}width="{{ width | escape }}"{% endif %}
+    {% if height | default('') %}height="{{ height | escape }}"{% endif %}
+    preload="none"
+    onclick="if (!this.played.length && this.paused) this.play().catch(console.error)"
+    controls
+    muted
+    playsinline
+></video>
