@@ -6,6 +6,12 @@ customElements.define('image-gallery', class extends HTMLElement {
         this.dataset.ready = 'true';
 
         for (const media of this.querySelectorAll('.image-gallery__track > :is(img, video)')) {
+            addLightbox(media, this);
+        }
+    }
+});
+
+function addLightbox(media, container) {
             const isVideo = media.tagName === 'VIDEO';
             const label = media.getAttribute('alt') || media.getAttribute('aria-label') || (isVideo ? 'video' : 'image');
             const lightbox = document.createElement('dialog');
@@ -67,10 +73,15 @@ customElements.define('image-gallery', class extends HTMLElement {
             });
             media.replaceWith(trigger);
             trigger.append(media);
-            this.append(lightbox);
-        }
+            container.append(lightbox);
+}
+
+if (typeof HTMLDialogElement !== 'undefined') {
+    for (const image of document.querySelectorAll('.single img')) {
+        if (image.closest('image-gallery, dialog, a, button')) continue;
+        addLightbox(image, image.closest('.single'));
     }
-});
+}
 
 document.addEventListener('keydown', event => {
     if (event.altKey || event.ctrlKey || event.metaKey) return;
@@ -81,8 +92,10 @@ document.addEventListener('keydown', event => {
     // Leave arrow keys available for the video's native playback controls.
     if (event.target instanceof HTMLVideoElement) return;
 
-    event.preventDefault();
     const gallery = active.closest('image-gallery');
+    if (!gallery) return;
+
+    event.preventDefault();
     const lightboxes = [...gallery.querySelectorAll('.image-gallery__lightbox')];
     const direction = event.key === 'ArrowRight' ? 1 : -1;
     const next = (lightboxes.indexOf(active) + direction + lightboxes.length) % lightboxes.length;

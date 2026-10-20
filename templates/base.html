@@ -48,6 +48,7 @@
 {% block foot %}
 {% endblock foot %}
 
+<script type="module" src="{{ get_url(path='assets/js/gallery.js', cachebust=true) }}"></script>
 
 {% if get_env(name="SITE_ENV", default="") == "production" %}
 {% include 'partials/analytics.html' %}
