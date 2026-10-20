@@ -5,7 +5,7 @@ date: 2019-12-31
 aliases:
   - /til/youtube-oembed-support/
 taxonomies:
-  tags: [til]
+  tags: [til, youtube]
 ---
 
 
