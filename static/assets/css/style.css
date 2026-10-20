@@ -981,7 +981,7 @@ pre.z-chroma {
     }
 }
 
-/* Image galleries */
+/* Media galleries */
 
 .image-gallery {
     --gallery-height: min(22rem, 55svh);
@@ -1001,7 +1001,7 @@ pre.z-chroma {
     padding: 0.25rem 0.25rem 0.75rem;
 }
 
-.image-gallery__track > img,
+.image-gallery__track > :is(img, video),
 .image-gallery__trigger {
     flex: none;
     scroll-snap-align: start;
@@ -1016,7 +1016,42 @@ pre.z-chroma {
     cursor: zoom-in;
 }
 
-.image-gallery__track img {
+.image-gallery__trigger video {
+    pointer-events: none;
+}
+
+.image-gallery__trigger:has(video) {
+    position: relative;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+
+    &::before {
+        width: 3.5rem;
+        height: 3.5rem;
+        border: 1px solid rgb(255 255 255 / 0.7);
+        border-radius: 50%;
+        background: rgb(0 0 0 / 0.7);
+    }
+
+    &::after {
+        width: 1.25rem;
+        height: 1.5rem;
+        margin-left: 0.125rem;
+        background: white;
+        clip-path: polygon(0 0, 100% 50%, 0 100%);
+    }
+}
+
+.image-gallery__track :is(img, video) {
     display: block;
     width: auto;
     height: var(--gallery-height);
@@ -1026,6 +1061,7 @@ pre.z-chroma {
 }
 
 .image-gallery__track:focus-visible,
+.image-gallery__track video:focus-visible,
 .image-gallery__trigger:focus-visible,
 .image-gallery__close:focus-visible {
     outline: 2px solid var(--c-accent);
@@ -1052,7 +1088,7 @@ pre.z-chroma {
         background: rgb(0 0 0 / 0.8);
     }
 
-    img {
+    :is(img, video) {
         anchor-name: --gallery-preview;
         display: block;
         width: auto;
